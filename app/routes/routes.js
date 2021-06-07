@@ -7,6 +7,23 @@ module.exports = function(app, passport) {
 		res.render('index.ejs');
 	});
 
+	app.get('/api/fetchUser', async (req, res, next) => {
+        if (req.user){
+			res.send(req.user);
+			next();
+			return
+		}
+		res.status(401).send('Not authorized');
+	});
+
+	
+	app.get('/ping', (req, res) => {
+        res.status(200).send("pong!");
+	});
+	app.get('/api/ping', (req, res) => {
+        res.status(200).send("api & pong!");
+	});
+
 	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('profile.ejs', {
@@ -27,12 +44,12 @@ module.exports = function(app, passport) {
 	// locally --------------------------------
 		// LOGIN ===============================
 		// show the login form
-		app.get('/login', function(req, res) {
+		app.get('/api/login', function(req, res) {
 			res.render('login.ejs', { message: req.flash('loginMessage') });
 		});
 
 		// process the login form
-		app.post('/login', passport.authenticate('local-login', {
+		app.post('/api/login', passport.authenticate('local-login', {
 			successRedirect : '/profile', // redirect to the secure profile section
 			failureRedirect : '/login', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
@@ -40,7 +57,7 @@ module.exports = function(app, passport) {
 
 		// SIGNUP =================================
 		// show the signup form
-		app.get('/signup', function(req, res) {
+		app.get('/api/signup', function(req, res) {
 			res.render('signup.ejs', { message: req.flash('loginMessage') });
 		});
 

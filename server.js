@@ -19,7 +19,12 @@ require('./app/models/User');
 require('./config/passport')(passport); // pass passport for configuration
 
 mongoose.Promise = global.Promise;// connect to our database
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true,useUnifiedTopology: true })
+mongoose.connect(keys.mongoURI, { 
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true 
+})
     .then(connect => console.log('connected to mongodb'))
     .catch(err => console.log('could not connect to mongodb', err))
 module.exports = {mongoose}
@@ -28,7 +33,12 @@ module.exports = {mongoose}
 app.use(express.json())
 app.use(cookieParser()); // read cookies (needed for auth)
 //app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false})) // get information from html forms
+//app.use(bodyParser.urlencoded({extended: false})) // get information from html forms
+app.use(bodyParser.json({
+  verify: (req, res, buf) => {
+    req.rawBody = buf
+  }
+}))
 
 // required for passport
 app.use(session({ 
@@ -64,8 +74,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, (err) =>{
-  if(!err)
+  if(!err){
       console.log('server started running on: ' + PORT);
-  else
-      console.log('unable to start server');    
+      console.log('server NODE_ENV:  ' + process.env.NODE_ENV);
+  } else {
+      console.log('unable to start server');}    
 })
