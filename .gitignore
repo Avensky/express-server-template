@@ -8,6 +8,7 @@ client/node_modules
 config/dev.js
 config/secrets.js
 config/config.env
+INSTRUCTIONS.md
 
 # testing
 /coverage

@@ -12,6 +12,8 @@ const passport      = require('passport')
 const mongoose      = require('mongoose')
 const keys          = require('./config/keys')
 const flash         = require('connect-flash')
+const dotenv	      = require('dotenv').config({path:__dirname+'/config/config.env'})
+
 //==============================================================================
 // configuration ===============================================================
 //==============================================================================
