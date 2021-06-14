@@ -10,7 +10,8 @@ import Auth          from './components/Pages/Auth/Auth'
 import { Route, Switch, withRouter} from 'react-router-dom'
 
 const App = props => {
-  const { fetchedUser} = props
+  const { fetchedUser, fetchedUsers} = props
+  
   const fetchData = async () => {
     
     props.onFetchUser()
@@ -23,7 +24,21 @@ const App = props => {
       console.log('payload = ' + fetchedUser)
     }
   }, [fetchedUser])
+
+
+
+
+  const fetchUsers = async () => {
+    props.onFetchUsers()
+    console.log('users = ' + fetchedUsers)
+  }
   
+  useEffect(()=> {
+    if ( !fetchedUsers){
+      fetchUsers()
+      console.log('payload = ' + fetchedUsers)
+    }
+  }, [fetchedUsers])
   let routes = (
     <Switch>
       <Route path="/authentication"       component={Auth} />
@@ -51,12 +66,14 @@ const App = props => {
 const mapStateToProps = state => {
   return {
     fetchedUser       : state.auth.payload,
+    fetchedUsers      : state.auth.users,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onFetchUser           : () => dispatch(actions.fetchUser()),
+    onFetchUsers           : () => dispatch(actions.fetchUsers()),
   };
 };
 

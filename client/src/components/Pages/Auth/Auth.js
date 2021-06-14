@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Layout from '../../Layout/Layout';
 // import { useForm } from "react-hook-form";
 import {connect} from 'react-redux';
 import classes from './Auth.module.css';
@@ -6,10 +7,13 @@ import Auxiliary from '../../../hoc/Auxiliary';
 import * as actions from '../../../store/actions/index';
 // import {updateObject, checkValidity} from '../../../utility/utility';
 // import Input from '../../UI/Input/Input';
-import Spinner from '../../UI/Spinner/Spinner';
+import Spinner from '../../../components/UI/Spinner/Spinner'
+//import Spinner from '../../UI/Spinner/Spinner';
 import { Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+//import { Persist } from 'formik-persist'
 import * as Yup from 'yup'
+
 
 const Auth = props => {
     //const { authRedirectPath, onSetAuthRedirectPath, submitted, isAuthenticacted, isLoggedIn } = props
@@ -312,7 +316,7 @@ const Auth = props => {
     }
 
     return(
-        <div>
+        <Layout>
             <div className={[classes.Card, classes.Auth].join(' ')}>
             {authRedirect}
             {authSelector}
@@ -339,8 +343,9 @@ const Auth = props => {
             {socialAuth}
         </div> 
 
-        </div>
+        </Layout>
     )
+    
 }
 
 const mapStateToProps = state => {
@@ -353,7 +358,6 @@ const mapStateToProps = state => {
         isAuthenticated     : state.auth.payload,
         authRedirectPath    : state.auth.authRedirectPath,
         token               : state.auth.token
-        
     };
 };
 

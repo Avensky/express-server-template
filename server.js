@@ -3,10 +3,12 @@
 // set up ======================================================================
 //==============================================================================
 const express       = require('express')
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app           = express()
 const PORT          = process.env.PORT || 5000;
 const bodyParser    = require('body-parser')
 const cookieParser  = require('cookie-parser');
+const cors          = require("cors");
 const session       = require('express-session')
 const passport      = require('passport')
 const mongoose      = require('mongoose')
@@ -17,7 +19,7 @@ const dotenv	      = require('dotenv').config({path:__dirname+'/config/config.en
 //==============================================================================
 // configuration ===============================================================
 //==============================================================================
-require('./app/models/User');
+require('./app/models/users');
 require('./config/passport')(passport); // pass passport for configuration
 
 mongoose.Promise = global.Promise;// connect to our database
@@ -31,16 +33,25 @@ mongoose.connect(keys.mongoURI, {
     .catch(err => console.log('could not connect to mongodb', err))
 module.exports = {mongoose}
 
+// set up cors to allow us to accept requests from our client
+app.use(
+  cors({
+    origin: "http://localhost:3000", // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true // allow session cookie from browser to pass through
+  })
+);
+
 // app.use(logger('dev')); // log every request to the console
 app.use(express.json())
 app.use(cookieParser()); // read cookies (needed for auth)
-//app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({extended: false})) // get information from html forms
-app.use(bodyParser.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf
-  }
-}))
+//app.use(bodyParser.json())    
+app.use(bodyParser.urlencoded({extended: false})) // get information from html forms
+// app.use(bodyParser.json({
+//   verify: (req, res, buf) => {
+//     req.rawBody = buf
+//   }
+// }))
 
 // required for passport
 app.use(session({ 
@@ -54,6 +65,29 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
+
+// proxy middleware options
+// const options = {
+//   target: 'http://www.uriza86.com', // target host
+//   changeOrigin: true, // needed for virtual hosted sites
+//   ws: true, // proxy websockets
+//   pathRewrite: {
+//     '^/api/old-path': '/api/new-path', // rewrite path
+//     '^/api/remove/path': '/path', // remove base path
+//   },
+//   router: {
+//     // when request.headers.host == 'dev.localhost:3000',
+//     // override target 'http://www.example.org' to 'http://localhost:8000'
+//     'dev.localhost:3000': 'http://localhost:5000',
+//   },
+// };
+// 
+// // create the proxy (without context)
+// const exampleProxy = createProxyMiddleware(options);
+
+// mount `exampleProxy` in web server
+//app.use('/api', exampleProxy);
 //==============================================================================
 // routes ======================================================================
 //==============================================================================

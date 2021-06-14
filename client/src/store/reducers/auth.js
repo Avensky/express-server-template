@@ -8,6 +8,7 @@ const initialState = {
     loading: false,
     userLoading: false,
     payload: null,
+    users: null,
     authRedirectPath: '/',
     submitted: false,
     addressData: null,
@@ -83,6 +84,35 @@ const fetchUserFail = (state, action) => {
     });
 }
 
+
+
+
+
+
+const fetchUsersStart = (state, action) => {
+    return updateObject(state, {
+        error: null,
+        userLoading: true
+    })
+}
+
+const fetchUsersSuccess = (state, action) => {
+    console.log(action);
+    return updateObject(state, {
+        users: action.payload,
+        error: null,
+        loading: false,
+        userLoading: false
+    })
+}
+const fetchUsersFail = (state, action) => {
+    return updateObject( state, {
+        error: action.error,
+        loading: false,
+        userLoading: false
+    });
+}
+
 const authLogout = (state, action) => {
     return updateObject(state, { token: null, userId: null });
 };
@@ -115,6 +145,9 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_USER_START       : return fetchUserStart(state, action);
         case actionTypes.FETCH_USER_SUCCESS     : return fetchUserSuccess(state, action);
         case actionTypes.FETCH_USER_FAIL        : return fetchUserFail(state, action);
+        case actionTypes.FETCH_USERS_START      : return fetchUsersStart(state, action);
+        case actionTypes.FETCH_USERS_SUCCESS    : return fetchUsersSuccess(state, action);
+        case actionTypes.FETCH_USERS_FAIL       : return fetchUsersFail(state, action);
         case actionTypes.FB_AUTH_START          : return fbAuthStart(state, action);
         case actionTypes.FB_AUTH_SUCCESS        : return fbAuthSuccess(state, action);
         case actionTypes.FB_AUTH_FAIL           : return fbAuthFail(state, action);

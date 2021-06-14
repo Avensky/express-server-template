@@ -20,6 +20,11 @@ export const FETCH_USER_SUCCESS      = 'FETCH_USER_SUCCESS'
 export const FETCH_USER_FAIL         = 'FETCH_USER_FAIL'
 export const FETCH_USER              = 'FETCH_USER'
 
+export const FETCH_USERS_START        = 'FETCH_USERS_START'
+export const FETCH_USERS_SUCCESS      = 'FETCH_USERS_SUCCESS'
+export const FETCH_USERS_FAIL         = 'FETCH_USERS_FAIL'
+export const FETCH_USERS              = 'FETCH_USERS'
+
 export const GET_USER_START        = 'GET_USER_START'
 export const GET_USER_SUCCESS      = 'GET_USER_SUCCESS'
 export const GET_USER_FAIL         = 'GET_USER_FAIL'

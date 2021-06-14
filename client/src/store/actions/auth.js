@@ -37,6 +37,48 @@ export const fetchUser = () => {
         });
     }
 }
+
+
+
+
+
+
+
+
+export const fetchUsersStart = () => {
+    return {
+        type: actionTypes.FETCH_USERS_START
+    }
+};
+
+export const fetchUsersSuccess = (payload) => {
+    return {
+        type: actionTypes.FETCH_USERS_SUCCESS,
+        payload: payload
+    }
+};
+
+export const fetchUsersFail = (error) => {
+    return {
+        type: actionTypes.FETCH_USERS_FAIL,
+        error: error
+    }
+};
+
+export const fetchUsers = () => {
+    return dispatch => {
+        dispatch(fetchUsersStart());
+        axios.get('/api/v1/fetchUsers')
+        .then( result => {
+            console.log(result)
+            const payload = result.data
+            dispatch(fetchUsersSuccess(payload));
+        })
+        .catch( error => {
+                dispatch(fetchUsersFail(error));
+        });
+    }
+}
 export const logout = () => {
     axios.get('/api/logout')
     localStorage.removeItem('token');

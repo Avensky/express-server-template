@@ -3,16 +3,15 @@ const LocalStrategy    = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy  = require('passport-twitter').Strategy;
 const GoogleStrategy   = require('passport-google-oauth20').Strategy;
-const mongoose          = require('mongoose')
+const mongoose         = require('mongoose')
 
 // load up the user model
-const User       = mongoose.model('User')
+const User             = mongoose.model('Users')
 
 // load the auth variables
-const configAuth = require('./secrets'); // use this one for testing
+const configAuth = require('./keys'); // use this one for testing
 
-module.exports = function(passport) {
-
+module.exports         = function(passport) {
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -46,7 +45,6 @@ module.exports = function(passport) {
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 // if there are any errors, return the error
-                console.log('searching for user')
                 if (err)
                     return done(err);
 
@@ -70,18 +68,21 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
-        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+        usernameField       : 'email',
+        passwordField       : 'password',
+        passReqToCallback   : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+//        proxy               : true
     },
-    function(req, email, password, done) {
+    function (req, email, password, done) {
+        
+        console.log('user signup');
 
         // asynchronous
         process.nextTick(function() {
 
             //  Whether we're signing up or connecting an account, we'll need
             //  to know if the email address is in use.
-            User.findOne({'local.email': email}, function(err, existingUser) {
+            User.findOne({'local.email': email}, (err, existingUser) => {
 
                 // if there are any errors, return the error
                 if (err)
@@ -109,7 +110,8 @@ module.exports = function(passport) {
 
                     newUser.local.email    = email;
                     newUser.local.password = newUser.generateHash(password);
-
+                    // save the user
+                    console.log(newUser)
                     newUser.save(function(err) {
                         if (err)
                             throw err;
@@ -128,28 +130,35 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use(new FacebookStrategy({
 
-        clientID        : configAuth.facebookAuth.clientID,
-        clientSecret    : configAuth.facebookAuth.clientSecret,
-        callbackURL     : configAuth.facebookAuth.callbackURL,
+        clientID        : configAuth.facebookClientID,
+        clientSecret    : configAuth.facebookClientSecret,
+//        callbackURL     : configAuth.facebookCallbackURL,
+        callbackURL     : '/auth/facebook/callback',
         passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         profileFields   : ['id', 'displayName', 'photos', 'email','first_name', 'last_name'],
-//        enableProof     : true
+//        enableProof     : true,
+        proxy           : true
     },
-    function(req, token, refreshToken, profile, done) {
+    async (req, token, refreshToken, profile, done) => {
 
         // asynchronous
-        process.nextTick(function() {
+//        process.nextTick(function() {
 
             // check if the user is already logged in
             if (!req.user) {
 
                 User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
+
+                    // if there is an error, stop everything and return that
+                    // ie an error connecting to the database
                     if (err)
                         return done(err);
 
+                    // if the user is found, then log them in
                     if (user) {
 
                         // if there is a user id already but no token (user was linked at one point and then removed)
+                        // just add our token and profile information
                         if (!user.facebook.token) {
                             user.facebook.token = token;
                             user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
@@ -196,7 +205,7 @@ module.exports = function(passport) {
                 });
 
             }
-        });
+ //       });
 
     }));
 
@@ -205,9 +214,10 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use(new TwitterStrategy({
 
-        consumerKey     : configAuth.twitterAuth.consumerKey,
-        consumerSecret  : configAuth.twitterAuth.consumerSecret,
-        callbackURL     : configAuth.twitterAuth.callbackURL,
+        consumerKey     : configAuth.twitterConsumerKey,
+        consumerSecret  : configAuth.twitterConsumerSecret,
+//        callbackURL     : configAuth.twitterCallbackURL,
+        callbackURL     : '/auth/twitter/callback',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 
     },
@@ -280,9 +290,10 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use(new GoogleStrategy({
 
-        clientID        : configAuth.googleAuth.clientID,
-        clientSecret    : configAuth.googleAuth.clientSecret,
-        callbackURL     : configAuth.googleAuth.callbackURL,
+        clientID        : configAuth.googleClientID,
+        clientSecret    : configAuth.googleClientSecret,
+//        callbackURL     : configAuth.googleCallbackURL,
+        callbackURL         : "/auth/google/callback",
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 
     },
@@ -332,23 +343,18 @@ module.exports = function(passport) {
 
             } else {
                 // user already exists and is logged in, we have to link accounts
-                var user               = req.user; // pull the user out of the session
+                var user          = req.user; // pull the user out of the session
 
                 user.google.id    = profile.id;
                 user.google.token = token;
                 user.google.name  = profile.displayName;
                 user.google.email = profile.emails[0].value; // pull the first email
-
                 user.save(function(err) {
                     if (err)
                         throw err;
                     return done(null, user);
                 });
-
             }
-
         });
-
     }));
-
 };
