@@ -23,10 +23,25 @@ export const fetchUserFail = (error) => {
     }
 };
 
+//export const fetchUser = () => {
+//    return dispatch => {
+//        dispatch(fetchUserStart());
+//        axios.get('/api/fetchUser')
+//        .then( result => {
+//            console.log(result)
+//            const payload = result.data
+//            dispatch(fetchUserSuccess(payload));
+//        })
+//        .catch( error => {
+//                dispatch(fetchUserFail(error));
+//        });
+//    }
+//}
+
 export const fetchUser = () => {
     return dispatch => {
         dispatch(fetchUserStart());
-        axios.get('/api/fetchUser')
+        axios.get('http://localhost:3000/api/fetchUser')
         .then( result => {
             console.log(result)
             const payload = result.data
@@ -37,7 +52,6 @@ export const fetchUser = () => {
         });
     }
 }
-
 
 
 
@@ -68,7 +82,7 @@ export const fetchUsersFail = (error) => {
 export const fetchUsers = () => {
     return dispatch => {
         dispatch(fetchUsersStart());
-        axios.get('/api/v1/fetchUsers')
+        axios.get('http:localhost:3000/api/v1/fetchUsers')
         .then( result => {
             console.log(result)
             const payload = result.data
