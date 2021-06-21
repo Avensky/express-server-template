@@ -133,7 +133,9 @@ module.exports         = function(passport) {
         clientID        : configAuth.facebookClientID,
         clientSecret    : configAuth.facebookClientSecret,
 //        callbackURL     : configAuth.facebookCallbackURL,
-        callbackURL     : '/auth/facebook/callback',
+//        callbackURL     : '/auth/facebook/callback',
+        callbackURL         : "https://www.uriza86.com/auth/facebook/callback/",
+
         passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         profileFields   : ['id', 'displayName', 'photos', 'email','first_name', 'last_name'],
 //        enableProof     : true,
@@ -217,7 +219,8 @@ module.exports         = function(passport) {
         consumerKey     : configAuth.twitterConsumerKey,
         consumerSecret  : configAuth.twitterConsumerSecret,
 //        callbackURL     : configAuth.twitterCallbackURL,
-        callbackURL     : '/auth/twitter/callback',
+//        callbackURL     : '/auth/twitter/callback',
+        callbackURL         : "https://www.uriza86.com/auth/twitter/callback/",
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 
     },

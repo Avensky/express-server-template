@@ -80,7 +80,7 @@ module.exports = function(app, passport) {
             // =====================================
             // LOGIN ===============================
             // =====================================
-            app.post('/api/login', passport.authenticate('local-login', {
+            app.post('/auth/login', passport.authenticate('local-login', {
                 successRedirect : '/blog', // redirect to the secure profile section
     			failureRedirect : '/login', // redirect back to the signup page if there is an error
                 failureFlash : true // allow flash messages
@@ -96,7 +96,7 @@ module.exports = function(app, passport) {
         // REGISTER ============================
         // =====================================
             // process the signup form
-            app.post('/api/signup', passport.authenticate('local-signup', {
+            app.post('/auth/signup', passport.authenticate('local-signup', {
                 successRedirect : '/login', // redirect to the secure profile section
     			failureRedirect : '/login', // redirect back to the signup page if there is an error
                 failureFlash : true // allow flash messages
@@ -131,8 +131,11 @@ module.exports = function(app, passport) {
         // TWITTER ROUTES ======================
         // =====================================
         // route for twitter authentication and login
-            app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
-    
+            app.get('/auth/twitter', 
+	    passport.authenticate('twitter', { 
+		scope : 'email' 
+	    }));
+
             // handle the callback after twitter has authenticated the user
             app.get('/auth/twitter/callback',
                 passport.authenticate('twitter', {
