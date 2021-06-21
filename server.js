@@ -6,6 +6,7 @@ const express       = require('express')
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app           = express()
 const PORT          = process.env.PORT || 5000;
+const hostname      = "127.0.0.1";
 const bodyParser    = require('body-parser')
 const cookieParser  = require('cookie-parser');
 const cors          = require("cors");
@@ -109,10 +110,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(PORT, (err) =>{
+app.listen(PORT, hostname, (err) =>{
   if(!err){
       console.log('server started running on: ' + PORT);
       console.log('server NODE_ENV:  ' + process.env.NODE_ENV);
   } else {
-      console.log('unable to start server');}    
+      console.log('unable to start server');}
 })
