@@ -1,4 +1,6 @@
 module.exports = {
+    callbackURL             : "https://www.uriza86.com",
+
     mongoURI                : process.env.MONGO_URI,
     cookieKey               : process.env.COOKIE_KEY,
     stripePublishableKey    : process.env.STRIPE_PUBLISHABLE_KEY,

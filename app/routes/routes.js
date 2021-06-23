@@ -1,5 +1,8 @@
+const { config } = require('dotenv');
 const mongoose = require('mongoose');
+const keys = require('../../config/keys');
 const Users = mongoose.model('Users');
+// load the auth variables
 
 module.exports = function(app, passport) {
 
@@ -80,11 +83,18 @@ module.exports = function(app, passport) {
             // =====================================
             // LOGIN ===============================
             // =====================================
-            app.post('/auth/login', passport.authenticate('local-login', {
-                successRedirect : '/blog', // redirect to the secure profile section
-    			failureRedirect : '/login', // redirect back to the signup page if there is an error
-                failureFlash : true // allow flash messages
-            }));
+            app.post('/auth/login', function(req, res, next) {
+                passport.authenticate('local-login', function(err, user, info) {
+                  if (err) { return next(err); }
+                  if (!user) { return res.send(info); }
+                  req.logIn(user, function(err) {
+                    if (err) { return next(err); }
+                    //return res.redirect('/profile/' + user.username);
+                    return res.send(200)
+                  });
+                }
+                )(req, res, next);
+            })            
             // =====================================
             // SIGNUP ==============================
             // =====================================
@@ -96,11 +106,17 @@ module.exports = function(app, passport) {
         // REGISTER ============================
         // =====================================
             // process the signup form
-            app.post('/auth/signup', passport.authenticate('local-signup', {
-                successRedirect : '/login', // redirect to the secure profile section
-    			failureRedirect : '/login', // redirect back to the signup page if there is an error
-                failureFlash : true // allow flash messages
-            }));
+            app.post('/auth/signup', function(req, res, next) {
+                passport.authenticate('local-signup', function(err, user, info) {
+                  if (err) { return next(err); }
+                  if (!user) { return res.send(info); }
+                  req.logIn(user, function(err) {
+                    if (err) { return next(err); }
+                    // return res.redirect('/profile/' + user.username);
+                    return res.send(200)
+                  });
+                })(req, res, next);
+            });
     
     
             // process the signup form
@@ -124,7 +140,7 @@ module.exports = function(app, passport) {
             app.get('/auth/facebook/callback',
                 passport.authenticate('facebook', {
                     successRedirect : '/profile',
-                    //failureRedirect : '/'
+                    failureRedirect : '/'
                 }));
     
         // =====================================
@@ -132,9 +148,9 @@ module.exports = function(app, passport) {
         // =====================================
         // route for twitter authentication and login
             app.get('/auth/twitter', 
-	    passport.authenticate('twitter', { 
-		scope : 'email' 
-	    }));
+                passport.authenticate('twitter', { 
+                scope : 'email' 
+                }));
 
             // handle the callback after twitter has authenticated the user
             app.get('/auth/twitter/callback',

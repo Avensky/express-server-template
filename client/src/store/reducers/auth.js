@@ -18,7 +18,8 @@ const authStart = ( state, action ) => {
     return updateObject( state, { 
         error: null, 
         loading: true, 
-        submitted: false
+        submitted: false,
+        authRedirectPath: '/'
     });
 };
 
@@ -28,7 +29,8 @@ const authSuccess = (state, action) => {
         userId: action.userId,
         error: null,
         loading: false,
-        submitted: true
+        submitted: true,
+        authRedirectPath: "/profile"
      });
 };
 

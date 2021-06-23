@@ -8,8 +8,8 @@ const mongoose         = require('mongoose')
 // load up the user model
 const User             = mongoose.model('Users')
 
-// load the auth variables
-const configAuth = require('./keys'); // use this one for testing
+// load variables
+const configAuth = require('./keys');
 
 module.exports         = function(passport) {
     // =========================================================================
@@ -50,11 +50,10 @@ module.exports         = function(passport) {
 
                 // if no user is found, return the message
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false, {message: 'Oops! Email not found.'});
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
+                    return done(null, false, {message: 'Oops! Wrong password.'});
                 // all is well, return user
                 else
                     return done(null, user);
@@ -132,10 +131,7 @@ module.exports         = function(passport) {
 
         clientID        : configAuth.facebookClientID,
         clientSecret    : configAuth.facebookClientSecret,
-//        callbackURL     : configAuth.facebookCallbackURL,
-//        callbackURL     : '/auth/facebook/callback',
-        callbackURL         : "https://www.uriza86.com/auth/facebook/callback/",
-
+        callbackURL     : configAuth.baseUrl ? configAuth.baseUrl + "/auth/facebook/callback/" : "/auth/facebook/callback/",
         passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         profileFields   : ['id', 'displayName', 'photos', 'email','first_name', 'last_name'],
 //        enableProof     : true,
@@ -215,14 +211,10 @@ module.exports         = function(passport) {
     // TWITTER =================================================================
     // =========================================================================
     passport.use(new TwitterStrategy({
-
-        consumerKey     : configAuth.twitterConsumerKey,
-        consumerSecret  : configAuth.twitterConsumerSecret,
-//        callbackURL     : configAuth.twitterCallbackURL,
-//        callbackURL     : '/auth/twitter/callback',
-        callbackURL         : "https://www.uriza86.com/auth/twitter/callback/",
+        consumerKey       : configAuth.twitterConsumerKey,
+        consumerSecret    : configAuth.twitterConsumerSecret,
+        callbackURL       : configAuth.baseUrl ? configAuth.baseUrl + "/auth/twitter/callback/" : "/auth/facebook/callback/",
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-
     },
     function(req, token, tokenSecret, profile, done) {
 
@@ -292,13 +284,10 @@ module.exports         = function(passport) {
     // GOOGLE ==================================================================
     // =========================================================================
     passport.use(new GoogleStrategy({
-
         clientID        : configAuth.googleClientID,
         clientSecret    : configAuth.googleClientSecret,
-//        callbackURL     : configAuth.googleCallbackURL,
-        callbackURL         : "https://www.uriza86.com/auth/google/callback/",
+        callbackURL     : configAuth.baseUrl ? configAuth.baseUrl + "/auth/google/callback/" : "/auth/google/callback/",
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-
     },
     function(req, token, refreshToken, profile, done) {
 
