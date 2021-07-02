@@ -7,6 +7,7 @@ import Wrapper       from './components/Wrapper/Wrapper'
 import Home          from './components/Pages/Home/Home'
 import Profile       from './components/Pages/Profile/Profile'
 import Auth          from './components/Pages/Auth/Auth'
+import Connect	     from './components/Pages/Connect/Connect'
 import { Route, Switch, withRouter} from 'react-router-dom'
 
 const App = props => {
@@ -43,6 +44,7 @@ const App = props => {
     <Switch>
       <Route path="/authentication"       component={Auth} />
       <Route path="/home"                 component={Home} />   
+      <Route path="/connect"              component={Connect} />
       <Route path="/"                     component={Home} />                
     </Switch>
   )
@@ -52,6 +54,7 @@ const App = props => {
       <Switch>
         <Route path="/authentication"       render={props => <Auth {...props} />} />
         <Route path="/home"                 component={Home} />         
+        <Route path="/connect"              component={Connect} />
         <Route path="/profile"              component={Profile} />
         <Route path="/"                     component={Home} />             
       </Switch>

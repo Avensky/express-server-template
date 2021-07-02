@@ -59,9 +59,8 @@ module.exports  = function(app, passport) {
                 //return res.redirect('/profile/' + user.username);
                 return res.send(200)
                 });
-            }
-            )(req, res, next);
-        })            
+            })(req, res, next);
+        })
 
         // =====================================
         // REGISTER ============================
@@ -132,16 +131,18 @@ module.exports  = function(app, passport) {
     // =============================================================================
     
         // locally --------------------------------
-            app.get('/api/connect/local', function(req, res) {
-                res.render('connect-local.ejs', { message: req.flash('loginMessage') });
-            });
-            
-            app.post('/api/connect/local', passport.authenticate('local-signup', {
-                successRedirect : '/profile', // redirect to the secure profile section
-                failureRedirect : '/connectlocal', // redirect back to the signup page if there is an error
-                failureFlash : true // allow flash messages
-            }));
-    
+	app.post('/api/connect/local', function(req, res, next) {
+		passport.authenticate('local-signup', function(err, user, info) {
+			if (err) { return next(err); }
+			if (!user) { return res.send(info); }
+			req.logIn(user, function(err) {
+			if (err) { return next(err); }
+			//return res.redirect('/profile');
+			return res.send(200)
+			});
+		})(req, res, next);
+	});
+
         // facebook -------------------------------
     
             // send to facebook to do the authentication
