@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 //import Auxiliary from '../../../hoc/Auxiliary';
-import classes from './Connect.module.scss'
+import classes from './Connect.module.css'
 import Spinner from '../../UI/Spinner/Spinner';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../../../store/actions/index';
@@ -59,7 +59,7 @@ const connectLocal = props => {
 
     return(
         <div className={[classes.Card, classes.Auth].join(' ')}>
-            <div className={myClasses.AuthNav}>
+            <div className={classes.AuthNav}>
             <h1 className='border-bottom'><span className="fa fa-sign-in" /> Connect Local</h1>
             </div>
             {authRedirect}
@@ -75,29 +75,29 @@ const connectLocal = props => {
                         type="email" 
                         name="email" 
                         placeholder="Email Address"
-                        className={myClasses.AuthInput}
+                        className={classes.AuthInput}
                     />
                     <ErrorMessage name="email" component="div" />
                     <Field 
                         type="password" 
                         name="password" 
                         placeholder="Password"
-                        className={myClasses.AuthInput}
+                        className={classes.AuthInput}
                     />
                     <ErrorMessage name="password" component="div" />
                     <Field 
                         type="password" 
                         name="confirm_password" 
                         placeholder="Confirm Password"
-                        className={myClasses.AuthInput}
+                        className={classes.AuthInput}
                     />
                     <ErrorMessage name="confirm_password" component="div" />
                     <button  
-                        className={[myClasses.Btn, myClasses.AuthBtn, 'auth-btn' ].join(' ')}
+                        className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
                         type='submit'
                         disabled={!formik.isValid || formik.isSubmitting }
                     >
-                        <div className={myClasses.BtnDiv}>
+                        <div className={classes.BtnDiv}>
                             <span className="fa fa-user" /> Connect Local
                         </div>
                     </button>

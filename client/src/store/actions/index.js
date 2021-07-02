@@ -1,6 +1,7 @@
 export {
     fetchUser,
     fetchUsers,
+    connect,
     auth,
     fbAuth,
     setAuthRedirectPath,
