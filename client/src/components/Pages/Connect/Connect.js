@@ -56,7 +56,7 @@ const connectLocal = props => {
         loader = <Spinner />
 
     }
-
+    
     return(
         <div className={[classes.Card, classes.Auth].join(' ')}>
             <div className={classes.AuthNav}>

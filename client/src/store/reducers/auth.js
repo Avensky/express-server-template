@@ -42,6 +42,41 @@ const authFail = (state, action) => {
     });
 };
 
+const connectStart = ( state, action ) => {
+    return updateObject( state, { 
+        error: null, 
+        loading: true, 
+        authRedirectPath: '/'
+    });
+};
+
+const connectSuccess = (state, action) => {
+    console.log(action.idToken)
+    if (action.idToken === 'OK'){
+        return updateObject( state, { 
+            token: action.idToken,
+            error: null,
+            loading: false,
+            authRedirectPath: '/profile'
+         });
+    } else {
+        return updateObject( state, { 
+            token: action.idToken,
+            error: null,
+            loading: false,
+            authRedirectPath:"/"
+     });
+    }
+};
+
+const connectFail = (state, action) => {
+    return updateObject( state, {
+        error: action.error,
+        message: action.error.message,
+        loading: false,
+    });
+};
+
 
 const fbAuthStart = ( state, action ) => {
     return updateObject( state, { error: null, loading: true } );
@@ -157,6 +192,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.AUTH_SUCCESS           : return authSuccess(state, action);
         case actionTypes.AUTH_FAIL              : return authFail(state, action);
         case actionTypes.AUTH_LOGOUT            : return authLogout(state, action);
+        case actionTypes.SET_AUTH_REDIRECT_PATH : return setAuthRedirectPath(state,action);
+        case actionTypes.CONNECT_START          : return connectStart(state, action);
+        case actionTypes.CONNECT_SUCCESS        : return connectSuccess(state, action);
+        case actionTypes.CONNECT_FAIL           : return connectFail(state, action);
         case actionTypes.SET_AUTH_REDIRECT_PATH : return setAuthRedirectPath(state,action);
         case actionTypes.NEW_ADDRESS_START      : return newAddressStart(state, action);
         case actionTypes.NEW_ADDRESS_SUCCESS    : return newAddressSuccess(state, action);     
