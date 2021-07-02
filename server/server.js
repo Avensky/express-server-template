@@ -2,7 +2,6 @@
 // set up server================================================================
 //==============================================================================
 const express             = require('express')
-const morgan              = require('morgan');
 const rateLimit           = require('express-rate-limit');
 const helmet              = require('helmet');
 const mongoSanitize       = require('express-mongo-sanitize');
@@ -19,6 +18,10 @@ const session             = require('cookie-session')
 const passport            = require('passport')
 const mongoose            = require('mongoose')
 const keys                = require('./config/keys')
+
+if (process.env.NODE_ENV === 'development') {
+        const morgan = require('morgan');
+}
 
 //==============================================================================
 // configuration ===============================================================
@@ -50,7 +53,7 @@ app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-app.use(morgan('dev'));
+	app.use(morgan('dev'));
 }
 
 // Limit requests from same API
