@@ -22,14 +22,14 @@ module.exports = {
 
     googleClientID          : process.env.GOOGLE_CLIENT_ID,
     googleClientSecret      : process.env.GOOGLE_CLIENT_SECRET,
-    googleCallbackURL       : "https://www.uriza86.com/auth/google/callback/",
+    googleCallbackURL       : "https://www.uriza86.com/api/google/callback/",
     
     facebookClientID        : process.env.FACEBOOK_CLIENT_ID,
     facebookClientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
-    facebookCallbackURL     : "https://www.uriza86.com/auth/facebook/callback/",
+    facebookCallbackURL     : "https://www.uriza86.com/api/facebook/callback/",
 
     twitterConsumerKey      : process.env.TWITTER_CONSUMER_KEY,
     twitterConsumerSecret   : process.env.TWITTER_CONSUMER_SECRET,
-    twitterCallbackURL      : "https://www.uriza86.com/auth/twitter/callback/",
+    twitterCallbackURL      : "https://www.uriza86.com/api/twitter/callback/",
 
 }

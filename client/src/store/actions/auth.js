@@ -172,7 +172,7 @@ export const connect = (values) => {
     //console.log('connect = '+connect);
     return dispatch => {
         dispatch(connectStart());
-        let url = '/connect/local';     
+        let url = '/api/connect/local';     
         axios.post(url, values)
             .then(response => {
                 //console.log('response = '+JSON.stringify(response));
