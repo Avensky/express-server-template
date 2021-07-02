@@ -5,10 +5,11 @@ INSTRUCTIONS.md
 client/node_modules
 /.pnp
 .pnp.js
-config/dev.js
+dev.js
 config/secrets.js
 config/config.env
 INSTRUCTIONS.md
+package-lock.json
 
 # testing
 /coverage

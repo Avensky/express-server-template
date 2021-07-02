@@ -1,20 +1,19 @@
-// load all the things we need
+// =============================================================================
+// load all the things we need =================================================
+// =============================================================================
 const LocalStrategy    = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy  = require('passport-twitter').Strategy;
 const GoogleStrategy   = require('passport-google-oauth20').Strategy;
 const mongoose         = require('mongoose')
-
-// load up the user model
 const User             = mongoose.model('Users')
-
-// load variables
-const configAuth = require('./keys');
+const keys             = require('./keys');
 
 module.exports         = function(passport) {
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
+
     // required for persistent login sessions
     // passport needs ability to serialize and unserialize users out of session
 
@@ -35,9 +34,9 @@ module.exports         = function(passport) {
     // =========================================================================
     passport.use('local-login', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
-        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+        usernameField       : 'email',
+        passwordField       : 'password',
+        passReqToCallback   : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
 
@@ -123,24 +122,91 @@ module.exports         = function(passport) {
         });
 
     }));
+    // =========================================================================
+    // RESET PASSWORD ==========================================================
+    // =========================================================================
+    passport.use('reset-password', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        // define the parameter in req.body that passport can use as username and password
+        usernameField : 'confirm_password',
+        passwordField : 'password',
+        passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    },
+    function(req, email, password, done) {
+        console.log("req" + req.body)
+        // console.log('email = ' + req.body.email)
+        // console.log('password = ' + req.body.password)
+        // asynchronous
+        process.nextTick(function() {
+            // 1) Get user based on the token
+            //console.log('resetPassword start')
+            //console.log('req.params.token',req.params.token)
+
+            const hashedToken = crypto
+            .createHash('sha256')
+            .update(req.params.token)
+            .digest('hex');
+        
+            //console.log('hashedToken',hashedToken)
+
+            //User.findOne({ 'local.email' :  email }, function(err, user) {
+            User.findOne({
+                'local.passwordResetToken': hashedToken, 
+                'local.passwordResetExpires': {$gt: Date.now() } 
+            }, function(err, user) {
+                //console.log('local email = ' + user.local.email)
+                //console.log('local password = ' + user.local.password)
+                // if there are any errors, return the error
+                if (err)
+                    return done(err);
+
+                // if no user is found, return the message
+                if (!user)
+                    return done(null, false, {message: 'Oops! Token is invalid or has expired'});
+
+                else {
+                    //console.log('user',user)
+                    user.local.password = user.generateHash(req.body.password);
+                    //user.local.passwordConfirm = req.body.confirm_password;
+                    //console.log('req.body.password',req.body.password)
+                    //console.log('req.body.confirm_password',req.body.confirm_password)
+                    user.local.passwordResetToken = undefined;
+                    user.local.passwordResetExpires = undefined;
+                    user.save(function(err) {
+                        if (err){
+                            //throw err;
+                            //console.log('user.save err',err)
+                            return done(null, false, {message: err.message});
+                        }
+                        return done(null, user);
+                    });
+                    const url = `${req.protocol}://${req.get('host')}/authentication`;
+                    //console.log(url);
+                    const email = user.local.email
+                    new Email(newUser, email, url).sendWelcome();
+                }
+            })
+        });
+
+    }));
+
 
     // =========================================================================
     // FACEBOOK ================================================================
     // =========================================================================
     passport.use(new FacebookStrategy({
-
-        clientID        : configAuth.facebookClientID,
-        clientSecret    : configAuth.facebookClientSecret,
-        callbackURL     : configAuth.baseUrl ? configAuth.baseUrl + "/auth/facebook/callback/" : "/auth/facebook/callback/",
-        passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-        profileFields   : ['id', 'displayName', 'photos', 'email','first_name', 'last_name'],
+        clientID            : keys.facebookClientID,
+        clientSecret        : keys.facebookClientSecret,
+        callbackURL         : keys.facebookCallbackURL,
+        passReqToCallback   : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+        profileFields       : ['id', 'displayName', 'photos', 'email','first_name', 'last_name'],
 //        enableProof     : true,
         proxy           : true
     },
-    async (req, token, refreshToken, profile, done) => {
+    function (req, token, refreshToken, profile, done) {
 
         // asynchronous
-//        process.nextTick(function() {
+        process.nextTick(function() {
 
             // check if the user is already logged in
             if (!req.user) {
@@ -203,17 +269,16 @@ module.exports         = function(passport) {
                 });
 
             }
- //       });
-
+        });
     }));
 
     // =========================================================================
     // TWITTER =================================================================
     // =========================================================================
     passport.use(new TwitterStrategy({
-        consumerKey       : configAuth.twitterConsumerKey,
-        consumerSecret    : configAuth.twitterConsumerSecret,
-        callbackURL       : configAuth.baseUrl ? configAuth.baseUrl + "/auth/twitter/callback/" : "/auth/facebook/callback/",
+        consumerKey       : keys.twitterConsumerKey,
+        consumerSecret    : keys.twitterConsumerSecret,
+        callbackURL       : keys.twitterCallbackURL,
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, token, tokenSecret, profile, done) {
@@ -284,10 +349,10 @@ module.exports         = function(passport) {
     // GOOGLE ==================================================================
     // =========================================================================
     passport.use(new GoogleStrategy({
-        clientID        : configAuth.googleClientID,
-        clientSecret    : configAuth.googleClientSecret,
-        callbackURL     : configAuth.baseUrl ? configAuth.baseUrl + "/auth/google/callback/" : "/auth/google/callback/",
-        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+        clientID            : keys.googleClientID,
+        clientSecret        : keys.googleClientSecret,
+        callbackURL         : keys.googleCallbackURL,
+        passReqToCallback   : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, token, refreshToken, profile, done) {
 
@@ -349,4 +414,5 @@ module.exports         = function(passport) {
             }
         });
     }));
+
 };

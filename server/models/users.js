@@ -1,12 +1,12 @@
 //==============================================================================
 // set up ======================================================================
 //==============================================================================
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const bcrypt   = require('bcrypt');
+const mongoose      = require('mongoose');
+const { Schema }    = mongoose;
+const bcrypt        = require('bcrypt');
 
 // define the schema for our user model
-const userSchema = new Schema({
+const userSchema    = new Schema({
 
     local            : {
         email        : String,
