@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import myClasses from './Link.module.css';
+import classes from './Link.module.css';
 import Modal from  '../../../UI/Modal/Modal';
 // import classes from '../../Pages.module.scss'
 
@@ -15,11 +15,11 @@ const Link = props => {
     // }
 
     return (
-        <div className={[myClasses.Card, myClasses.Link].join(' ')}>
-            <h3>
-                <span className={["fa", props.icon, 'my-' + props.mystyle].join(' ')} />
-                <span> {props.link}</span>
-            </h3>
+        <div className={[classes.Card, classes.Link,].join(' ')}>
+
+            { props.token || props.id  
+                ? <h3><span className={["fa", props.icon, 'my-' + props.mystyle].join(' ')} /><span> {props.link}</span></h3>
+                : null }
             <p>
                 { props.name        ? <strong>Name:          {props.name}<br /></strong>         : null }
                 { props.displayName ? <strong>Display Name:  {props.displayName}<br /></strong>  : null }
@@ -40,8 +40,8 @@ const Link = props => {
                 </div>
             </Modal>            
         { props.userLink
-                ? <a href={props.provider} className={["btn", props.mystyle].join(' ')}>Connect {props.link}</a> 
-                : <a onClick={unlinkHandler} className="btn btn-default">Unlink</a>
+                ? <div className={classes.authBtn}><a href={props.provider} className={["btn", props.mystyle].join(' ')}><span className={["fa", props.icon].join(' ')} /> Connect <span> {props.link}</span></a></div>
+                : <div className={classes.authBtn}><a onClick={unlinkHandler} className="btn btn-default">Unlink</a></div>
             }
         </div>
         

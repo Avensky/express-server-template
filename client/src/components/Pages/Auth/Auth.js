@@ -1,38 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../Layout/Layout';
-// import { useForm } from "react-hook-form";
 import {connect} from 'react-redux';
 import classes from './Auth.module.css';
 import Auxiliary from '../../../hoc/Auxiliary';
 import * as actions from '../../../store/actions/index';
-// import {updateObject, checkValidity} from '../../../utility/utility';
-// import Input from '../../UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner'
-//import Spinner from '../../UI/Spinner/Spinner';
 import { Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-//import { Persist } from 'formik-persist'
 import * as Yup from 'yup'
 
-
 const Auth = props => {
-    //const { authRedirectPath, onSetAuthRedirectPath, submitted, isAuthenticacted, isLoggedIn } = props
     const [auth, setAuth] = useState('login')
     console.log('auth',auth)
     const [token, setToken] = useState(props.match.params.token)
     console.log('token',token)
-    // const [socialLogin, setSocialLogin] = useState(false)
 
     const [passwordComfirmShown, setPasswordComfirmShown] = useState(false);    
     const togglePasswordComfirmVisiblity = () => {setPasswordComfirmShown(passwordComfirmShown ? false : true)}
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {setPasswordShown(passwordShown ? false : true)}
-
-    //const socialAuthHandler = () => {
-    //    setSocialLogin(true)
-    //    props.onFbAuth()
-    //}
-
 
     useEffect(() => {
         if (props.match.params.token){
@@ -41,11 +27,6 @@ const Auth = props => {
             setAuth('login')
         }
     },[props.match.params])
-// 
-    // const getProfile = () => {
-    //     //const { handle, postId } = props.match.params; // <-- component props object!!
-    //     console.log('props', props)
-    // }
 
     const loginToggleHandler    = () => {setAuth('login')}
     const registerToggleHandler = () => {setAuth('register')}
@@ -95,12 +76,12 @@ const Auth = props => {
                 <button 
                     onClick={loginToggleHandler}
                     className={selected}
-                ><h1><span className="fa fa-sign-in" /> Login</h1>
+                ><h1 className="pointer"><span className="fa fa-sign-in pointer" /> Login</h1>
                 </button>
                 <button 
                     onClick={registerToggleHandler}
                     className={unselected}
-                ><h1><span className="fa fa-user" /> Signup</h1>
+                ><h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
                 </button>   
             </div>
             props.loading
@@ -131,19 +112,19 @@ const Auth = props => {
             !props.loading
                 ? socialAuth = <Auxiliary>
                     <br />
-                    <div className={classes.CardTitle}>Or continue with:</div>
+                    <div className='text-left'>Or continue with:</div>
                     <br />
                     <button type='submit' className={[classes.Btn, "btn-primary"].join(' ')}>
                         <a  
-                            href="/auth/facebook"
+                            href="/api/facebook"
                             //onClick={socialAuthHandler}
                         ><div className={classes.BtnDiv}><span className="fa fa-facebook" /> Facebook</div></a>
                     </button>
                     <button className={[classes.Btn, "btn-info"].join(' ')}>
-                        <a href="/auth/twitter"><div className={classes.BtnDiv}><span className="fa fa-twitter" /> Twitter</div></a>
+                        <a href="/api/twitter"><div className={classes.BtnDiv}><span className="fa fa-twitter" /> Twitter</div></a>
                     </button>
                     <button className={[classes.Btn, "btn-danger"].join(' ')}>
-                        <a href="/auth/google"><div className={classes.BtnDiv}><span className="fa fa-google-plus" /> Google+</div></a>
+                        <a href="/api/google"><div className={classes.BtnDiv}><span className="fa fa-google-plus" /> Google+</div></a>
                     </button>
                 </Auxiliary>
                 : socialAuth = null
@@ -176,13 +157,13 @@ const Auth = props => {
                 <button 
                     onClick={loginToggleHandler}
                     className={selected}
-                ><h1><span className="fa fa-sign-in" /> Login</h1>
+                ><h1 className="pointer"><span className="fa fa-sign-in" /> Login</h1>
                 </button>
 
                 <button 
                     onClick={registerToggleHandler}
                     className={unselected}
-                ><h1><span className="fa fa-user" /> Signup</h1>
+                ><h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
                 </button>   
             </div>
             props.loading || props.submitted && props.userLoading

@@ -1,12 +1,11 @@
 .Wrapper {
-    margin-top: 1vh;
     height: 100%;
     color: white;
 }
 
 /* For mobile phones: */
 .Layout {
-    padding: 6vh 0;
+    padding: 7vh 0;
 }
 
 @media only screen and (min-width: 600px) {

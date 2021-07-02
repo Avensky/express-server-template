@@ -20,9 +20,9 @@ const navbar = ( props ) => {
         <div className={classes.Navbar}>
             <SidebarToggle clicked={props.sidebarToggleClicked} />   
             <div className={[classes.MobileLinks, classes.Mobile].join(' ')}>
-                <h2 className={classes.line}>
+                <h2 className="line">
                     {props.isAuth !== null
-                        ? <div className={classes.NavItem}><a  href="/auth/logout">Logout </a></div>
+                        ? <div className={classes.NavItem}><h2><a  href="/api/logout">Logout </a></h2></div>
                         : null}          
                     {cart}
                     {props.isAuth !== null

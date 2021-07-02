@@ -120,16 +120,16 @@ export const auth = (values, auth, token) => {
         let url
         switch (auth) {
             case auth='login':
-                url = '/auth/login'
+                url = '/api/login'
                 break;
             case auth='register':
-                url = '/auth/signup'
+                url = '/api/signup'
                 break;
             case auth='forgot-password':
-                url = '/auth/forgotPassword'
+                url = '/api/forgotPassword'
                 break;
             case auth='reset-password':
-                url = ('/auth/resetPassword/'+token)
+                url = ('/api/resetPassword/'+token)
                 console.log('url',url)
                 break;
         }

@@ -132,11 +132,11 @@ module.exports  = function(app, passport) {
     // =============================================================================
     
         // locally --------------------------------
-            app.get('/connect/local', function(req, res) {
+            app.get('/api/connect/local', function(req, res) {
                 res.render('connect-local.ejs', { message: req.flash('loginMessage') });
             });
             
-            app.post('/connect/local', passport.authenticate('local-signup', {
+            app.post('/api/connect/local', passport.authenticate('local-signup', {
                 successRedirect : '/profile', // redirect to the secure profile section
                 failureRedirect : '/connectlocal', // redirect back to the signup page if there is an error
                 failureFlash : true // allow flash messages
@@ -145,10 +145,10 @@ module.exports  = function(app, passport) {
         // facebook -------------------------------
     
             // send to facebook to do the authentication
-            app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
+            app.get('/api/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
     
             // handle the callback after facebook has authorized the user
-            app.get('/connect/facebook/callback',
+            app.get('/api/connect/facebook/callback',
                 passport.authorize('facebook', {
                     successRedirect : '/profile',
                     failureRedirect : '/'
@@ -157,10 +157,10 @@ module.exports  = function(app, passport) {
         // twitter --------------------------------
     
             // send to twitter to do the authentication
-            app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
+            app.get('/api/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
     
             // handle the callback after twitter has authorized the user
-            app.get('/connect/twitter/callback',
+            app.get('/api/connect/twitter/callback',
                 passport.authorize('twitter', {
                     successRedirect : '/profile',
                     failureRedirect : '/'
@@ -170,10 +170,10 @@ module.exports  = function(app, passport) {
         // google ---------------------------------
     
             // send to google to do the authentication
-            app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
+            app.get('/api/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
     
             // the callback after google has authorized the user
-            app.get('/connect/google/callback',
+            app.get('/api/connect/google/callback',
                 passport.authorize('google', {
                     successRedirect : '/profile',
                     failureRedirect : '/'
@@ -187,7 +187,7 @@ module.exports  = function(app, passport) {
     // user account will stay active in case they want to reconnect in the future
     
         // local -----------------------------------
-        app.get('/unlink/local', function(req, res) {
+        app.get('/api/unlink/local', function(req, res) {
             var user            = req.user;
             user.local.email    = undefined;
             user.local.password = undefined;
@@ -197,7 +197,7 @@ module.exports  = function(app, passport) {
         });
     
         // facebook -------------------------------
-        app.get('/unlink/facebook', function(req, res) {
+        app.get('/api/unlink/facebook', function(req, res) {
             var user            = req.user;
             user.facebook.token = undefined;
             user.save(function(err) {
@@ -206,7 +206,7 @@ module.exports  = function(app, passport) {
         });
     
         // twitter --------------------------------
-        app.get('/unlink/twitter', function(req, res) {
+        app.get('/api/unlink/twitter', function(req, res) {
             var user           = req.user;
             user.twitter.token = undefined;
             user.save(function(err) {
@@ -215,7 +215,7 @@ module.exports  = function(app, passport) {
         });
     
         // google ---------------------------------
-        app.get('/unlink/google', function(req, res) {
+        app.get('/api/unlink/google', function(req, res) {
             var user          = req.user;
             user.google.token = undefined;
             user.save(function(err) {

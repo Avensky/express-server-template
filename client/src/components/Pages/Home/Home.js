@@ -3,7 +3,7 @@ import classes from './Home.module.css';
 
 const Home = () => {
     return(
-        <div className={['card', classes.Books].join(' ')}>
+        <div className={['card', classes.Home].join(' ')}>
             <div className="container">
                 <div className="page-header text-center">
                     <h1>Home</h1>
