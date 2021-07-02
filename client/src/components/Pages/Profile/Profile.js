@@ -51,7 +51,7 @@ const Profile = (props) =>{
             userLink        = {true}
             icon            = "fa-user"
             mystyle         = "auth-btn"
-            provider        = '/api/connectlocal' 
+            provider        = '/api/connect/local' 
             providerUnlink  = '/api/unlink/local' />)
     
     facebook = (
