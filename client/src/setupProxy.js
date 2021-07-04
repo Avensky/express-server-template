@@ -11,7 +11,7 @@ module.exports = function (app) {
     ["/api", "/auth", "connect", "/unlink", "/connect", "/webhook"],
     createProxyMiddleware({
       target: baseUrl,
-//      changeOrigin: true,
+      changeOrigin: true,
     })
   );
 };

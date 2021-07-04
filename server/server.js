@@ -18,9 +18,23 @@ const session             = require('cookie-session')
 const passport            = require('passport')
 const mongoose            = require('mongoose')
 const keys                = require('./config/keys')
+let   server              = app
 
-if (process.env.NODE_ENV === 'development') {
-        const morgan = require('morgan');
+if (process.env.NODE_ENV !== 'production') {
+  // const https = require('https');
+  // const fs = require('fs');
+  // 
+  // const options = {
+  //   "rejectUnauthorized": false,
+  //   key: fs.readFileSync('../.cert/key.pem'), // Replace with the path to your key
+  //   cert: fs.readFileSync('../.cert/cert.pem') // Replace with the path to your certificate
+  // }
+  // 
+  // server = https.createServer(options, app)
+
+  // Development logging
+  const morgan = require('morgan');
+  app.use(morgan('dev'));
 }
 
 //==============================================================================
@@ -50,11 +64,6 @@ app.use(express.json())
 
 // Set security HTTP headers
 app.use(helmet());
-
-// Development logging
-if (process.env.NODE_ENV === 'development') {
-	app.use(morgan('dev'));
-}
 
 // Limit requests from same API
 const limiter = rateLimit({
@@ -129,7 +138,8 @@ app.get('*', (req, res) => {
 });
 }
 
-app.listen(PORT, LOCAL, (err) =>{
+
+server.listen(PORT, LOCAL, (err) =>{
 if(!err){
     console.log('server started running on: ' + PORT);
     console.log('server NODE_ENV: ' + process.env.NODE_ENV);

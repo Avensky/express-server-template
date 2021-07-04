@@ -1,11 +1,12 @@
 .Auth {       
-    font-family: 'Chalkduster'!important;
-    padding-top: 3vh;
     text-align: center;
     align-items: center;
     color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.5);   
+    background-color: rgba(0, 0, 0, 0.5);  
+    margin: 7vh 2vw 0;
+    padding: 1vh 5vw 2vh;
 }
+
 .Auth a {
     z-index: 1;     
     text-decoration: none;
@@ -15,7 +16,6 @@
     padding: 0!important;
     margin-bottom: 0;
 }
-
 
 .AuthInput {
     color: rgb(255, 255, 255) !important;   
@@ -79,23 +79,20 @@
     border-bottom-style: solid;
 }
 
-
 #inputId:-webkit-autofill {
     background-color: black !important;
 }
 
-
 @media only screen and (min-width: 600px) {
     /* For tablets: */
     .Auth {
-        margin: 0 20vw 0;
+        margin: 6vh 20vw 0;
     }
 }
 
 @media only screen and (min-width: 1025px) {
     /* For desktop: */
     .Auth {
-        margin: 0 30vw 0;
-      
+        margin: 12vh 30vw 0;
     }
 }
