@@ -42,6 +42,7 @@ if (process.env.NODE_ENV !== 'production') {
 //==============================================================================
 require('./models/users');
 require('./models/orders');
+require('./models/shop');
 require('./config/passport')(passport); // pass passport for configuration
 
 mongoose.Promise = global.Promise;// connect to our database
@@ -54,6 +55,9 @@ mongoose.connect(keys.mongoURI, {
   .then(connect => console.log('connected to mongodb'))
   .catch(err => console.log('could not connect to mongodb', err))
 module.exports = {mongoose}
+
+// allow files to be stored in files directory
+app.use('/files', express.static("files"));
 
 // set up cors to allow us to accept requests from our client
 app.use(cors());
@@ -112,6 +116,7 @@ app.use(compression());
 //==============================================================================
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./routes/stripe.js')(app, passport); 
+require('./routes/shop.js')(app);
 
 //==============================================================================
 // launch ======================================================================
