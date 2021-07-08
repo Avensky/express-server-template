@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import authReducer  from './store/reducers/auth';
 import cartReducer  from './store/reducers/cart';
 import shopReducer from './store/reducers/shop';
@@ -24,7 +25,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer, 
-  composeEnhancers(
+  composeWithDevTools(
       applyMiddleware(thunk)
   )
 );

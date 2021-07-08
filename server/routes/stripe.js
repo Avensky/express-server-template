@@ -1,10 +1,10 @@
 // load all the things we need
 const mongoose          = require('mongoose')
-const Orders            = mongoose.model('Orders').schema
+const Orders            = mongoose.model('Orders')
 const Stripe            = require('stripe')
 const keys              = require('../config/keys')
-const endpointSecret    = keys.stripeEndpointSecret
-const stripe            = Stripe(keys.stripePublishableKey)
+const webhookSecret     = keys.stripeEndpointSecret
+const stripe            = Stripe(keys.stripeSecretKey)
 const Email             = require('../utils/email');
 
 module.exports = function(app, passport) {
@@ -144,8 +144,8 @@ module.exports = function(app, passport) {
           //console.log('rawBody = ' + JSON.stringify(payload))
           //console.log('rawBody = ' + payload)
           //console.log('sig = ' + sig)
-          //console.log('endpointSecret = ' + endpointSecret)
-          event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
+          //console.log('webhookSecret  = ' + webhookSecret )
+          event = stripe.webhooks.constructEvent(payload, sig, webhookSecret )
           } catch (err) {
           //console.log('Webhook Error = '+ err.message)
             return res.status(400).send(`Webhook Error: ${err.message}`)
@@ -221,8 +221,7 @@ module.exports = function(app, passport) {
   
   app.post('/api/checkout', async (req, res) => {
       let body = req.body.items
-      // console.log('checkout body = ' + JSON.stringify(body))
-  
+      console.log('checkout body = ' + JSON.stringify(body))
       let userid = req.body.userid
       // let shipping = req.body.address
       // let body = JSON.stringify(req.body.items)
@@ -238,8 +237,8 @@ module.exports = function(app, passport) {
           payment_method_types: ['card'],
           line_items: body,
           mode: 'payment',
-          checkoutSuccessUrl: keys.checkoutSuccessUrl,
-          checkoutCancelUrl: keys.checkoutCancelUrl,
+          success_url: 'http://localhost:3000/checkout',
+          cancel_url: 'http://localhost:3000/shop',
       });
       //res.json({ id: session.id });
       const orderObj = new Orders({
