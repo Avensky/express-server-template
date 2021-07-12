@@ -201,6 +201,10 @@ input:focus {outline:0;}
   justify-content: space-between;
 }
 
+.inline {
+  display: inline-block;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

@@ -9,7 +9,7 @@ const navbar = ( props ) => {
     console.log('total Items = ' + props.totalItems)
     let cart = (
         <NavLink  to="/cart" className={classes.line}> 
-            <span className={["fa", "fa-shopping-cart", classes.left, classes.inline].join(' ')}/>
+            <span className={["fa", "fa-shopping-cart", 'inline', classes.left].join(' ')}/>
             <h3 className='inline'>({props.totalItems})</h3>
         </NavLink > 
     )
