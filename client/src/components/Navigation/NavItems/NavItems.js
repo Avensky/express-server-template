@@ -12,9 +12,13 @@ const navItems = ( props ) => (
             ? <NavItem link="/authentication"   >Cotact &amp; Sign-Up</NavItem>
             : <div className={classes.NavItem}><a  href="/api/logout">Logout</a></div>}
 
-        <NavItem  link="/cart" myClass={classes.line}>
+        <NavItem  link="/cart" >
             <span className={["fa", classes.fa, "fa-shopping-cart", classes.inline].join(' ')}/>
-            <p className={classes.inline}>({props.cart})</p>
+            {props.totalItems
+                ?<p className={classes.inline}>({props.totalItems})</p>
+                : null
+            }
+            
         </NavItem > 
     
     </ul>

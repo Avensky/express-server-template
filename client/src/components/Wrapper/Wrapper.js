@@ -16,16 +16,17 @@ const Wrapper = props => {
     const sidebarToggleHandler = () => {
         setShowSidebar(!showSidebar);
     }
-    
+    //console.log('total Items = ' + props.totalItems)
     return (    
         <div className = {classes.Layout}>
             <Background />
             <Navbar 
                 isAuth={props.isAuth}
                 sidebarToggleClicked={sidebarToggleHandler}
-                cart={props.totalItems}
+                totalItems={props.totalItems}
             />
             <Sidebar 
+                totalItems={props.totalItems}
                 isAuth={props.isAuth}
                 open={showSidebar} 
                 closed={closeSidebarHandler} 
@@ -40,7 +41,8 @@ const Wrapper = props => {
 
 const mapStateToProps = state => {
     return {
-        isAuth      : state.auth.payload
+        isAuth      : state.auth.payload,
+        totalItems  : state.cart.totalItems
     }
 }
 

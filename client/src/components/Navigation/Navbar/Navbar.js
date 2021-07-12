@@ -6,15 +6,13 @@ import SidebarToggle from '../Sidebar/SidebarToggle/SidebarToggle';
 import { NavLink } from 'react-router-dom';
 
 const navbar = ( props ) => {
-    let cart;         
-    if (props.cart) {
-        cart = (
-            <NavLink  to="/cart" className={classes.line}> 
-                <span className={["fa", "fa-shopping-cart", classes.left, classes.inline].join(' ')}/>
-                <h3 className={classes.inline}>({props.cart})</h3>
-            </NavLink > 
-        )
-    }
+    console.log('total Items = ' + props.totalItems)
+    let cart = (
+        <NavLink  to="/cart" className={classes.line}> 
+            <span className={["fa", "fa-shopping-cart", classes.left, classes.inline].join(' ')}/>
+            <h3 className='inline'>({props.totalItems})</h3>
+        </NavLink > 
+    )
     
     return (
         <div className={classes.Navbar}>
@@ -27,7 +25,7 @@ const navbar = ( props ) => {
                     {cart}
                     {props.isAuth !== null
                         ? <NavLink to="/profile"   ><h2><span className="fa fa-user" /></h2></NavLink>
-                        :<NavLink to="/authentication"   ><h2><span className="fa fa-sign-in" /></h2></NavLink>}                                      
+                        :<NavLink to="/authentication"   ><h2><span className="fa fa-sign-in" /></h2></NavLink>}                                   
                 </h2>
                 <div className={[classes.Logo, classes.Mobile].join(' ')}>
                     <NavLink  to="/">
@@ -39,7 +37,7 @@ const navbar = ( props ) => {
                 </div>
             </div>
             <div className={classes.DesktopOnly}>
-                <NavItems isAuthenticated={props.isAuth} cart={props.cart}/>
+                <NavItems isAuthenticated={props.isAuth} totalItems={props.totalItems}/>
             </div>
         </div>
     )

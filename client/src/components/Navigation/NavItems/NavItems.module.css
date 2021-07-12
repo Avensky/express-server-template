@@ -33,6 +33,10 @@
     color: rgb(161, 131, 103);
 }
 
+.inline {
+    display: inline-block;
+}
+
 @media (min-width: 600px) {
     .NavItem {
         margin: 0;

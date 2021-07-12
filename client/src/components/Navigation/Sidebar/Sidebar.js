@@ -21,7 +21,7 @@ const sidebar = ( props ) => {
                     </div>
                 </Link>
                 <div>
-                    <NavItems isAuthenticated={props.isAuth} cart={props.cart}/>
+                    <NavItems isAuthenticated={props.isAuth} totalItems={props.totalItems}/>
                 </div>
             </div>
         </Auxiliary>

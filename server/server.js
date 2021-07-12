@@ -6,13 +6,13 @@ const rateLimit           = require('express-rate-limit');
 const helmet              = require('helmet');
 const mongoSanitize       = require('express-mongo-sanitize');
 const xss                 = require('xss-clean');
-const hpp                 = require('hpp');
+//const hpp                 = require('hpp');
 const app                 = express()
 const PORT                = process.env.PORT || 5000;
 const LOCAL               = "127.0.0.1";
 const bodyParser          = require('body-parser')
 const compression         = require('compression');
-const cookieParser        = require('cookie-parser');
+//const cookieParser        = require('cookie-parser');
 const cors                = require("cors");
 const session             = require('cookie-session')
 const passport            = require('passport')
@@ -56,6 +56,9 @@ mongoose.connect(keys.mongoURI, {
   .catch(err => console.log('could not connect to mongodb', err))
 module.exports = {mongoose}
 
+// set up our express application
+// app.use(express.json())
+
 // allow files to be stored in files directory
 app.use('/files', express.static("files"));
 
@@ -63,24 +66,20 @@ app.use('/files', express.static("files"));
 app.use(cors());
 app.options('*', cors());
 
-// set up our express application
-app.use(express.json())
 
 // Set security HTTP headers
 app.use(helmet());
 
 // Limit requests from same API
 const limiter = rateLimit({
-max: 100,
-windowMs: 60 * 60 * 1000,
-message: 'Too many requests from this IP, please try again in an hour!'
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!'
 });
 app.use('/api', limiter);
 
-app.use(bodyParser.json({verify: (req, res, buf) => { req.rawBody = buf }})) // get information from html forms raw
-
 // read cookies (needed for auth)
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // required for passport
 app.use(session({ 
@@ -101,15 +100,18 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // Prevent parameter pollution
-app.use(
-  hpp({
-    whitelist: [
-      'price'
-    ]
-  })
-);
-
+// app.use(
+//   hpp({
+//     whitelist: [
+//       'price'
+//     ]
+//   })
+// );
+// 
 app.use(compression());
+
+// get information from html forms raw
+app.use(bodyParser.json({verify: (req, res, buf) => { req.rawBody = buf }})) 
 
 //==============================================================================
 // routes ======================================================================
