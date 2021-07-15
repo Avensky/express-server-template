@@ -11,7 +11,7 @@ module.exports = {
 
     checkoutSuccessUrl      : "https://www.uriza86.com/checkout",
     checkoutCancelUrl       : "https://www.uriza86.com/shop",
-    
+
     secretKey               : process.env.SECRET_KEY,
     mongoURI                : process.env.MONGO_URI,
     cookieKey               : process.env.COOKIE_KEY,
@@ -19,11 +19,12 @@ module.exports = {
     webhookSecret           : process.env.ENDPOINT_SECRET,
     stripePublishableKey    : process.env.STRIPE_PUBLISHABLE_KEY,
     stripeSecretKey         : process.env.STRIPE_SECRET_KEY,
+    taxRates                : process.env.TAX_RATES,
 
     googleClientID          : process.env.GOOGLE_CLIENT_ID,
     googleClientSecret      : process.env.GOOGLE_CLIENT_SECRET,
     googleCallbackURL       : "https://www.uriza86.com/api/google/callback/",
-    
+
     facebookClientID        : process.env.FACEBOOK_CLIENT_ID,
     facebookClientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
     facebookCallbackURL     : "https://www.uriza86.com/api/facebook/callback/",

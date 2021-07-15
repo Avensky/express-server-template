@@ -12,6 +12,7 @@ import Modal from '../../UI/Modal/Modal'
 import { loadStripe } from '@stripe/stripe-js';
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
+const keys          = require('../../../../../server/config/keys')
 const stripePromise = loadStripe('pk_test_51J8eeGGhmYf08967atQfhNcWSsJpgUNfFCbL49tWBsPRhe30UedjKbYJDGkv1RI2tlRFmL1UbHxzSkOxDYQb0ufO00UU3w8gGA');
 
 const Purchase = props => { 
@@ -27,7 +28,7 @@ const Purchase = props => {
                 //amount      : item.price*100,
                 quantity    : item.amount,
                 //name        : item.name,
-                tax_rates: ['txr_1JB319GhmYf089678Co4Kjze']
+                tax_rates: [keys.taxRates]
             }
              console.log('data = '+JSON.stringify(data))
             return data
