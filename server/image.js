@@ -1,9 +1,13 @@
 const multer = require("multer");
 const path = require("path");
-//image upload
+let files
+process.env.NODE_ENV === 'production'
+    ? files = "./files/"
+    : files = "./devFiles/"
+ //image upload
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-         cb(null, "./files/");
+         cb(null, files);
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)

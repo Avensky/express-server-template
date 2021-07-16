@@ -35,8 +35,12 @@ if (process.env.NODE_ENV !== 'production') {
   // Development logging
   const morgan = require('morgan');
   app.use(morgan('dev'));
+
+  // allow files to be stored in files directory
+  app.use('/devFiles', express.static("devFiles"));
 }
 
+app.use('/files', express.static("files"));
 //==============================================================================
 // configuration ===============================================================
 //==============================================================================
@@ -55,9 +59,6 @@ mongoose.connect(keys.mongoURI, {
   .then(connect => console.log('connected to mongodb'))
   .catch(err => console.log('could not connect to mongodb', err))
 module.exports = {mongoose}
-
-// set up our express application
-// app.use(express.json())
 
 // allow files to be stored in files directory
 app.use('/files', express.static("files"));
