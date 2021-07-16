@@ -141,6 +141,7 @@ const Purchase = props => {
                     <h1><a href='/shop'>Shop</a></h1>
                 </div>
             </div>
+            <NewItem />
             {/*
             <div className='container'>
                 <div className={['page-header', 'text-center'].join(' ')}>

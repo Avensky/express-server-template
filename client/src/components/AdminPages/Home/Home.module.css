@@ -1,0 +1,20 @@
+.Home {
+    background-color: rgb(34, 26, 0);
+    background-color: #221a00;
+    margin: 1vh 2vw;
+    padding: 1vh 5vw 2vh;
+}
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .Home {
+        margin: 6vh 10vw 0;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    /* For desktop: */
+    .Home {
+        margin: 6vh 20vw 0;     
+   }
+}
