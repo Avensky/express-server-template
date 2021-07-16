@@ -236,8 +236,8 @@ module.exports = function(app, passport) {
           payment_method_types: ['card'],
           line_items: body,
           mode: 'payment',
-          success_url: 'http://localhost:3000/checkout',
-          cancel_url: 'http://localhost:3000/shop',
+          success_url: keys.checkoutSuccessUrl,
+          cancel_url: keys.checkoutCancelUrl,
       });
       //res.json({ id: session.id });
       const orderObj = new Orders({
