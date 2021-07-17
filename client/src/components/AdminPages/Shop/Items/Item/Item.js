@@ -4,13 +4,17 @@ import classes from './Item.module.css';
 
 //{classes.CardThumbnail}
 const item = props => {
+    let url
+    process.env.NODE_ENV === 'production'
+        ? url = 'https://localhost:3000/'
+        : url = 'http://localhost:5000/'
       
     return  (
     <div className={classes.Item} key={props.id}>
         {/* Image */}
         <div className={classes.CardThumbnail}>
             <Link to={'/shop/itemfull/' + props.id}>
-                <img src={'http://localhost:5000/'+props.image} alt={props.alt}/>
+                <img src={url+props.image} alt={props.alt}/>
             </Link>
         </div>
         

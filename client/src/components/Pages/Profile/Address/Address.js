@@ -31,9 +31,9 @@ const Address = props => {
                 { props.phone       ? <strong>   {props.phone}<br /></strong>    : null }
                 { props.address     ? <strong>   {props.address}<br /></strong>  : null }
                 { props.address2    ? <strong>   {props.address2}<br /></strong> : null }
-                <div className="flex">
-                    { props.city        ? <strong>{props.city},&nbsp;  <br /></strong>    : null }
-                    { props.state       ? <strong>{props.state}&nbsp;  <br /></strong>    : null }
+                <div className={classes.place}>
+                    { props.city        ? <strong>{props.city},&nbsp;  </strong>    : null }
+                    { props.state       ? <strong>{props.state}&nbsp;  </strong>    : null }
                     { props.zipCode     ? <strong>{props.zipCode}&nbsp;<br /></strong>  : null }
                 </div>
                 { props.email       ? <strong>   {props.email}<br /></strong>    : null }

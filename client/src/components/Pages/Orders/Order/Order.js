@@ -53,7 +53,7 @@ const Order = props => {
                         address2        = {props.line2}
                         city            = {props.city}
                         state           = {props.state}
-                        postal_code     = {props.postal_code}
+                        zipCode         = {props.postal_code}
                         email           = {props.email}
                     
                     />

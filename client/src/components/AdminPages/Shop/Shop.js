@@ -96,6 +96,7 @@ const Purchase = props => {
                 link        = {"/shop/"}
                 to          = "/"
                 clicked     = {() => addToCart(item._id)}
+                name        = {item.name}
                 desc        = {item.desc}
                 price       = {item.price}
                 quantity    = {item.amount||0}
