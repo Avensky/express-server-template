@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import classes from './Shop.module.css';
 import Item from './Items/Item/Item'
 import * as actions from '../../../store/actions/index';
-import NewItem from './NewItem/NewItem'
 import {useHistory} from 'react-router-dom'
 import CheckoutHeader from '../Checkout/CheckoutHeader/CheckoutHeader'
-//import {purchaseContinueHandler} from '../../../utility/stripe'
 import OrderSummary from '../OrderSummary/OrderSummary'
 import Modal from '../../UI/Modal/Modal'
 import { loadStripe } from '@stripe/stripe-js';
+
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 let stripePromise;
@@ -29,11 +27,8 @@ const Purchase = props => {
     
         let line_items = addedItems.map( item => {
             let data = {
-                //currency    : 'usd',
                 price       : item.priceid,
-                //amount      : item.price*100,
                 quantity    : item.amount,
-                //name        : item.name,
                 tax_rates: [taxRates]
             }
              console.log('data = '+JSON.stringify(data))
@@ -50,7 +45,6 @@ const Purchase = props => {
     
             //make sure to serialize your JSON body
             body: JSON.stringify({
-                //currency: 'usd',
                 items: line_items,
                 userid: isAuth['_id']
             })
@@ -59,9 +53,7 @@ const Purchase = props => {
         const session = await response.json()
         console.log(session);
         // When the customer clicks on the button, redirect them to Checkout.
-        const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-        });
+        const result = await stripe.redirectToCheckout({sessionId: session.id,});
     
         if (result.error) {
         // If `redirectToCheckout` fails due to a browser or network
@@ -101,6 +93,7 @@ const Purchase = props => {
                 link        = {"/shop/"}
                 to          = "/"
                 clicked     = {() => addToCart(item._id)}
+                name        = {item.name}
                 desc        = {item.desc}
                 price       = {item.price}
                 quantity    = {item.amount||0}
@@ -131,16 +124,15 @@ const Purchase = props => {
 
 
     return(
-        <div className={[classes.Card, classes.Shop].join(' ')}>
+        <div className='page-wrapper'>
             <Modal show={purchasing} modalClosed={purchaseCancelHandler}> 
                 {orderSummary}
             </Modal>
             {/* Title */}
-            <div className="container">
-                <div className="page-header text-center">
-                    <h1><a href='/shop'>Shop</a></h1>
-                </div>
+            <div className="text-center">
+                <h1><a href='/shop'>Shop</a></h1>
             </div>
+
             {/*
             <div className='container'>
                 <div className={['page-header', 'text-center'].join(' ')}>
@@ -168,29 +160,29 @@ const Purchase = props => {
                 <label><p>Misc</p></label>
             </div>
             */}
-            <div className={classes.Items}>
-                <div className={['box', classes.Items ].join(' ')}>
-                    <CheckoutHeader
-                        totalItems={props.totalItems}
-                        total={props.total}
-                        viewTitle='View Cart'
-                        view={view}
-                        checkout={checkout}
-                        isAuth={props.isAuth}
-                    />
-                    {myShop}
-                    {props.totalItems > 0
-                        ?  (<button 
-                                className='btn-primary btn'
-                                type="button" role="link"
-                                onClick={purchaseHandler}>{
-                                    props.isAuth 
-                                        ? 'CONTINUE TO CHECKOUT' 
-                                        : 'SIGN IN TO ORDER'}
-                            </button>)
-                        : null
-                    }
-                </div>
+
+            <CheckoutHeader
+                totalItems={props.totalItems}
+                total={props.total}
+                viewTitle='View Cart'
+                view={view}
+                checkout={checkout}
+                isAuth={props.isAuth}
+            />
+            
+            <div className='page-body'>
+                {myShop}
+                {props.totalItems > 0
+                    ?  (<button 
+                            className='btn-primary btn'
+                            type="button" role="link"
+                            onClick={purchaseHandler}>{
+                                props.isAuth 
+                                    ? 'CONTINUE TO CHECKOUT' 
+                                    : 'SIGN IN TO ORDER'}
+                        </button>)
+                    : null
+                }
             </div>
         </div>
     )

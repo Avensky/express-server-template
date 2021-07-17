@@ -1,34 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-// import { Route } from 'react-router-dom';
 import Auxiliary from '../../../../hoc/Auxiliary';
 import classes from '../Shop.module.css';
 import Item from './Item/Item';
 import * as actions from '../../../../store/actions/index';
-// import Details from '../Details/Details';
-// import { Link } from 'react-router-dom';
 import Search from '../../../Search/Search';
 
 const Items = props => {
-
-    // componentDidMount () {
-    //     console.log( props );
-    //     const items = props.items.slice( 0, 4 );
-    //     const updatedItems = items.map( item => {
-    //         return {
-    //             ...item,
-    //         }
-    //     } );
-    //     setState({ items: updatedItems })
-    //     console.log( state.items );
-    // }
-
-
-    
-    const handleClick = ( id ) => {
-        props.addToCart(id); 
-//        props.history.push('/shop/itemfull/' + id);
-    }
+    const handleClick = ( id ) => {props.addToCart(id);}
     let items = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
         if ( !props.items ) {
             items = props.items.map( item => {

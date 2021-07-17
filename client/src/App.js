@@ -1,19 +1,18 @@
 import React, { useEffect, Suspense } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { connect } from 'react-redux';
-import * as actions  from './store/actions/index';
-import Wrapper       from './components/Wrapper/Wrapper'
-import Home          from './components/Pages/Home/Home'
-import Profile       from './components/Pages/Profile/Profile'
-import Auth          from './components/Pages/Auth/Auth'
-import Connect	     from './components/Pages/Connect/Connect'
-import Shop          from './components/Pages/Shop/Shop'
-import AdminShop     from './components/AdminPages/Shop/Shop'
-import Cart          from './components/Pages/Cart/Cart'
-import Orders        from './components/Pages/Orders/Orders'
-import Checkout      from './components/Pages/Checkout/Success'
-import { Route, Switch, withRouter} from 'react-router-dom'
+import { connect }                    from 'react-redux';
+import { Route, Switch }              from 'react-router-dom'
+import * as actions                   from './store/actions/index';
+import Wrapper                        from './components/Wrapper/Wrapper'
+import Home                           from './components/Pages/Home/Home'
+import Profile                        from './components/Pages/Profile/Profile'
+import Auth                           from './components/Pages/Auth/Auth'
+import Connect	                      from './components/Pages/Connect/Connect'
+import Shop                           from './components/Pages/Shop/Shop'
+import AdminShop                      from './components/AdminPages/Shop/Shop'
+import Cart                           from './components/Pages/Cart/Cart'
+import Orders                         from './components/Pages/Orders/Orders'
+import Checkout                       from './components/Pages/Checkout/Success'
 
 const App = props => {
   const { fetchedUser, fetchedUsers} = props

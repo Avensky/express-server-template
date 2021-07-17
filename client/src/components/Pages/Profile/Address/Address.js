@@ -27,7 +27,7 @@ const Address = props => {
             </h3>
             <div>
                 { props.name        ? <strong>   {props.name}<br /></strong>     : null }
-                { props.phone       ? <strong>Phone:</strong>    : null }
+                { props.phone       ? <strong>   Phone:</strong>                 : null }
                 { props.phone       ? <strong>   {props.phone}<br /></strong>    : null }
                 { props.address     ? <strong>   {props.address}<br /></strong>  : null }
                 { props.address2    ? <strong>   {props.address2}<br /></strong> : null }

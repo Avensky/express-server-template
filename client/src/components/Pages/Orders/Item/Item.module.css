@@ -1,5 +1,6 @@
 .Item {
     display: grid;
+    border-bottom: #221a00 4px solid;
     height: 3vh;
     gap: 2vw;
     grid-template-columns: 10fr 2fr 2fr;
@@ -25,7 +26,7 @@ ul {
     list-style-type: none;
 }
 
-img {
+.CardThumbnail img {
     max-height: 70px;
 }
 
@@ -75,7 +76,7 @@ img {
         grid-template-columns: 10fr 2fr 2fr;
     }
        
-    img {
+    .CardThumbnail img {
         max-height: 100px;
     }
     
@@ -89,7 +90,7 @@ img {
         grid-template-columns: 10fr 4fr 4fr;
     }
        
-    img {
+    .CardThumbnail img {
         max-height: 130px;
     }
     

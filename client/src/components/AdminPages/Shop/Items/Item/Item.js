@@ -16,7 +16,7 @@ const item = props => {
         
         {/* Description */}
         <div className={classes.CardDescription}>
-            <p className={classes.CardTitle}><b>{props.title}</b></p>
+            <p className={classes.CardTitle}><b>{props.name}</b></p>
             <p>{props.desc}</p>
         </div>
 

@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
-import Auxiliary from '../../../hoc/Auxiliary';
 import Link from './Link/Link';
 import classes from './Profile.module.css';
 import * as actions from '../../../store/actions/index';
-import Address from './Address/Address'
-import { useHistory }from 'react-router-dom'
+// import Address from './Address/Address'
+// import { useHistory }from 'react-router-dom'
 const Profile = (props) =>{
-    let address, local, facebook, twitter, google = '';
+    // let address;
+    let local, facebook, twitter, google = '';
     const user = props.payload
-    const history = useHistory()
-
-    const editAddressHandler = () => {history.push('/contactData')}
+    //const history = useHistory()
+    //const editAddressHandler = () => {history.push('/contactData')}
 
     useEffect(()=> {
         const fetchData = async () => {props.onFetchUser()}
@@ -19,32 +18,32 @@ const Profile = (props) =>{
     }, [])
 
 
-    address = (
-        <Address 
-            link     = 'Address'
-            userLink = {true}
-            provider = '/api/contactData'
-        />
-    )
-
-    if (props.payload['addresses']) {
-        address = (
-            <Address 
-                clicked  = {() =>editAddressHandler()}
-                link     = 'Shipping Address'
-                userLink = {true}
-                provider = '/api/contactData'
-                name     = {user.addresses.name}
-                phone    = {user.addresses.phone}
-                address  = {user.addresses.address1}
-                address2 = {user.addresses.address2}
-                city     = {user.addresses.city}
-                state    = {user.addresses.state}
-                zipCode  = {user.addresses.zipCode}
-                email    = {user.addresses.email}
-            />
-        )
-    }
+    // address = (
+    //     <Address 
+    //         link     = 'Address'
+    //         userLink = {true}
+    //         provider = '/api/contactData'
+    //     />
+    // )
+    // 
+    // if (props.payload['addresses']) {
+    //     address = (
+    //         <Address 
+    //             clicked  = {() =>editAddressHandler()}
+    //             link     = 'Shipping Address'
+    //             userLink = {true}
+    //             provider = '/api/contactData'
+    //             name     = {user.addresses.name}
+    //             phone    = {user.addresses.phone}
+    //             address  = {user.addresses.address1}
+    //             address2 = {user.addresses.address2}
+    //             city     = {user.addresses.city}
+    //             state    = {user.addresses.state}
+    //             zipCode  = {user.addresses.zipCode}
+    //             email    = {user.addresses.email}
+    //         />
+    //     )
+    // }
     local = (
         <Link 
             link            = "Local"
@@ -147,34 +146,24 @@ const Profile = (props) =>{
         />)
     }
 
-    let body = (
-        <Auxiliary>
-            <div className={[classes.Card, classes.Profile].join(' ')}>
-                <div className="container">
-                    <div className="page-header text-center">
-                        <h1><span className="fa fa-anchor"></span> Profile Page</h1>
-                    </div>
-                </div>
-                <div className={classes.Link}>
-                    {local}
-                </div>
-                <div className={classes.Link}>
-                    {facebook}
-                </div>
-                <div className={classes.Link}>
-                    {twitter}
-                </div>
-                <div className={classes.Link}>
-                    {google}
-                </div>
-            </div>
-        </Auxiliary>
-    )
-
     return (
-        <Auxiliary>
-            {body}
-        </Auxiliary>
+        <div className='page-wrapper'>
+            <div className="text-center">
+                <h1><span className="fa fa-anchor"></span> Profile Page</h1>
+            </div>
+            <div className={classes.Link}>
+                {local}
+            </div>
+            <div className={classes.Link}>
+                {facebook}
+            </div>
+            <div className={classes.Link}>
+                {twitter}
+            </div>
+            <div className={classes.Link}>
+                {google}
+            </div>
+        </div>
     )
     
 }
