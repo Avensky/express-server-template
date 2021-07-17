@@ -82,7 +82,7 @@ const Purchase = props => {
     }
     let myShop 
     if(props.shop){
-        myShop = props.items.map( item => {
+        myShop = props.shop.map( item => {
         return( 
             <Item
                 image       = {item.imageData}
