@@ -1,6 +1,90 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios';
 
+//add cart action
+export const addToCart= (id)=>{
+    return{
+        type: actionTypes.ADD_TO_CART,
+        id
+    }
+}
+//remove item action
+export const removeItem=(id)=>{
+    console.log('removeItem id = '+ id)
+    return{
+        type: actionTypes.REMOVE_ITEM,
+        id
+    }
+}
+//subtract qt action
+export const subtractQuantity=(id)=>{
+    return{
+        type: actionTypes.SUB_QUANTITY,
+        id
+    }
+}
+//add qt action
+export const addQuantity=(id)=>{
+    return{
+        type: actionTypes.ADD_QUANTITY,
+        id
+    }
+}
+
+export const loadCart = ( values ) => {
+    // local storage
+    console.log('loading cart')
+    return{
+        type: actionTypes.LOAD_CART,
+    }
+}
+export const loadShop = ( values ) => {
+    // local storage
+    console.log('loading Shop')
+    return{
+        type: actionTypes.LOAD_SHOP,
+    }
+}
+
+/*******************************************
+ * Get Items from database
+*******************************************/
+export const getItemsSuccess = (items) => {
+    return {
+        type:  actionTypes.GET_ITEMS_SUCCESS,
+        items
+    }
+}
+export const getItemsFail = (error) => {
+    return {
+        type:  actionTypes.GET_ITEMS_FAIL, 
+        error
+    }
+}
+export const getItemsStart = () => {
+    return {
+        type:  actionTypes.GET_ITEMS_START
+    }
+}
+export const getItems = () => {
+    return dispatch => {
+        dispatch(getItemsStart())
+        axios.get( '/api/items')
+        .then( result => {
+            //console.log("result"+JSON.stringify(result))
+            const items = result.data
+                dispatch(getItemsSuccess(items));
+        })
+        .catch( error => {
+            console.log("getItems error = "+JSON.stringify(error))
+            dispatch(getItemsFail(error));
+        })}}
+
+
+
+/*******************************************
+ * New Item
+*******************************************/
 export const newItemStart  = () =>{
     return{
         type: actionTypes.NEW_ITEM_START
@@ -39,6 +123,10 @@ export const newItem = (values) => {
     }
 }
 
+/*******************************************
+ * Get Items by id
+*******************************************/ 
+
 export const getItemByIdSuccess = (charById) => {
     return {
         type:  actionTypes.GET_ITEM_BY_ID_SUCCESS,
@@ -74,27 +162,61 @@ export const getItemById = (id) => {
 }
 
 
+/*******************************************
+ * Get Items by type
+*******************************************/ 
 
-export const updateItemStart  = () =>{
-    return{
-        type: actionTypes.UPDATE_ITEM_START
-    }
+export const getItemByTypeSuccess = (items) => {
+    return {
+        type:  actionTypes.GET_ITEM_BY_TYPE_SUCCESS,
+        items
+    }}
+
+export const getItemByTypeFail = (error) => {
+    return {
+        type:  actionTypes.GET_ITEM_BY_TYPE_FAIL, 
+        error: error
+    }}
+
+export const getItemByTypeStart = () => {
+    return {
+        type:  actionTypes.GET_ITEM_BY_TYPE_START
+    }}
+
+export const getItemByType = (type) => {
+    return dispatch => {
+        dispatch(getItemByTypeStart());
+        axios.get( '/api/getitemsbytype/' + type)
+        .then( result => {
+            console.log(result)
+            const items = result.data
+//            const fetchedPostsById = {id: id}
+//            const obj = {...post, ...fetchedPostsById}
+            dispatch(getItemByTypeSuccess(items));
+        })
+        .catch( error => {
+            dispatch(getItemByTypeFail(error));
+        });
+    };
 }
+
+
+/*******************************************
+ * Update Item
+*******************************************/ 
+export const updateItemStart  = () =>{
+    return{type: actionTypes.UPDATE_ITEM_START}}
 
 export const updateItemFail = (error) => {
     return {
         type: actionTypes.UPDATE_ITEM_FAIL,
-        error: error
-    }
-}
+        error: error}}
 
 export const updateItemSuccess = (itemData) => {
     return {
         type: actionTypes.UPDATE_ITEM_SUCCESS,
-        itemData: itemData
-    }
-}
-    
+        itemData: itemData}}
+  
 export const updateItem = (id, name, age, relatives, bio) => {
     return dispatch => {
         dispatch(updateItemStart())
@@ -120,6 +242,9 @@ export const updateItem = (id, name, age, relatives, bio) => {
 }
 
 
+/*******************************************
+ * Delete Item
+*******************************************/ 
 
 export const deleteItemStart  = () =>{
     return{

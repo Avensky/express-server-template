@@ -234,6 +234,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.CHECKOUT_START    : return checkoutStart(state, action);
         case actionTypes.CHECKOUT_FAIL     : return checkoutFail(state, action);
         case actionTypes.CHECKOUT_SUCCESS  : return checkoutSuccess(state, action);
+        
         default: return state;
     }
 };

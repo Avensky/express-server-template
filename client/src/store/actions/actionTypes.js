@@ -1,44 +1,42 @@
 //Types should be in const to avoid typos and duplication since it's a string and could be easily miss spelled
-export const ADD_TO_CART             = 'ADD_TO_CART'
-export const REMOVE_ITEM             = 'REMOVE_ITEM'
-export const SUB_QUANTITY            = 'SUB_QUANTITY'
-export const ADD_QUANTITY            = 'ADD_QUANTITY'
-export const ADD_SHIPPING            = 'ADD_SHIPPING'
-export const SUB_SHIPPING            = 'SUB_SHIPPING'
-export const LOAD_CART               = 'LOAD_CART'
+export const ADD_TO_CART              = 'ADD_TO_CART'
+export const REMOVE_ITEM              = 'REMOVE_ITEM'
+export const SUB_QUANTITY             = 'SUB_QUANTITY'
+export const ADD_QUANTITY             = 'ADD_QUANTITY'
+export const ADD_SHIPPING             = 'ADD_SHIPPING'
+export const SUB_SHIPPING             = 'SUB_SHIPPING'
+export const LOAD_CART                = 'LOAD_CART'
+export const LOAD_SHOP                = 'LOAD_SHOP'
 
+export const CONNECT_START            = 'CONNECT_START';
+export const CONNECT_SUCCESS          = 'CONNECT_SUCCESS';
+export const CONNECT_FAIL             = 'CONNECT_FAIL';
+export const CONNECT_LOGOUT           = 'CONNECT_LOGOUT';
 
-export const CONNECT_START               = 'CONNECT_START';
-export const CONNECT_SUCCESS             = 'CONNECT_SUCCESS';
-export const CONNECT_FAIL                = 'CONNECT_FAIL';
-export const CONNECT_LOGOUT              = 'CONNECT_LOGOUT';
-
-
-
-export const FETCH_USER_START        = 'FETCH_USER_START'
-export const FETCH_USER_SUCCESS      = 'FETCH_USER_SUCCESS'
-export const FETCH_USER_FAIL         = 'FETCH_USER_FAIL'
-export const FETCH_USER              = 'FETCH_USER'
+export const FETCH_USER_START         = 'FETCH_USER_START'
+export const FETCH_USER_SUCCESS       = 'FETCH_USER_SUCCESS'
+export const FETCH_USER_FAIL          = 'FETCH_USER_FAIL'
+export const FETCH_USER               = 'FETCH_USER'
 
 export const FETCH_USERS_START        = 'FETCH_USERS_START'
 export const FETCH_USERS_SUCCESS      = 'FETCH_USERS_SUCCESS'
 export const FETCH_USERS_FAIL         = 'FETCH_USERS_FAIL'
 export const FETCH_USERS              = 'FETCH_USERS'
 
-export const GET_USER_START        = 'GET_USER_START'
-export const GET_USER_SUCCESS      = 'GET_USER_SUCCESS'
-export const GET_USER_FAIL         = 'GET_USER_FAIL'
-export const GET_USER              = 'GET_USER'
+export const GET_USER_START           = 'GET_USER_START'
+export const GET_USER_SUCCESS         = 'GET_USER_SUCCESS'
+export const GET_USER_FAIL            = 'GET_USER_FAIL'
+export const GET_USER                 = 'GET_USER'
 
-export const SIGNUP_START            = 'SIGNUP_START'
-export const SIGNUP_SUCCESS          = 'SIGNUP_SUCCESS'
-export const SIGNUP_FAIL             = 'SIGNUP_FAIL'
-export const SIGNUP                  = 'SIGNUP'
+export const SIGNUP_START             = 'SIGNUP_START'
+export const SIGNUP_SUCCESS           = 'SIGNUP_SUCCESS'
+export const SIGNUP_FAIL              = 'SIGNUP_FAIL'
+export const SIGNUP                   = 'SIGNUP'
 
-export const NEW_CHARACTER_START     = 'NEW_CHARACTER_START'
-export const NEW_CHARACTER_SUCCESS   = 'NEW_CHARACTER_SUCCESS'
-export const NEW_CHARACTER_FAIL      = 'NEW_CHARACTER_FAIL'
-export const NEW_CHARACTER           = 'NEW_CHARACTER'
+export const NEW_CHARACTER_START      = 'NEW_CHARACTER_START'
+export const NEW_CHARACTER_SUCCESS    = 'NEW_CHARACTER_SUCCESS'
+export const NEW_CHARACTER_FAIL       = 'NEW_CHARACTER_FAIL'
+export const NEW_CHARACTER            = 'NEW_CHARACTER'
 
 
 export const GET_CHARACTERS_START     = 'GET_CHARACTERS_START'
@@ -64,22 +62,27 @@ export const UPDATE_CHAR_SUCCESS      = 'UPDATE_CHAR_SUCCESS'
 export const UPDATE_CHAR_FAIL         = 'UPDATE_CHAR_FAIL'
 export const UPDATE_CHAR              = 'UPDATE_CHAR'
 
-export const NEW_ITEM_START     = 'NEW_ITEM_START'
-export const NEW_ITEM_SUCCESS   = 'NEW_ITEM_SUCCESS'
-export const NEW_ITEM_FAIL      = 'NEW_ITEM_FAIL'
-export const NEW_ITEM           = 'NEW_ITEM'
+export const NEW_ITEM_START           = 'NEW_ITEM_START'
+export const NEW_ITEM_SUCCESS         = 'NEW_ITEM_SUCCESS'
+export const NEW_ITEM_FAIL            = 'NEW_ITEM_FAIL'
+export const NEW_ITEM                 = 'NEW_ITEM'
 
 
-export const GET_ITEMS_START     = 'GET_ITEMS_START'
-export const GET_ITEMS_SUCCESS   = 'GET_ITEMS_SUCCESS'
-export const GET_ITEMS_FAIL      = 'GET_ITEMS_FAIL'
-export const GET_ITEMS           = 'GET_ITEMS'
+export const GET_ITEMS_START          = 'GET_ITEMS_START'
+export const GET_ITEMS_SUCCESS        = 'GET_ITEMS_SUCCESS'
+export const GET_ITEMS_FAIL           = 'GET_ITEMS_FAIL'
+export const GET_ITEMS                = 'GET_ITEMS'
 
 
 export const GET_ITEM_BY_ID_START     = 'GET_ITEM_BY_ID_START'
 export const GET_ITEM_BY_ID_SUCCESS   = 'GET_ITEM_BY_ID_SUCCESS'
 export const GET_ITEM_BY_ID_FAIL      = 'GET_ITEM_BY_ID_FAIL'
 export const GET_ITEM_BY_ID           = 'GET_ITEM_BY_ID'
+
+export const GET_ITEM_BY_TYPE_START   = 'GET_ITEM_BY_TYPE_START'
+export const GET_ITEM_BY_TYPE_SUCCESS = 'GET_ITEM_BY_TYPE_SUCCESS'
+export const GET_ITEM_BY_TYPE_FAIL    = 'GET_ITEM_BY_TYPE_FAIL'
+export const GET_ITEM_BY_TYPE         = 'GET_ITEM_BY_TYPE'
 
 
 export const DELETE_ITEM_START        = 'DELETE_ITEM_START'
@@ -158,5 +161,5 @@ export const CHECKOUT_FAIL            = 'CHECKOUT_FAIL';
 
 export const FETCH_ORDERS             = 'FETCH_ORDERS';
 export const FETCH_ORDERS_START       = 'FETCH_ORDERS_START';
-export const FETCH_ORDERS_SUCCESS       = 'FETCH_ORDERS_SUCCESS';
-export const FETCH_ORDERS_FAIL          = 'FETCH_ORDERS_FAIL';
+export const FETCH_ORDERS_SUCCESS     = 'FETCH_ORDERS_SUCCESS';
+export const FETCH_ORDERS_FAIL        = 'FETCH_ORDERS_FAIL';

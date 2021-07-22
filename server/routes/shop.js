@@ -48,11 +48,22 @@ module.exports = function(app) {
     });
 
     app.get('/api/getitemDetails/:itemid',(req,res)=>{              //get a item details
-    Product.findOne({_id : req.params.itemid},{},(err,doc)=>{
+    Product.find({_id : req.params.itemid},{},(err,doc)=>{
         if(doc)
             res.json(doc);
         else {
             res.status(404).send('Ops!Detail not found');
+        }
+    })
+    });   
+
+    app.get('/api/getitemsbytype/:type',(req,res)=>{              //get a item details
+    Product.find({type : req.params.type},{},(err,doc)=>{
+        console.log(doc)
+        if(doc)
+            res.json(doc);
+        else {
+            res.status(404).send('Ops! Items not found');
         }
     })
     });   

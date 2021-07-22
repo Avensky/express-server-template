@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import Item from './Items/Item/Item'
-import * as actions from '../../../store/actions/index';
-import {useHistory} from 'react-router-dom'
-import CheckoutHeader from '../Checkout/CheckoutHeader/CheckoutHeader'
-import OrderSummary from '../OrderSummary/OrderSummary'
-import Modal from '../../UI/Modal/Modal'
-import { loadStripe } from '@stripe/stripe-js';
+import { connect }      from 'react-redux';
+import Item             from './Items/Item/Item'
+import * as actions     from '../../../store/actions/index';
+import {useHistory}     from 'react-router-dom'
+import CheckoutHeader   from '../Checkout/CheckoutHeader/CheckoutHeader'
+import OrderSummary     from '../OrderSummary/OrderSummary'
+import Modal            from '../../UI/Modal/Modal'
+import { loadStripe }   from '@stripe/stripe-js';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -66,6 +66,7 @@ const Purchase = props => {
     const [purchasing, setPurchasing] = useState(false);
     const history = useHistory()
     const addToCart = (id) => {props.addToCart(id)}
+
     const purchaseHandler = () => {
         props.isAuth ? setPurchasing(true) :history.push('/authentication')
     }
@@ -132,34 +133,31 @@ const Purchase = props => {
             <div className="text-center">
                 <h1><a href='/shop'>Shop</a></h1>
             </div>
-
-            {/*
-            <div className='container'>
-                <div className={['page-header', 'text-center'].join(' ')}>
-                    <a href='/shop' ><h1>Shop</h1></a>
-                </div>
-            </div>
-            <div className={classes.spread}>
-            */}
+            <div >
+            
                 {/* <input className={classes.Search} type='text' placeholder="search the store" /> */}
-            {/*
-                <div className={classes.dropdown}>
-                    <button className={classes.dropbtn}>OrderBy: </button>
-                    <div className={classes.dropdownContent}>
-                        <a href="/">Price</a>
-                        <a href="/">Most recent</a>
-                        <a href="/">Most Popular</a>
-                    </div>
-                </div>
+            
+                <form>
+                    <label htmlFor="orderby">Order By: </label>
+                    <select name="orderby" id="orderby">
+                        <option disabled selected defaultValue> -- select an option -- </option>
+                        <option value="pricelo">Lowest price</option>
+                        <option value="pricehi">Highest price</option>
+                        <option value="date">Most recent</option>
+                        <option value="sold">Most Popular</option>
+                    </select>
+                </form>
             </div>
-            <div className={classes.filter}>
-                <label><p>All</p></label>
-                <label><p>Books</p></label>
-                <label><p>Apparel</p></label>
-                <label><p>Hats</p></label>
-                <label><p>Misc</p></label>
+            <div>
+
+                <button onClick={()=> props.getItems()}><p>All</p></button>
+                <button onClick={()=> props.getItemByType('hat')}><p>Hats</p></button>
+                <button onClick={()=> props.getItemByType('shirt')}><p>Shirts</p></button>
+                <button onClick={()=> props.getItemByType('hoodie')}><p>Hoodies</p></button>
+                <button onClick={()=> props.getItemByType('stickers')}><p>Stickers</p></button>
+                <button onClick={()=> props.getItemByType('mug')}><p>Mugs</p></button>
             </div>
-            */}
+            
 
             <CheckoutHeader
                 totalItems={props.totalItems}
@@ -190,11 +188,11 @@ const Purchase = props => {
 
 const mapStateToProps = state => {
     return {
-        addedItems  : state.cart.addedItems,
-        totalItems  : state.cart.totalItems,
-        items       : state.cart.items,
-        total       : state.cart.total,
-        shop        : state.cart.shop,
+        addedItems  : state.shop.addedItems,
+        totalItems  : state.shop.totalItems,
+        items       : state.shop.items,
+        total       : state.shop.total,
+        shop        : state.shop.shop,
         isAuth      : state.auth.payload
     };
 };
@@ -204,6 +202,8 @@ const mapDispatchToProps = dispatch => {
         addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
         getItems            : ()     =>{ dispatch(actions.getItems())},
         loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
+        loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
+        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))}
     }
 }
 

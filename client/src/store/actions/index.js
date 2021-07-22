@@ -9,19 +9,19 @@ export {
     newAddressStart
 } from './auth';
 
+
 export {
     getItems,
     addToCart,
     removeItem,
     subtractQuantity,
     addQuantity,
-    loadCart
-} from './cart';
-
-export {
+    loadCart,
+    loadShop,
     newItem,
     newItemStart,
     getItemById,
+    getItemByType,
     deleteItem, 
     updateItem,
 

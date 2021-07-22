@@ -22,11 +22,21 @@ const Wrapper = props => {
     }, [])
 
     useEffect(() => {
-        const fetchCart = async () => { props.loadCart() }
+        const loadCart = async () => { props.loadCart() }
         if ( props.items.length>0){ 
             console.log('Fetching Cart')
-            fetchCart() 
+            loadCart() 
         }
+    }, [props.items])
+
+    useEffect(() => {
+        const loadShop = async () => { props.loadShop() }
+        
+        if ( props.items.length>0){ 
+            console.log('Fetching Cart')
+            loadShop() 
+        }
+        
     }, [props.items])
 
     return (    
@@ -53,7 +63,7 @@ const Wrapper = props => {
 
 const mapStateToProps = state => {
     return {
-        items             : state.cart.items,
+        items             : state.shop.items,
         isAuth      : state.auth.payload,
         totalItems  : state.cart.totalItems
     }
@@ -62,7 +72,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getItems            : ()     =>{ dispatch(actions.getItems())},
-        loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))}
+        loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
+        loadShop            : () =>{ dispatch(actions.loadShop())}
     }
 }
 
