@@ -16,7 +16,6 @@ const Wrapper = props => {
     useEffect(() => {
         const getItems = async () => { props.getItems() }
         if ( props.items.length === 0){ 
-            console.log('Fetching Items')
             getItems() 
         }
     }, [])
@@ -24,20 +23,16 @@ const Wrapper = props => {
     useEffect(() => {
         const loadCart = async () => { props.loadCart() }
         if ( props.items.length>0){ 
-            console.log('Fetching Cart')
             loadCart() 
         }
     }, [props.items])
 
     useEffect(() => {
         const loadShop = async () => { props.loadShop() }
-        
-        if ( props.items.length>0){ 
-            console.log('Fetching Cart')
+        if ( props.shop.length>0){ 
             loadShop() 
         }
-        
-    }, [props.items])
+    }, [props.shop])
 
     return (    
         <div className = {classes.Layout}>
@@ -63,16 +58,17 @@ const Wrapper = props => {
 
 const mapStateToProps = state => {
     return {
-        items             : state.shop.items,
-        isAuth      : state.auth.payload,
-        totalItems  : state.cart.totalItems
+        items            : state.shop.items,
+        shop             : state.shop.shop,
+        isAuth           : state.auth.payload,
+        totalItems       : state.shop.totalItems
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getItems            : ()     =>{ dispatch(actions.getItems())},
-        loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
+        loadCart            : () =>{ dispatch(actions.loadCart())},
         loadShop            : () =>{ dispatch(actions.loadShop())}
     }
 }

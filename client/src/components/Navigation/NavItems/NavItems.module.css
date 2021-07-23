@@ -6,6 +6,8 @@
     flex-flow: column;
     align-items: center;
     height: 100%;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .NavItem {

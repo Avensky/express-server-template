@@ -21,6 +21,7 @@ const Auth = props => {
     const togglePasswordVisiblity = () => {setPasswordShown(passwordShown ? false : true)}
 
     useEffect(() => {
+        console.log('ping')
         if (props.match.params.token){
             setAuth('reset-password')
         } else {
@@ -39,7 +40,7 @@ const Auth = props => {
         props.onAuth( values, auth, token)
         submitProps.setSubmitting(false)
         submitProps.resetForm()
-    }
+    } 
 
     useEffect(()=> {
         const fetchData = async () => {props.onFetchUser()}
@@ -278,14 +279,6 @@ const Auth = props => {
             break
     }
 
-    // let errorMessage = null;
-// 
-    // if ( props.error ) {
-    //     errorMessage = (
-    //         <p>{props.error.message}</p>
-    //     );
-    // }
-    
     let message = false;
     if ( props.token ) {
         message = <p className='color-orange'>{props.token.message}</p>

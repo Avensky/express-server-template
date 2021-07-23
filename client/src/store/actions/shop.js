@@ -10,7 +10,6 @@ export const addToCart= (id)=>{
 }
 //remove item action
 export const removeItem=(id)=>{
-    console.log('removeItem id = '+ id)
     return{
         type: actionTypes.REMOVE_ITEM,
         id
@@ -33,14 +32,11 @@ export const addQuantity=(id)=>{
 
 export const loadCart = ( values ) => {
     // local storage
-    console.log('loading cart')
     return{
         type: actionTypes.LOAD_CART,
     }
 }
-export const loadShop = ( values ) => {
-    // local storage
-    console.log('loading Shop')
+export const loadShop = ( ) => {
     return{
         type: actionTypes.LOAD_SHOP,
     }
@@ -71,7 +67,6 @@ export const getItems = () => {
         dispatch(getItemsStart())
         axios.get( '/api/items')
         .then( result => {
-            //console.log("result"+JSON.stringify(result))
             const items = result.data
                 dispatch(getItemsSuccess(items));
         })
@@ -188,10 +183,7 @@ export const getItemByType = (type) => {
         dispatch(getItemByTypeStart());
         axios.get( '/api/getitemsbytype/' + type)
         .then( result => {
-            console.log(result)
             const items = result.data
-//            const fetchedPostsById = {id: id}
-//            const obj = {...post, ...fetchedPostsById}
             dispatch(getItemByTypeSuccess(items));
         })
         .catch( error => {

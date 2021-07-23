@@ -15,34 +15,16 @@ import Orders                         from './components/Pages/Orders/Orders'
 import Checkout                       from './components/Pages/Checkout/Success'
 
 const App = props => {
-  const { fetchedUser, fetchedUsers} = props
+  const { fetchedUser } = props
   
-  const fetchData = async () => {
-    
-    props.onFetchUser()
-    console.log('user = ' + fetchedUser)
-  }
+  const fetchData = async () => { props.onFetchUser() }
   
-  useEffect(()=> {
+  useEffect(()=> { 
     if ( !fetchedUser){
       fetchData()
-      console.log('payload = ' + fetchedUser)
     }
   }, [fetchedUser])
 
-
-
-
-  const fetchUsers = async () => {
-    props.onFetchUsers()
-  }
-  
-  useEffect(()=> {
-    if ( !fetchedUsers){
-      fetchUsers()
-      console.log('users payload = ' + fetchedUsers)
-    }
-  }, [fetchedUsers])
   let routes = (
     <Switch>
       <Route path="/checkout"             component={Checkout} />
@@ -102,14 +84,12 @@ const App = props => {
 const mapStateToProps = state => {
   return {
     fetchedUser       : state.auth.payload,
-    fetchedUsers      : state.auth.users,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onFetchUser           : () => dispatch(actions.fetchUser()),
-    onFetchUsers           : () => dispatch(actions.fetchUsers()),
   };
 };
 

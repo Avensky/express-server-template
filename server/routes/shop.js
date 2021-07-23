@@ -59,7 +59,6 @@ module.exports = function(app) {
 
     app.get('/api/getitemsbytype/:type',(req,res)=>{              //get a item details
     Product.find({type : req.params.type},{},(err,doc)=>{
-        console.log(doc)
         if(doc)
             res.json(doc);
         else {

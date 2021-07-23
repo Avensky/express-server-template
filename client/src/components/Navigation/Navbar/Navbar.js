@@ -6,7 +6,6 @@ import SidebarToggle from '../Sidebar/SidebarToggle/SidebarToggle';
 import { NavLink } from 'react-router-dom';
 
 const navbar = ( props ) => {
-    console.log('total Items = ' + props.totalItems)
     let cart = (
         <NavLink  to="/cart" className={classes.line}> 
             <span className={["fa", "fa-shopping-cart", 'inline', classes.left].join(' ')}/>

@@ -55,9 +55,6 @@ const getItemByTypeFail = (state, action) => {
         loading: false})}
 
 const getItemByTypeSuccess = (state, action) => {
-    let shop
-    shop = action.items
-    console.log('shop' + JSON.stringify(shop))
     return updateObject( state, {
         items : action.items,
         loading: false,})}
@@ -102,19 +99,12 @@ const getItemsSuccess = (state, action) => {
 
 const addToCart = ( state, action ) => {
     let addedItem = state.items.find(item=> item._id === action.id)
-    //console.log('addToCart addedItem = ' + JSON.stringify(addedItem))   
-    //console.log('addToCart addedItems = ' + JSON.stringify(state.addedItems))   
     let existed_item = state.addedItems.find(item=> action.id === item._id)
-    //console.log('addToCart existed_item = ' + JSON.stringify(existed_item))
-    let stringMyAddedItems, total, totalItems, shop, addedItems
+   let stringMyAddedItems, total, totalItems, shop, addedItems
     if (existed_item) {
         existed_item.amount += 1
-        //shop = state.items.map( obj => [addedItem].find(item => item._id === obj._id) || obj)
-        //console.log('addToCart items = ' + JSON.stringify(state.items))
         addedItems  = state.addedItems.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
-        //console.log('addToCart addedItems = ' + JSON.stringify(addedItems))
         shop        = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
-        //console.log('addToCart shop if item exists = ' + JSON.stringify(shop))
         //make cart a string and store in local space
         stringMyAddedItems = JSON.stringify(addedItems)
         localStorage.setItem("addedItems", stringMyAddedItems)
@@ -124,8 +114,6 @@ const addToCart = ( state, action ) => {
         addedItem.amount = 1
         shop = state.shop.map( obj => [addedItem].find(item => item._id === obj._id) || obj)
         addedItems = [...state.addedItems, addedItem]
-        //console.log('addToCart shop = ' + JSON.stringify(shop)) 
-        //console.log('addToCart addedItems = ' + JSON.stringify(addedItems))
         //make cart a string and store in local space
         stringMyAddedItems = JSON.stringify(addedItems)
         localStorage.setItem("addedItems", stringMyAddedItems)
@@ -143,11 +131,8 @@ const addToCart = ( state, action ) => {
 
 const removeItem = ( state, action ) => {
     let existed_item        = state.addedItems.find(item=> action.id === item._id)
-    console.log('removeItem existed_item = ' + JSON.stringify(existed_item))
     let quantityToRemove    = existed_item.amount
-    console.log('removeItem quantityToRemove = ' + JSON.stringify(quantityToRemove))
     delete existed_item.amount
-    console.log('removeItem existed_item delete amount = ' + JSON.stringify(existed_item))
     let addedItems          = state.addedItems.filter(item=> action.id !== item._id)
     let newTotal            = state.total - (existed_item.price * quantityToRemove )
     let shop                = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
@@ -179,9 +164,7 @@ const addQuantity = ( state, action ) => {
     }
 }
 const subQuantity = ( state, action ) => {
-    console.log('subQuantity addedItems = '+ JSON.stringify(state.addedItems))
     let existed_item = state.addedItems.find(item=> item._id === action.id)
-    console.log('subQuantity existed_item = '+ existed_item)
     let stringMyAddedItems, total, shop, addedItems
     //if the qt == 0 then it should be removed
     if(existed_item.amount === 1){
@@ -233,26 +216,20 @@ const subShipping = ( state, action ) => {
 
 const loadCart = ( state, action ) => {
     let stringLocalAddedItems = localStorage.getItem("addedItems")
-    //console.log('loadCart stringLocalAddedItems = ' + stringLocalAddedItems)
     let addedItems = []
     let items = state.items
-    //console.log('loadCart state.items = ' + JSON.stringify(items))
     let shop, totalItems, total
 
     if (stringLocalAddedItems){
         let localAddedItems = JSON.parse(stringLocalAddedItems)
         addedItems = localAddedItems
-        console.log('loadCart state.addedItems = ' + JSON.stringify(addedItems))
     }
 
     if (items.length>0) {
         if(addedItems.length>0){
-            //console.log('load shop = ' + JSON.stringify(items))
             shop = state.items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
-            console.log('load shop with addedItems = ' + JSON.stringify(shop))
         } else {
             shop = items
-            console.log('load shop without addedItems = ' + JSON.stringify(shop))
         }
     }
     totalItems=addedItems.reduce((a, b) => a + b.amount, 0)
@@ -272,12 +249,9 @@ const loadShop = (state, action) => {
     let addedItems = state.addedItems
     if (items.length>0) {
         if(addedItems.length>0){
-            //console.log('load shop = ' + JSON.stringify(items))
             shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
-            console.log('load shop with addedItems = ' + JSON.stringify(shop))
         } else {
             shop = items
-            console.log('load shop without addedItems = ' + JSON.stringify(shop))
         }
     }
 

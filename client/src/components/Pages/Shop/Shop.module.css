@@ -1,3 +1,29 @@
+.Orderbar {
+    background-color: rgb(85, 22, 185);
+    width: 100%;
+    margin: 2vh auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.OrderbarItem {
+    list-style-type: none;
+    padding: 1vh 1vw;
+}
+
+.OrderbarItem:link,
+.OrderbarItem:hover,
+.OrderbarItem:active,
+.OrderbarItem.active,
+.OrderbarItem:focus,
+.Orderbar li a:checked {
+    background-color: rgb(126, 49, 250);
+}
+
 .filter {
     display: flex;
     margin: 0;

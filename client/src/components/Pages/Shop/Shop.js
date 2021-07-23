@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { connect }      from 'react-redux';
+import React, { useState } from 'react'
+import { connect }      from 'react-redux'
+import classes          from './Shop.module.css'
 import Item             from './Items/Item/Item'
-import * as actions     from '../../../store/actions/index';
+import * as actions     from '../../../store/actions/index'
 import {useHistory}     from 'react-router-dom'
 import CheckoutHeader   from '../Checkout/CheckoutHeader/CheckoutHeader'
 import OrderSummary     from '../OrderSummary/OrderSummary'
 import Modal            from '../../UI/Modal/Modal'
-import { loadStripe }   from '@stripe/stripe-js';
+import { loadStripe }   from '@stripe/stripe-js'
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -103,13 +104,6 @@ const Purchase = props => {
         )}
     )}
     
-    useEffect(() => {
-        const getItems = async () => { props.getItems() }
-        if ( props.items.length === 0){ 
-            console.log('Fetching Items')
-            getItems() 
-        }
-    }, [])
 
 
     let view
@@ -140,7 +134,7 @@ const Purchase = props => {
                 <form>
                     <label htmlFor="orderby">Order By: </label>
                     <select name="orderby" id="orderby">
-                        <option disabled selected defaultValue> -- select an option -- </option>
+                        <option disabled selected defaultValue='disabled' value='disabled'> -- select an option -- </option>
                         <option value="pricelo">Lowest price</option>
                         <option value="pricehi">Highest price</option>
                         <option value="date">Most recent</option>
@@ -148,14 +142,13 @@ const Purchase = props => {
                     </select>
                 </form>
             </div>
-            <div>
-
-                <button onClick={()=> props.getItems()}><p>All</p></button>
-                <button onClick={()=> props.getItemByType('hat')}><p>Hats</p></button>
-                <button onClick={()=> props.getItemByType('shirt')}><p>Shirts</p></button>
-                <button onClick={()=> props.getItemByType('hoodie')}><p>Hoodies</p></button>
-                <button onClick={()=> props.getItemByType('stickers')}><p>Stickers</p></button>
-                <button onClick={()=> props.getItemByType('mug')}><p>Mugs</p></button>
+            <div className={classes.Orderbar}>
+                <li className={classes.OrderbarItem} id="#all"      onClick={()=> props.getItems()}                ><a href="#all"      >All      </a></li>
+                <li className={classes.OrderbarItem} id="#hat"      onClick={()=> props.getItemByType('hat')}      ><a href="#hat"      >Hats     </a></li>
+                <li className={classes.OrderbarItem} id="#shirt"    onClick={()=> props.getItemByType('shirt')}    ><a href="#shirt"    >Shirts   </a></li>
+                <li className={classes.OrderbarItem} id="#hoodie"   onClick={()=> props.getItemByType('hoodie')}   ><a href="#hoodie"   >Hoodies  </a></li>
+                <li className={classes.OrderbarItem} id="#stickers" onClick={()=> props.getItemByType('stickers')} ><a href="#stickers" >Stickers </a></li>
+                <li className={classes.OrderbarItem} id="#mug"      onClick={()=> props.getItemByType('mug')}      ><a href="#mug"      >Mugs     </a></li>
             </div>
             
 

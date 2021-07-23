@@ -8,7 +8,7 @@
 
 .NavItem a {
     color: #8F5C2C;
-    text-decoration: none;
+    text-decoration: none; 
     width: 100%;
     box-sizing: border-box;
 }

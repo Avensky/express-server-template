@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux'
-import classes from './Cart.module.css'
+//import classes from './Cart.module.css'
 //import Item from '../Shop/Items/Item/Item'
 import CartItem from './CartItem/CartItem';
 import OrderSummary from '../OrderSummary/OrderSummary'
@@ -99,9 +99,9 @@ const Cart = props => {
 
 const mapStateToProps = (state)=>{
     return{
-        addedItems   : state.cart.addedItems,
-        total        : state.cart.total,
-        totalItems   : state.cart.totalItems,
+        addedItems   : state.shop.addedItems,
+        total        : state.shop.total,
+        totalItems   : state.shop.totalItems,
         isAuth       : state.auth.payload
         //addedItems: state.addedItems
     }
