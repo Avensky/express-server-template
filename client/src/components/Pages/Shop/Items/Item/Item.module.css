@@ -1,7 +1,8 @@
 .Item {
+    margin: 2vh 0;
     padding: 1vh 1vw;
     display: grid;
-    border-bottom: #221a00 4px solid;
+border-bottom: 2px solid rgba(255, 255, 255, 0.479);
     grid-template-columns: .2fr .5fr .2fr .1fr;
     grid-template-areas: 
     "img desc quant price";

@@ -1,11 +1,12 @@
 .page-wrapper {
-  background-color: #221a00;
+  background-color: #161002;
+  min-height: 100vh;
   margin: 1vh 2vw;
   padding: 1vh 5vw 2vh;
 }
 
 .page-body {
-  background-color: #271e00;
+
 }
 
 .header {

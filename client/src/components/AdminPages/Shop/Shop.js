@@ -136,33 +136,33 @@ const Purchase = props => {
                 <h1><a href='/shop'>Shop</a></h1>
             </div>
             <NewItem />
-            {/*
-            <div className='container'>
-                <div className={['page-header', 'text-center'].join(' ')}>
-                    <a href='/shop' ><h1>Shop</h1></a>
+            <div className={classes.filterbar}>
+                <div className={classes.Orderbar}>
+                    <ul>
+                        <li className={classes.OrderbarItem} id="#all"      onClick={()=> props.getItems()}                ><a href="#all"      >All      </a></li>
+                        <li className={classes.OrderbarItem} id="#hat"      onClick={()=> props.getItemByType('hat')}      ><a href="#hat"      >Hats     </a></li>
+                        <li className={classes.OrderbarItem} id="#shirt"    onClick={()=> props.getItemByType('shirt')}    ><a href="#shirt"    >Shirts   </a></li>
+                        <li className={classes.OrderbarItem} id="#hoodie"   onClick={()=> props.getItemByType('hoodie')}   ><a href="#hoodie"   >Hoodies  </a></li>
+                        <li className={classes.OrderbarItem} id="#stickers" onClick={()=> props.getItemByType('stickers')} ><a href="#stickers" >Stickers </a></li>
+                        <li className={classes.OrderbarItem} id="#mug"      onClick={()=> props.getItemByType('mug')}      ><a href="#mug"      >Mugs     </a></li>
+                    </ul>
+                </div>
+                
+                <div className={classes.orderby} >
+                
+                    {/* <input className={classes.Search} type='text' placeholder="search the store" /> */}
+                
+                    <form className={classes.orderbyform}>
+                        <select name="orderby" id="orderby">
+                            <option disabled selected defaultValue='disabled' value='disabled'> -- Order By -- </option>
+                            <option value="pricelo">Lowest price</option>
+                            <option value="pricehi">Highest price</option>
+                            <option value="date">Most recent</option>
+                            <option value="sold">Most Popular</option>
+                        </select>
+                    </form>
                 </div>
             </div>
-            <div className={classes.spread}>
-            */}
-                {/* <input className={classes.Search} type='text' placeholder="search the store" /> */}
-            {/*
-                <div className={classes.dropdown}>
-                    <button className={classes.dropbtn}>OrderBy: </button>
-                    <div className={classes.dropdownContent}>
-                        <a href="/">Price</a>
-                        <a href="/">Most recent</a>
-                        <a href="/">Most Popular</a>
-                    </div>
-                </div>
-            </div>
-            <div className={classes.filter}>
-                <label><p>All</p></label>
-                <label><p>Books</p></label>
-                <label><p>Apparel</p></label>
-                <label><p>Hats</p></label>
-                <label><p>Misc</p></label>
-            </div>
-            */}
             <CheckoutHeader
                 totalItems={props.totalItems}
                 total={props.total}
@@ -191,11 +191,11 @@ const Purchase = props => {
 
 const mapStateToProps = state => {
     return {
-        addedItems  : state.cart.addedItems,
-        totalItems  : state.cart.totalItems,
-        items       : state.cart.items,
-        total       : state.cart.total,
-        shop        : state.cart.shop,
+        addedItems  : state.shop.addedItems,
+        totalItems  : state.shop.totalItems,
+        items       : state.shop.items,
+        total       : state.shop.total,
+        shop        : state.shop.shop,
         isAuth      : state.auth.payload
     };
 };
@@ -205,7 +205,9 @@ const mapDispatchToProps = dispatch => {
         addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
         getItems            : ()     =>{ dispatch(actions.getItems())},
         loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
-    }
+        loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
+        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))}
+     }
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(Purchase);

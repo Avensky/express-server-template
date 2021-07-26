@@ -1,5 +1,6 @@
 .Item {
     padding: 1vh  1vw;
+    margin: 1vh 0;
     border-bottom: #221a00 4px solid;
     display: grid;
     grid-template-columns: .05fr .2fr .5fr .2fr .05fr ;
@@ -7,6 +8,7 @@
     "del img desc quant price";
     align-content: space-between;
     justify-content: space-around;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.479);
 }
 
 .MaterialIcons {

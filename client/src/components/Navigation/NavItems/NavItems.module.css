@@ -59,7 +59,7 @@
     .NavItem a:hover,
     .NavItem a:active,
     .NavItem a.active {
-        background-color: rgb(126, 49, 250);
+        background-color: rgb(9, 4, 19);
         border-bottom: 4px solid #40A4C8;
         color: white;
     }

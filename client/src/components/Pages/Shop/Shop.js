@@ -127,31 +127,33 @@ const Purchase = props => {
             <div className="text-center">
                 <h1><a href='/shop'>Shop</a></h1>
             </div>
-            <div >
-            
-                {/* <input className={classes.Search} type='text' placeholder="search the store" /> */}
-            
-                <form>
-                    <label htmlFor="orderby">Order By: </label>
-                    <select name="orderby" id="orderby">
-                        <option disabled selected defaultValue='disabled' value='disabled'> -- select an option -- </option>
-                        <option value="pricelo">Lowest price</option>
-                        <option value="pricehi">Highest price</option>
-                        <option value="date">Most recent</option>
-                        <option value="sold">Most Popular</option>
-                    </select>
-                </form>
+            <div className={classes.filterbar}>
+                <div className={classes.Orderbar}>
+                    <ul>
+                        <li className={classes.OrderbarItem} id="#all"      onClick={()=> props.getItems()}                ><a href="#all"      >All      </a></li>
+                        <li className={classes.OrderbarItem} id="#hat"      onClick={()=> props.getItemByType('hat')}      ><a href="#hat"      >Hats     </a></li>
+                        <li className={classes.OrderbarItem} id="#shirt"    onClick={()=> props.getItemByType('shirt')}    ><a href="#shirt"    >Shirts   </a></li>
+                        <li className={classes.OrderbarItem} id="#hoodie"   onClick={()=> props.getItemByType('hoodie')}   ><a href="#hoodie"   >Hoodies  </a></li>
+                        <li className={classes.OrderbarItem} id="#stickers" onClick={()=> props.getItemByType('stickers')} ><a href="#stickers" >Stickers </a></li>
+                        <li className={classes.OrderbarItem} id="#mug"      onClick={()=> props.getItemByType('mug')}      ><a href="#mug"      >Mugs     </a></li>
+                    </ul>
+                </div>
+                
+                <div className={classes.orderby} >
+                
+                    {/* <input className={classes.Search} type='text' placeholder="search the store" /> */}
+                
+                    <form className={classes.orderbyform}>
+                        <select name="orderby" id="orderby">
+                            <option disabled selected defaultValue='disabled' value='disabled'> -- Order By -- </option>
+                            <option value="pricelo">Lowest price</option>
+                            <option value="pricehi">Highest price</option>
+                            <option value="date">Most recent</option>
+                            <option value="sold">Most Popular</option>
+                        </select>
+                    </form>
+                </div>
             </div>
-            <div className={classes.Orderbar}>
-                <li className={classes.OrderbarItem} id="#all"      onClick={()=> props.getItems()}                ><a href="#all"      >All      </a></li>
-                <li className={classes.OrderbarItem} id="#hat"      onClick={()=> props.getItemByType('hat')}      ><a href="#hat"      >Hats     </a></li>
-                <li className={classes.OrderbarItem} id="#shirt"    onClick={()=> props.getItemByType('shirt')}    ><a href="#shirt"    >Shirts   </a></li>
-                <li className={classes.OrderbarItem} id="#hoodie"   onClick={()=> props.getItemByType('hoodie')}   ><a href="#hoodie"   >Hoodies  </a></li>
-                <li className={classes.OrderbarItem} id="#stickers" onClick={()=> props.getItemByType('stickers')} ><a href="#stickers" >Stickers </a></li>
-                <li className={classes.OrderbarItem} id="#mug"      onClick={()=> props.getItemByType('mug')}      ><a href="#mug"      >Mugs     </a></li>
-            </div>
-            
-
             <CheckoutHeader
                 totalItems={props.totalItems}
                 total={props.total}
@@ -160,7 +162,6 @@ const Purchase = props => {
                 checkout={checkout}
                 isAuth={props.isAuth}
             />
-            
             <div className='page-body'>
                 {myShop}
                 {props.totalItems > 0
