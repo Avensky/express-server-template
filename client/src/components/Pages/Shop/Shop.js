@@ -8,6 +8,9 @@ import CheckoutHeader   from '../Checkout/CheckoutHeader/CheckoutHeader'
 import OrderSummary     from '../OrderSummary/OrderSummary'
 import Modal            from '../../UI/Modal/Modal'
 import { loadStripe }   from '@stripe/stripe-js'
+import Dropdown from 'react-dropdown';
+
+
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -116,7 +119,11 @@ const Purchase = props => {
         ? checkout = purchaseHandler
         : checkout = null
 
+    const options = [
+        'Lowest price', 'Highest price', 'Most recent', 'Most Popular'
+        ];
 
+     const defaultOption = '-- Order By --';
 
     return(
         <div className='page-wrapper'>
@@ -139,20 +146,13 @@ const Purchase = props => {
                     </ul>
                 </div>
                 
-                <div className={classes.orderby} >
-                
-                    {/* <input className={classes.Search} type='text' placeholder="search the store" /> */}
-                
-                    <form className={classes.orderbyform}>
-                        <select name="orderby" id="orderby">
-                            <option disabled selected defaultValue='disabled' value='disabled'> -- Order By -- </option>
-                            <option value="pricelo">Lowest price</option>
-                            <option value="pricehi">Highest price</option>
-                            <option value="date">Most recent</option>
-                            <option value="sold">Most Popular</option>
-                        </select>
-                    </form>
-                </div>
+                <Dropdown
+                    options={options} 
+                    //onClick={()=> props.orderBy(this.onSelect)}
+                    onChange={(val)=> props.orderBy(val)}
+                    value={defaultOption} 
+                    placeholder="Select an option"
+                />
             </div>
             <CheckoutHeader
                 totalItems={props.totalItems}
@@ -197,7 +197,8 @@ const mapDispatchToProps = dispatch => {
         getItems            : ()     =>{ dispatch(actions.getItems())},
         loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
         loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
-        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))}
+        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
+        orderBy             : (type) =>{ dispatch(actions.orderBy(type))}
     }
 }
 

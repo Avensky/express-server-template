@@ -18,6 +18,7 @@ export {
     addQuantity,
     loadCart,
     loadShop,
+    orderBy,
     newItem,
     newItemStart,
     getItemById,

@@ -35,7 +35,7 @@ module.exports = function(app) {
         price       : req.body.price,
         image       : req.body.image,
         quantity    : req.body.quantity,
-
+        date        : new Date()
     })
     itemObj.save((err)=>{
         if(err){

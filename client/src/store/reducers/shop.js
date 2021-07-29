@@ -12,6 +12,7 @@ const initialState = {
     totalItems  : 0,
     totalPrice  : 0,
     error       : null,
+    orderby     : null,
 };
 
 const newItemStart = (state, action) => {
@@ -225,13 +226,24 @@ const loadCart = ( state, action ) => {
         addedItems = localAddedItems
     }
 
-    if (items.length>0) {
+    if (items.length>0 && state.orderby==='Lowest price') {
         if(addedItems.length>0){
-            shop = state.items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
+            shop = state.items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
         } else {
-            shop = items
+            shop = items.sort( function ( a, b ) { return a.price - b.price; })
         }
     }
+    if (items.length>0 && state.orderby==='Highest price') {
+        if(addedItems.length>0){
+            shop = state.items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+        } else {
+            shop = items.sort( function ( a, b ) { return b.price - a.price; })
+        }
+    }
+    else {
+        shop = items
+    }
+    
     totalItems=addedItems.reduce((a, b) => a + b.amount, 0)
     total = addedItems.map(item => item.price*item.amount).reduce((prev, curr) => prev + curr, 0);
     return {
@@ -247,16 +259,58 @@ const loadShop = (state, action) => {
     let items = state.items
     let shop = state.shop
     let addedItems = state.addedItems
-    if (items.length>0) {
+    let orderby = state.orderby
+    console.log('orderby= ' +orderby)
+    if (items.length>0 && state.orderby==='Lowest price') {
+        console.log('pricelo loadShop')
         if(addedItems.length>0){
-            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
+            console.log('addedItems.length>0'+items)
+            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
         } else {
-            shop = items
+            console.log('else'+items)
+            shop = items.map( item => item).sort( function ( a, b ) { return a.price - b.price; })
+        }
+    }
+    if (items.length>0 && state.orderby==='Highest price') {
+        console.log('pricehi loadShop')
+        if(addedItems.length>0){
+            console.log('addedItems.length>0'+items)
+            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+        } else {
+            console.log('else'+items)
+            shop = items.map( item => item).sort( function ( a, b ) { return b.price - a.price; })
+        }
+    }
+    if (items.length>0 && state.orderby==='Most recent') {
+        console.log('date loadShop')
+        if(addedItems.length>0){
+            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+        } else {
+            shop = items.sort( function ( a, b ) { return b.price - a.price; })
+        }
+    }
+    if (items.length>0 && state.orderby==='Most Popular') {
+        console.log('sold loadShop')
+        if(addedItems.length>0){
+            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+        } else {
+            shop = items.sort( function ( a, b ) { return b.price - a.price; })
         }
     }
 
     return updateObject (state, {
         shop: shop,
+    })
+}
+
+const orderBy = (state, action) => {
+    //let shop=state.shop.sort( function ( a, b ) { return b.price - a.price; } );
+    console.log('orderby '+JSON.stringify(action.values.value));
+    //console.log('orderby '+ action.values);
+
+    
+    return updateObject (state, {
+        orderby: action.values.value
     })
 }
 
@@ -311,6 +365,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_SHIPPING               : return addShipping(state, action);
         case actionTypes.SUB_SHIPPING               : return subShipping(state, action); 
         case actionTypes.LOAD_CART                  : return loadCart(state, action);
+        case actionTypes.LOAD_SHOP                  : return loadShop(state, action);
+        case actionTypes.ORDER_BY                   : return orderBy(state, action);
         case actionTypes.CHECKOUT_START             : return checkoutStart(state, action);
         case actionTypes.CHECKOUT_FAIL              : return checkoutFail(state, action);
         case actionTypes.CHECKOUT_SUCCESS           : return checkoutSuccess(state, action);

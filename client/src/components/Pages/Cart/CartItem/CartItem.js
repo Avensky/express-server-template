@@ -22,8 +22,12 @@ const CartItem = props => {
             
             {/* Description */}
             <div className={classes.CardDescription}>
-                <p className={classes.CardTitle}><b>{props.name}</b></p>
                 <p>{props.desc}</p>
+            </div>
+
+            {/* Name */}
+            <div className={classes.CardName}>
+                <b>{props.name}</b>
             </div>
 
             {/* Quantity */}

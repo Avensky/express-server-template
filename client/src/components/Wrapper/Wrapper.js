@@ -16,23 +16,27 @@ const Wrapper = props => {
     useEffect(() => {
         const getItems = async () => { props.getItems() }
         if ( props.items.length === 0){ 
+            console.log('get items')
             getItems() 
         }
     }, [])
 
     useEffect(() => {
         const loadCart = async () => { props.loadCart() }
-        if ( props.items.length>0){ 
+        if ( props.items.length>0){
+            console.log('load items')
             loadCart() 
         }
     }, [props.items])
 
     useEffect(() => {
-        const loadShop = async () => { props.loadShop() }
+        const loadShop = async (orderby) => { props.loadShop(orderby) }
         if ( props.shop.length>0){ 
-            loadShop() 
+            console.log('load shop')
+            loadShop(props.orderby) 
         }
-    }, [props.shop])
+        
+    }, [props.orderby])
 
     return (    
         <div className = {classes.Layout}>
@@ -61,13 +65,14 @@ const mapStateToProps = state => {
         items            : state.shop.items,
         shop             : state.shop.shop,
         isAuth           : state.auth.payload,
-        totalItems       : state.shop.totalItems
+        totalItems       : state.shop.totalItems,
+        orderby          : state.shop.orderby
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getItems            : ()     =>{ dispatch(actions.getItems())},
+        getItems            : () =>{ dispatch(actions.getItems())},
         loadCart            : () =>{ dispatch(actions.loadCart())},
         loadShop            : () =>{ dispatch(actions.loadShop())}
     }

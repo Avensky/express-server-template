@@ -42,6 +42,14 @@ export const loadShop = ( ) => {
     }
 }
 
+
+export const orderBy = (values) => {
+    return{
+        type: actionTypes.ORDER_BY,
+        values
+    }
+}
+
 /*******************************************
  * Get Items from database
 *******************************************/
