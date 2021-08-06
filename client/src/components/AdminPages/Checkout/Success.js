@@ -41,7 +41,7 @@ const Success = props => {
 
 const mapStateToProps = (state)=>{
     return{
-        items: state.cart.addedItems,
+        items: state.shop.addedItems,
         isAuth: state.auth.payload
         //addedItems: state.addedItems
     }

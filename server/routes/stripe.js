@@ -1,6 +1,7 @@
 // load all the things we need
 const mongoose          = require('mongoose')
 const Orders            = mongoose.model('Orders')
+const Products           = mongoose.model('Product')
 const Stripe            = require('stripe')
 const keys              = require('../config/keys')
 const webhookSecret     = keys.webhookSecret
@@ -57,6 +58,48 @@ module.exports = function(app, passport) {
       }
       return line_item
     })
+
+//    let products_update = line_items.map( item => {
+//      let product = Products.find({
+//          priceid : item.id
+//        },(err,doc)=>{
+//            if(doc)
+//                res.send('Product updated successfully!');
+//            else {
+//                res.err(err.message);
+//            }
+//        })
+//      return product
+//    })
+
+    const productsSold = (line_items) => {
+      // console.log('line_items'+JSON.stringify(line_items))
+      console.log('line_items length'+line_items.length)
+      const length = line_items.length
+      for (let i = 0; i < length; i++) {
+        console.log('i = ',i)
+        console.log('price.id = ',line_items[i].price.id)
+        console.log('quantity = ',line_items[i].quantity)
+        console.log('item = '+JSON.stringify(line_items[i]))
+        let inc = line_items[i].quantity
+        Products.findOneAndUpdate(
+          { priceid : line_items[i].price.id }, 
+          { $inc: { 
+              sold : inc
+            }
+          },
+          { new: true, useFindAndModify: false },(err,doc)=>{
+            if(doc)
+                console.log('Product updated successfully!');
+            else {
+              console.log(err.message);
+            }
+        }
+        )
+      }
+    }
+    productsSold(line_items)
+
     // console.log('line_items = ' + JSON.stringify(line_items))
 
     Orders.findOneAndUpdate({'sessionid' : session.id},{
@@ -124,11 +167,13 @@ module.exports = function(app, passport) {
       const emailCustomerAboutFailedPayment = (session) => {
       // TODO: fill me in
       console.log("Emailing customer", session);
+
       }
   
         
       //app.post('/webhook', bodyParser.raw({type: 'application/json'}), (req, res) => {
       app.post('/webhook', (req, res) => {
+        // choco install stripe-cli
         // stripe listen --forward-to localhost:5000/webhook
         const payload = req.rawBody;
         //const payload = JSON.stringify(request.body);
@@ -141,7 +186,7 @@ module.exports = function(app, passport) {
         let event;
         try {
           //console.log('rawBody = ' + JSON.stringify(payload))
-          console.log('rawBody = ' + payload)
+          //console.log('rawBody = ' + payload)
           //console.log('sig = ' + sig)
           //console.log('webhookSecret  = ' + webhookSecret )
           event = stripe.webhooks.constructEvent(payload, sig, webhookSecret )
@@ -159,7 +204,7 @@ module.exports = function(app, passport) {
             // let body = req.body
             // let userid = req.body.userid
             // let shipping = req.body.address
-            console.log('webhook session = ' + JSON.stringify(session))
+            // console.log('webhook session = ' + JSON.stringify(session))
             // console.log('webhook userid = ' + JSON.stringify(userid))
             // console.log('webhook shipping = ' + JSON.stringify(shipping))
                 // Save an order in your database, marked as 'awaiting payment'
@@ -179,7 +224,7 @@ module.exports = function(app, passport) {
           
               case 'checkout.session.async_payment_succeeded': {
                 const session = event.data.object;
-          
+                                                                                                                                                                                                                                      
                 // Fulfill the purchase...
                 fulfillOrder(session);
           
@@ -220,7 +265,7 @@ module.exports = function(app, passport) {
   
   app.post('/api/checkout', async (req, res) => {
       let body = req.body.items
-      console.log('checkout body = ' + JSON.stringify(body))
+      // console.log('checkout body = ' + JSON.stringify(body))
       let userid = req.body.userid
       // let shipping = req.body.address
       // let body = JSON.stringify(req.body.items)

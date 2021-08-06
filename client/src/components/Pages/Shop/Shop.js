@@ -28,12 +28,12 @@ const Purchase = props => {
     const purchaseContinueHandler = async (addedItems, isAuth, event) => {
         console.log('checkout start')        // Get Stripe.js instance
         const stripe = await stripePromise;
-    
+        console.log('stripePromise')   
         let line_items = addedItems.map( item => {
             let data = {
                 price       : item.priceid,
                 quantity    : item.amount,
-                tax_rates: [taxRates]
+                tax_rates   : [taxRates]
             }
              console.log('data = '+JSON.stringify(data))
             return data
