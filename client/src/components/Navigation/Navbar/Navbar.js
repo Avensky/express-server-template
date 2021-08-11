@@ -19,11 +19,11 @@ const navbar = ( props ) => {
             <div className={[classes.MobileLinks, classes.Mobile].join(' ')}>
                 <h2 className="line">
                     {props.isAuth !== null
-                        ? <div className={classes.NavItem}><h2><a  href="/api/logout">Logout </a></h2></div>
+                        ? <div className={classes.NavItem}><h3><a  href="/api/logout">Logout </a></h3></div>
                         : null}          
                     {cart}
                     {props.isAuth !== null
-                        ? <NavLink to="/profile"   ><h2><span className="fa fa-user" /></h2></NavLink>
+                        ? <NavLink to="/profile"   ><h3><span className={["fa fa-user", classes.user].join(' ')} /></h3></NavLink>
                         :<NavLink to="/authentication"   ><h2><span className="fa fa-sign-in" /></h2></NavLink>}                                   
                 </h2>
                 <div className={[classes.Logo, classes.Mobile].join(' ')}>

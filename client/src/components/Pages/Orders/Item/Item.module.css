@@ -1,6 +1,7 @@
 .Item {
     display: grid;
-    border-bottom: #221a00 4px solid;
+    border-bottom: white 2px solid;
+    padding: 1vh 0;
     height: 3vh;
     gap: 2vw;
     grid-template-columns: 10fr 2fr 2fr;

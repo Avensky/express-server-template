@@ -1,8 +1,13 @@
 .filterbar {
     padding: 0 2vw 1vh;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+h1 {
+     margin: 0 0;
 }
 
+p {
+    margin: 0 0;
+}
 .Orderbar {
     width: 100%;
     margin: 0 0;

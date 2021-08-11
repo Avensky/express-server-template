@@ -109,10 +109,7 @@ const Purchase = props => {
     
 
 
-    let view
-    props.totalItems > 0
-        ? view = viewCartHandler
-        : view = null
+    let view = viewCartHandler
 
     let checkout
     props.totalItems > 0
@@ -130,10 +127,21 @@ const Purchase = props => {
             <Modal show={purchasing} modalClosed={purchaseCancelHandler}> 
                 {orderSummary}
             </Modal>
+
             {/* Title */}
             <div className="text-center">
                 <h1><a href='/shop'>Shop</a></h1>
             </div>
+
+            <CheckoutHeader
+                totalItems={props.totalItems}
+                total={props.total}
+                viewTitle='View Cart'
+                view={view}
+                checkout={checkout}
+                isAuth={props.isAuth}
+            />
+
             <div className={classes.filterbar}>
                 <div className={classes.Orderbar}>
                     <ul>
@@ -154,14 +162,6 @@ const Purchase = props => {
                     placeholder="Select an option"
                 />
             </div>
-            <CheckoutHeader
-                totalItems={props.totalItems}
-                total={props.total}
-                viewTitle='View Cart'
-                view={view}
-                checkout={checkout}
-                isAuth={props.isAuth}
-            />
             <div className='page-body'>
                 {myShop}
                 {props.totalItems > 0
