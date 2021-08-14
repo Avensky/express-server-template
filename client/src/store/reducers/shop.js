@@ -168,7 +168,24 @@ const subQuantity = ( state, action ) => {
     let existed_item = state.addedItems.find(item=> item._id === action.id)
     let stringMyAddedItems, total, shop, addedItems
     //if the qt == 0 then it should be removed
-    if(existed_item.amount === 1){
+    if (existed_item && (existed_item.amount > 1) ){
+        existed_item.amount -= 1
+        addedItems  = state.addedItems.map(obj => [existed_item].find(o => o._id === obj.id) || obj)
+        shop        = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
+        total       = state.total - existed_item.price
+        //store in local storage
+        stringMyAddedItems= JSON.stringify(addedItems)
+        localStorage.setItem("addedItems", stringMyAddedItems)
+        return{
+            ...state,
+            addedItems  : addedItems,
+            total       : total,        
+            totalItems  : state.totalItems -1,
+            shop        : shop
+        }
+    }
+
+    if (existed_item && (existed_item.amount === 1)){
         existed_item.amount -= 1
         addedItems  = state.addedItems.filter(item=>item._id !== action.id)
         shop        = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
@@ -185,19 +202,8 @@ const subQuantity = ( state, action ) => {
         }
     }
     else {
-        existed_item.amount -= 1
-        addedItems  = state.addedItems.map(obj => [existed_item].find(o => o._id === obj.id) || obj)
-        shop        = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
-        total       = state.total - existed_item.price
-        //store in local storage
-        stringMyAddedItems= JSON.stringify(addedItems)
-        localStorage.setItem("addedItems", stringMyAddedItems)
         return{
             ...state,
-            addedItems  : addedItems,
-            total       : total,        
-            totalItems  : state.totalItems -1,
-            shop        : shop
         }
     }
 }

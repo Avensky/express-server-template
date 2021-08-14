@@ -20,21 +20,26 @@ const item = props => {
         
         {/* Description */}
         <div className={classes.CardDescription}>
-            <p className={classes.CardTitle}><b>{props.name}</b></p>
-            <p>{props.desc}</p>
+            <b><p className={classes.CardTitle}>{props.name}</p></b>
+                        <p>{props.desc}</p>
         </div>
 
         {/* Quantity */}
-        <div className={classes.CardQuantity}>
-            <p><b>{props.quantity}</b></p>
-            {props.add === true
-                ? <i className={["material-icons", classes.MaterialIcons, classes.noselect].join(' ')}onClick={props.clicked}>add</i>
-                : null
-            }
+        <div className={classes.CardQuantityWrapper}>
+            <b><p>Quantity</p></b>
+            <div className={classes.CardQuantity}>
+                <i className={["material-icons", classes.MaterialIcons, classes.noselect].join(' ')} 
+                    onClick={props.subtractQuantity}>arrow_drop_down</i>
+                <p>{props.quantity}</p>
+                <i className={["material-icons", classes.MaterialIcons, classes.noselect].join(' ')} 
+                    onClick={props.addToCart}>arrow_drop_up</i>  
+            </div>
         </div>
 
         {/* Price */}
-        <div className={["text-center", classes.CardPrice].join(' ')}><p><b>${props.price}</b></p></div>
+        <div className={classes.CardPriceWrapper} onClick={props.addToCart}>
+            <div className={["text-center noselect", classes.CardPrice].join(' ')}><p>Add to Cart <b>${props.price}</b></p></div>
+        </div>
     </div>
 )}
 export default item;

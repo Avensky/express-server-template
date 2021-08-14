@@ -69,8 +69,8 @@ const Purchase = props => {
     
     const [purchasing, setPurchasing] = useState(false);
     const history = useHistory()
-    const addToCart = (id) => {props.addToCart(id)}
-
+    const addToCart                     = (id) => {props.addToCart(id)}
+    const subtractQuantity              = (id) =>{ props.subtractQuantity(id);}
     const purchaseHandler = () => {
         props.isAuth ? setPurchasing(true) :history.push('/authentication')
     }
@@ -98,6 +98,8 @@ const Purchase = props => {
                 link        = {"/shop/"}
                 to          = "/"
                 clicked     = {() => addToCart(item._id)}
+                addToCart           = {() =>addToCart(item._id)}
+                subtractQuantity    = {() =>subtractQuantity(item._id)}
                 name        = {item.name}
                 desc        = {item.desc}
                 price       = {item.price}
@@ -198,7 +200,8 @@ const mapDispatchToProps = dispatch => {
         loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
         loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
         getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
-        orderBy             : (type) =>{ dispatch(actions.orderBy(type))}
+        orderBy             : (type) =>{ dispatch(actions.orderBy(type))},
+        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id))}
     }
 }
 

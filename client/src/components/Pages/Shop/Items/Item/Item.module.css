@@ -1,13 +1,13 @@
 .Item {
-    margin: 2vh 0;
-    padding: 2vh 1vw;
-    display: grid;
-    border-bottom: rgba(255, 255, 255, 0.26) 2px solid;
-    grid-template-columns: 2fr 5fr 1fr 1fr;
-    grid-template-areas: 
-    "img desc quant price";
+    width: 46%;
+    margin: 1vh auto;
+    padding: 0 1vw;
+    display: flex;
+    flex-direction: column;
     align-content: space-between;
-    justify-content: space-around;
+    
+    text-align: center;
+    font-size: 13px;
 }
 
 .MaterialIcons {
@@ -15,11 +15,6 @@
     user-select: none;
 }
 
-.CardThumbnail img {
-    max-height: 50px;
-    max-width: 50px;
-    margin: 0; 
-}
 
 .Remove {
     grid-area: del;
@@ -30,9 +25,17 @@
 }
 
 .CardThumbnail {
-    grid-area: img;
+    min-height: 165px;
     display: flex;
     align-items: center;
+    margin: 0 auto; 
+}
+
+.CardThumbnail img {
+    width: 100%;
+    max-height: 250px;
+    max-width: 250px;
+    margin: 0; 
 }
 
 .CardDescription {
@@ -40,20 +43,28 @@
     margin: 0; 
     padding: 0vh 1vw;
 }
+.CardQuantityWrapper{
+    margin: 0 auto;
+    text-align: center;
+}
 
 .CardQuantity {
-    grid-area: quant;
-    display: flex;
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    margin: auto;
+    text-align: center;
+    margin: 0 auto;
+    border: black solid 1px;
 }
 
 .CardPrice {
-    grid-area: price;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
     margin: auto;
+    padding: 1vh 2vw;
+    border: black solid 1px;
+    cursor: pointer;
+}
+.CardPriceWrapper {
+    display: flex;
 }
 
 

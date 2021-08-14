@@ -14,7 +14,7 @@ const Wrapper = props => {
     const sidebarToggleHandler = () => {setShowSidebar(!showSidebar); }
 
     useEffect(() => {
-        const getItems = async () => { props.getItems() }
+        const getItems = () => { props.getItems() }
         if ( props.items.length === 0){ 
             console.log('get items')
             getItems() 
@@ -22,7 +22,7 @@ const Wrapper = props => {
     }, [])
 
     useEffect(() => {
-        const loadCart = async () => { props.loadCart() }
+        const loadCart = () => { props.loadCart() }
         if ( props.items.length>0){
             console.log('load items')
             loadCart() 
@@ -30,7 +30,9 @@ const Wrapper = props => {
     }, [props.items])
 
     useEffect(() => {
-        const loadShop = async (orderby) => { props.loadShop(orderby) }
+        const loadShop =  (orderby) => { 
+            props.loadShop(orderby) 
+        }
         if ( props.shop.length>0){ 
             console.log('load shop')
             loadShop(props.orderby) 
@@ -40,7 +42,7 @@ const Wrapper = props => {
 
     return (    
         <div className = {classes.Layout}>
-            <Background />
+            
             <Navbar 
                 isAuth={props.isAuth}
                 sidebarToggleClicked={sidebarToggleHandler}
