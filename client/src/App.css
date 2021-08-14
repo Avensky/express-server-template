@@ -1,8 +1,8 @@
 .page-wrapper {
   background-color: #161002;
-  min-height: 100vh;
+  min-height: 85vh;
   margin: 3vh 1vw;
-  padding: 1vh 0vw 2vh;
+  padding: 1vh 1vw 2vh;
 }
 
 .page-body {
@@ -17,7 +17,7 @@
   /* For tablets: */
   .page-wrapper {
       margin: 6vh 10vw 0;
-
+      min-height: 75vh;
       padding: 1vh 5vw 2vh;
   }
 }
@@ -26,6 +26,7 @@
   /* For desktop: */
   .page-wrapper {
       margin: 6vh 20vw 0;
+
       padding: 1vh 5vw 2vh;
     
   }

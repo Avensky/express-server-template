@@ -1,73 +1,77 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 //import { Route, Switch } from 'react-router-dom';
 import Auxiliary from '../../../../hoc/Auxiliary';
 import classes from './ItemFull.module.css';
 import * as actions from '../../../../store/actions/index';
-//import Details from '../Details/Details';
+//import Details from '../Details/Details';                                                             
 import Item from '../Items/Item/Item'
 
-class ItemFull extends Component {
+const ItemFull = props => {
+    const [id, setId]       = useState(null);
+    const [item, setItem]   = useState(null);
+    console.log('all items ', props.shop)
 
-    state = {
-        id: null,
-        loadedItem: null
+    const loadData = (paramId) =>{
+        console.log('pong')
+        console.log('all items ', props.shop)
+        const itemId = props.shop.find(el => el._id === paramId);
+        setItem(itemId);
+        console.log('selected item ', itemId)
     }
 
-    componentDidMount () {
-        console.log(this.props);
-        this.loadData();
-    }z
+    useEffect(() => {
+        console.log('ping')
+        //console.log('params',props.match.params.itemId)
+        if (!item){
+            loadData(props.match.params.itemId)
+        } 
+    },[props.match.params, props.shop])
 
-    loadData () {
-        if ( this.props.match.params.id ) {
-            if ( !this.state.loadedItem || (this.state.loadedItem && this.state.loadedItem.id !== +this.props.match.params.id) ) {
-                const itemId = this.props.match.params.id;
-                this.setState({ loadedItem: this.props.items[itemId]});
-            }
-        }
+    const handleClick=(id)=>{props.addToCart(id); }
+    let details = <p style={{textAlign: 'center'}}>Please select an item!</p>;
+    
+    if ( props.match.params.id ) {
+        details = <p style={{ textAlign: 'center' }}>Loading...!</p>;
     }
 
-    handleClick = (id)=>{
-        this.props.addToCart(id); 
+    if (item) {
+        details = <Item
+            class   = 'classes.DetailsItem'
+            image     = {item.imageData}
+            id      = {item.id}
+            key     = {item.id}
+            alt     = {item.title}
+            title   = {item.title}
+            link    = {"/shop/itemfull/" + item.id}
+            to      = "/"
+            clicked = {() => handleClick(item.id)}
+            desc    = {item.desc}
+            price   = {item.price}
+            className="Delete"
+        />
     }
-
-    render () {
-        let details = <p style={{textAlign: 'center'}}>Please select an item!</p>;
-        
-        if ( this.props.match.params.id ) {
-            details = <p style={{ textAlign: 'center' }}>Loading...!</p>;
-        }
-
-        if ( this.state.loadedItem) {
-            details = <Item
-                class   = 'classes.DetailsItem'
-                img     = {this.state.loadedItem.img}
-                id      = {this.state.loadedItem.id}
-                key     = {this.state.loadedItem.id}
-                alt     = {this.state.loadedItem.title}
-                title   = {this.state.loadedItem.title}
-                link    = {"/shop/itemfull/" + this.state.loadedItem.id}
-                to      = "/"
-                clicked = {() => this.handleClick(this.state.loadedItem.id)}
-                desc    = {this.state.loadedItem.desc}
-                price   = {this.state.loadedItem.price}
-                className="Delete"
-            />
-        }
-        return(
-            <Auxiliary>
+    return(
+        <div className='page-wrapper'>
+            <div className="text-center">
+                <h1><a href='/shop'>Shop</a></h1>
+            </div>
+            <div className='page-body'>
                 <div className={classes.Item}>
                     {details}
                 </div>
-            </Auxiliary>
-        )
-    }
+            </div>
+        </div>
+    )
+    
 }
 
 const mapStateToProps = state => {
     return {
-        items: state.cart.items
+        items       : state.shop.items,
+        total       : state.shop.total,
+        shop        : state.shop.shop,
+        isAuth      : state.auth.payload
     };
 };
 
