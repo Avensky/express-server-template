@@ -69,13 +69,13 @@ const Purchase = props => {
     
     const [purchasing, setPurchasing] = useState(false);
     const history = useHistory()
-    const addToCart                     = (id) => {props.addToCart(id)}
-    const subtractQuantity              = (id) =>{ props.subtractQuantity(id);}
-    const purchaseHandler = () => {
-        props.isAuth ? setPurchasing(true) :history.push('/authentication')
-    }
-    const purchaseCancelHandler = () => {setPurchasing(false)}
-    const viewCartHandler = () => {history.push('/cart')}
+
+    const addToCart             = (id) => {props.addToCart(id)}
+    const subtractQuantity      = (id) => {props.subtractQuantity(id);}
+    const purchaseHandler       = ()   => {props.isAuth ? setPurchasing(true) :history.push('/authentication')}
+    const purchaseCancelHandler = ()   => {setPurchasing(false)}
+    const viewCartHandler       = ()   => {history.push('/cart')}
+
     let orderSummary = null
     if (props.addedItems) {
         orderSummary = <OrderSummary 
@@ -85,31 +85,6 @@ const Purchase = props => {
             purchaseContinued={() => purchaseContinueHandler(props.addedItems, props.isAuth)}
         />;
     }
-    let myShop 
-    if(props.shop){
-        myShop = props.shop.map( item => {
-        return( 
-            <Item
-                image       = {item.imageData}
-                key         = {item._id}
-                id          = {item._id}
-                alt         = {item.title}
-                title       = {item.title}
-                link        = {"/shop/"}
-                to          = "/"
-                clicked     = {() => addToCart(item._id)}
-                addToCart           = {() =>addToCart(item._id)}
-                subtractQuantity    = {() =>subtractQuantity(item._id)}
-                name        = {item.name}
-                desc        = {item.desc}
-                price       = {item.price}
-                quantity    = {item.amount||0}
-                add         = {true}
-            />
-        )}
-    )}
-    
-
 
     let view = viewCartHandler
 
@@ -165,7 +140,26 @@ const Purchase = props => {
                 />
             </div>
             <div className='page-body'>
-                {myShop}
+                {props.shop.map( item => {
+                    return( 
+                        <Item
+                            image       = {item.imageData}
+                            key         = {item._id}
+                            id          = {item._id}
+                            alt         = {item.title}
+                            title       = {item.title}
+                            link        = {"/shop/"}
+                            to          = "/"
+                            clicked     = {() => addToCart(item._id)}
+                            addToCart           = {() =>addToCart(item._id)}
+                            subtractQuantity    = {() =>subtractQuantity(item._id)}
+                            name        = {item.name}
+                            desc        = {item.desc}
+                            price       = {item.price}
+                            quantity    = {item.amount||0}
+                            add         = {true}
+                        />
+                    )})}
                 {props.totalItems > 0
                     ?  (<button 
                             className='btn-primary btn'

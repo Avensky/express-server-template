@@ -12,33 +12,36 @@ const Wrapper = props => {
     
     // set state in a clean way by depending on a previous state
     const sidebarToggleHandler = () => {setShowSidebar(!showSidebar); }
+    const getItems = () => { props.getItems() }
+    const loadCart = () => { props.loadCart() }
+    const loadShop = (orderby) => { props.loadShop(orderby) }
 
     useEffect(() => {
-        const getItems = () => { props.getItems() }
         if ( props.items.length === 0){ 
             console.log('get items')
             getItems() 
         }
+    //    if ( props.items.length>0){
+    //        console.log('load items')
+    //        loadCart() 
+    //    }
+    //    loadShop(props.orderby) 
     }, [])
 
     useEffect(() => {
-        const loadCart = () => { props.loadCart() }
         if ( props.items.length>0){
-            console.log('load items')
+            console.log('load cart items')
             loadCart() 
         }
+
     }, [props.items])
 
     useEffect(() => {
-        const loadShop =  (orderby) => { 
-            props.loadShop(orderby) 
-        }
-        if ( props.shop.length>0){ 
-            console.log('load shop')
+        if (props.items.length>0 && props.addedItems.length>0){
+            console.log('load shop items orderby')
             loadShop(props.orderby) 
         }
-        
-    }, [props.orderby])
+    }, [props.cartLoaded])
 
     return (    
         <div className = {classes.Layout}>
@@ -63,12 +66,14 @@ const Wrapper = props => {
 }
 
 const mapStateToProps = state => {
-    return {
+    return {        
+        addedItems  : state.shop.addedItems,
         items            : state.shop.items,
         shop             : state.shop.shop,
         isAuth           : state.auth.payload,
         totalItems       : state.shop.totalItems,
-        orderby          : state.shop.orderby
+        orderby          : state.shop.orderby,
+        cartLoaded       : state.shop.cartLoaded
     }
 }
 

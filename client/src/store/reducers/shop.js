@@ -13,6 +13,7 @@ const initialState = {
     totalPrice  : 0,
     error       : null,
     orderby     : null,
+    cartLoaded  : false
 };
 
 const newItemStart = (state, action) => {
@@ -60,14 +61,6 @@ const getItemByTypeSuccess = (state, action) => {
         items : action.items,
         loading: false,})}
         
-         
-        
-        
-        
-
-
-
-
 const deleteItemStart = (state, action) => {
     return updateObject( state, {
         loading: true})}
@@ -90,7 +83,7 @@ const getItemsFail = (state, action) => {
         loading: false })}
     
 const getItemsSuccess = (state, action) => {
-    //console.log('get items = ' + action.items)
+    console.log('getItemsSuccess = ' + action.items)
     return {
         ...state,
         items: action.items,
@@ -234,14 +227,14 @@ const loadCart = ( state, action ) => {
 
     if (items.length>0 && state.orderby==='Lowest price') {
         if(addedItems.length>0){
-            shop = state.items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
+            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
         } else {
             shop = items.sort( function ( a, b ) { return a.price - b.price; })
         }
     }
     if (items.length>0 && state.orderby==='Highest price') {
         if(addedItems.length>0){
-            shop = state.items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
         } else {
             shop = items.sort( function ( a, b ) { return b.price - a.price; })
         }
@@ -257,16 +250,18 @@ const loadCart = ( state, action ) => {
         addedItems  : addedItems,
         totalItems  : totalItems,
         total       : total,
-        shop        : shop
+        shop        : shop,
+        cartLoaded  : true
     }
 }
 
 const loadShop = (state, action) => {
-    let items = state.items
-    let shop = state.shop
-    let addedItems = state.addedItems
-    let orderby = state.orderby
-    console.log('orderby= ' +orderby)
+    let items       = state.items
+    let shop        = state.shop
+    let addedItems  = state.addedItems
+    //let orderby = state.orderby
+    //console.log('orderby= ' +orderby)
+
     if (items.length>0 && state.orderby==='Lowest price') {
         console.log('pricelo loadShop')
         if(addedItems.length>0){
@@ -303,7 +298,10 @@ const loadShop = (state, action) => {
             shop = items.sort( function ( a, b ) { return b.price - a.price; })
         }
     }
-
+    else {
+        shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
+    }
+    console.log('loadShop = ', shop)
     return updateObject (state, {
         shop: shop,
     })
@@ -314,7 +312,7 @@ const orderBy = (state, action) => {
     console.log('orderby '+JSON.stringify(action.values.value));
     //console.log('orderby '+ action.values);
 
-    
+    console.log('orderBy')
     return updateObject (state, {
         orderby: action.values.value
     })
