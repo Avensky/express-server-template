@@ -10,6 +10,10 @@
     font-size: 13px;
 }
 
+.ItemFull {
+    width: 100%;
+}
+
 .MaterialIcons {
     cursor: pointer;
     user-select: none;
@@ -74,23 +78,21 @@
     /* For tablets: */
      
     .CardThumbnail img {
-        max-height: 100px;
-        max-width: 130px;
+
     }
     
+    .Item {
+        width: 30%;
+    }
     
-    
-
 }
 
 @media only screen and (min-width: 1025px) {
     /* For desktop: */
     .CardThumbnail img {
-        max-height: 130px;
-        max-width: 160px;
+
     }
     .Item {
-        margin: 0vh 0;
-        padding: 3vh 1vw;
+        width: 21%;
     }
 }

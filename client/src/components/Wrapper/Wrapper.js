@@ -45,7 +45,6 @@ const Wrapper = props => {
 
     return (    
         <div className = {classes.Layout}>
-            
             <Navbar 
                 isAuth={props.isAuth}
                 sidebarToggleClicked={sidebarToggleHandler}
@@ -67,7 +66,7 @@ const Wrapper = props => {
 
 const mapStateToProps = state => {
     return {        
-        addedItems  : state.shop.addedItems,
+        addedItems       : state.shop.addedItems,
         items            : state.shop.items,
         shop             : state.shop.shop,
         isAuth           : state.auth.payload,

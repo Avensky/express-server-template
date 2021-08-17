@@ -13,7 +13,8 @@ const initialState = {
     totalPrice  : 0,
     error       : null,
     orderby     : null,
-    cartLoaded  : false
+    cartLoaded  : false,
+    shopLoaded  : true
 };
 
 const newItemStart = (state, action) => {
@@ -304,6 +305,7 @@ const loadShop = (state, action) => {
     console.log('loadShop = ', shop)
     return updateObject (state, {
         shop: shop,
+        shopLoaded  : true
     })
 }
 

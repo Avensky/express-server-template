@@ -1,5 +1,5 @@
 .page-wrapper {
-  min-height: 85vh;
+  min-height: 84vh;
   margin: 3vh 1vw;
   padding: 1vh 1vw 2vh;
 }
@@ -10,28 +10,42 @@
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: wrap;
-
 }
 
 .header {
   padding: 1vh 2vw;
 }
 
+.ItemFull {
+  width: 100% !important;
+}
+
+.ItemFull {
+  width: 100% !important;
+}
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
   .page-wrapper {
-      margin: 6vh 10vw 0;
-      min-height: 75vh;
+      margin: 6vh 5vw 0;
       padding: 1vh 5vw 2vh;
   }
+  .ItemFullImg {
+    max-height: 350px !important; 
+    max-width: 350px !important; 
+}
 }
 
 @media only screen and (min-width: 1025px) {
   /* For desktop: */
   .page-wrapper {
-      margin: 6vh 20vw 0;
-
+      margin: 6vh 10vw 0;
       padding: 1vh 5vw 2vh;
     
   }
+  .ItemFullImg {
+    max-height: 450px !important; 
+    max-width: 450px !important; 
+}
+
 }

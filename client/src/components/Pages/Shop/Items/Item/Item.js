@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import classes from './Item.module.css';
 
 //{classes.CardThumbnail}
+
 const item = props => {
     let url
     process.env.NODE_ENV === 'production'
         ? url = 'https://localhost:3000/'
         : url = 'http://localhost:5000/'
-
     return  (
-    <div className={classes.Item} key={props.id}>
+    <div className={[classes.Item, props.class].join(' ')} key={props.id}>
         {/* Image */}
         <div className={classes.CardThumbnail}>
             <Link to={'/shop/itemfull/' + props.id}>
-                <img src={url+props.image} alt={props.alt}/>
+                <img className={props.imgClass} src={url+props.image} alt={props.alt}/>
             </Link>
         </div>
         

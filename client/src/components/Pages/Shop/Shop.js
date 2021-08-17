@@ -143,21 +143,21 @@ const Purchase = props => {
                 {props.shop.map( item => {
                     return( 
                         <Item
-                            image       = {item.imageData}
-                            key         = {item._id}
-                            id          = {item._id}
-                            alt         = {item.title}
-                            title       = {item.title}
-                            link        = {"/shop/"}
-                            to          = "/"
-                            clicked     = {() => addToCart(item._id)}
+                            image               = {item.imageData}
+                            key                 = {item._id}
+                            id                  = {item._id}
+                            alt                 = {item.title}
+                            title               = {item.title}
+                            link                = {"/shop/"}
+                            to                  = "/"
+                            clicked             = {() => addToCart(item._id)}
                             addToCart           = {() =>addToCart(item._id)}
                             subtractQuantity    = {() =>subtractQuantity(item._id)}
-                            name        = {item.name}
-                            desc        = {item.desc}
-                            price       = {item.price}
-                            quantity    = {item.amount||0}
-                            add         = {true}
+                            name                = {item.name}
+                            desc                = {item.desc}
+                            price               = {item.price}
+                            quantity            = {item.amount||0}
+                            add                 = {true}
                         />
                     )})}
                 {props.totalItems > 0
@@ -195,7 +195,7 @@ const mapDispatchToProps = dispatch => {
         loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
         getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
         orderBy             : (type) =>{ dispatch(actions.orderBy(type))},
-        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id))}
+        subtractQuantity    : (id)   =>{ dispatch(actions.subtractQuantity(id))}
     }
 }
 
