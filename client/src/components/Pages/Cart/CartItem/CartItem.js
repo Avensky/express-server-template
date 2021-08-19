@@ -10,7 +10,7 @@ const CartItem = props => {
 
             {/* Remove */}
             <div className={classes.Remove}>
-                <i className="fa fa-trash" onClick={props.handleRemove} />
+                <h2><i className="fa fa-trash" onClick={props.handleRemove} /></h2>
             </div>
             
             {/* Image */}

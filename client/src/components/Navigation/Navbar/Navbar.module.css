@@ -1,5 +1,5 @@
 .Navbar {
-    height: 7vh;
+    height: 6vh;
     width: 100vw;
     position: fixed;
     top: 0;
@@ -67,6 +67,11 @@
     align-items: center;
 }
 
+.NavItemLogo {
+    display: flex;
+    align-items: center;
+}
+
 @media only screen and (min-width: 600px) {
     /* For tablets: */
     .DesktopOnly {
@@ -78,7 +83,6 @@
     }
 
     .Navbar {
-        height: 6vh;
         justify-content: center;
     }
 }
@@ -94,7 +98,6 @@
     }
     
     .Navbar {
-        height: 6vh;
         justify-content: center;
     }
 

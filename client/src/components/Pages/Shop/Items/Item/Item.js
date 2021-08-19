@@ -9,6 +9,18 @@ const item = props => {
     process.env.NODE_ENV === 'production'
         ? url = 'https://localhost:3000/'
         : url = 'http://localhost:5000/'
+
+    let stock
+    if (props.stock>11){
+        stock = <p><b>In Stock:</b> 10+</p>
+    }
+    if  ( props.stock < 11 && props.stock > 0 ) {
+        stock = <p><b>In Stock:</b> {props.stock}</p>
+    }
+    if (props.stock===0){
+        stock = <p><b>Out of stock:</b></p>
+    }
+
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
         {/* Image */}
@@ -34,6 +46,16 @@ const item = props => {
                 <i className={["material-icons", classes.MaterialIcons, classes.noselect].join(' ')} 
                     onClick={props.addToCart}>arrow_drop_up</i>  
             </div>
+        </div>
+
+        {/* Stock */}
+        <div className={classes.CardStock}>
+            { stock }
+        </div>
+
+        {/* Sold */}
+        <div className={classes.CardSold}>
+            <p>Sold: {props.sold}</p>
         </div>
 
         {/* Price */}

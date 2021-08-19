@@ -94,11 +94,18 @@ const getItemsSuccess = (state, action) => {
 }
 
 const addToCart = ( state, action ) => {
+    // Find item in db
     let addedItem = state.items.find(item=> item._id === action.id)
-    let existed_item = state.addedItems.find(item=> action.id === item._id)
+    // Find item in cart
+    let existed_item 
+    if (state.addedItems){
+        existed_item = state.addedItems.find(item=> action.id === item._id)
+    }
    let stringMyAddedItems, total, totalItems, shop, addedItems
     if (existed_item) {
-        existed_item.amount += 1
+        if (existed_item.amount < addedItem.quantity){
+            existed_item.amount += 1
+        }
         addedItems  = state.addedItems.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
         shop        = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
         //make cart a string and store in local space
@@ -295,17 +302,17 @@ const loadShop = (state, action) => {
         if (orderby.value ==='Most recent') {
             console.log('date loadShop')
             if(addedItems.length>0){
-                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.date - a.date; })
             } else {
-                shop = items.sort( function ( a, b ) { return b.price - a.price; })
+                shop = items.sort( function ( a, b ) { return b.date - a.date; })
             }
         }
         if (orderby.value ==='Most Popular') {
             console.log('sold loadShop')
             if(addedItems.length>0){
-                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.sold - a.sold; })
             } else {
-                shop = items.sort( function ( a, b ) { return b.price - a.price; })
+                shop = items.sort( function ( a, b ) { return b.sold - a.sold; })
             }
         }
     }

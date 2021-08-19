@@ -149,13 +149,15 @@ const Purchase = props => {
                             link                = {"/shop/"}
                             to                  = "/"
                             clicked             = {() => addToCart(item._id)}
-                            addToCart           = {() =>addToCart(item._id)}
-                            subtractQuantity    = {() =>subtractQuantity(item._id)}
+                            addToCart           = {() => addToCart(item._id)}
+                            subtractQuantity    = {() => subtractQuantity(item._id)}
                             name                = {item.name}
                             desc                = {item.desc}
                             price               = {item.price}
+                            stock               = {item.quantity}
                             quantity            = {item.amount||0}
                             add                 = {true}
+                            sold                = {item.sold}
                         />
                     )})}
                 {props.totalItems > 0

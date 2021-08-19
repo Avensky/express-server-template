@@ -15,8 +15,11 @@ const ItemFull = props => {
     const loadData = (paramId) =>{
         // console.log('pong')
         // console.log('all items ', props.shop)
-        const itemId = props.shop.find(el => el._id === paramId);
-        setItem(itemId);
+        if (props.shop) {
+            const itemId = props.shop.find(el => el._id === paramId);
+            setItem(itemId);
+        }
+
     }
 
     useEffect(() => {
@@ -55,6 +58,8 @@ const ItemFull = props => {
             desc                = {item.desc}
             price               = {item.price}
             quantity            = {item.amount||0}
+            stock               = {item.quantity}
+            sold                = {item.sold}
         />
     }
     return(
