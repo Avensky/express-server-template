@@ -34,7 +34,7 @@ p {
     list-style-type: none;
     display: flex;
     align-items: center;
-    border-bottom: 4px solid transparent;
+    border: 1px solid transparent;
 }
 .OrderbarItem a{  
     height: 100%;    
@@ -46,8 +46,8 @@ p {
 .OrderbarItem.active,
 .OrderbarItem:focus,
 .Orderbar li a:checked {
-    border-bottom: 4px solid white;
-    background-color: #2a2104;
+    border: 1px solid black;
+
 }
 
 .orderby {

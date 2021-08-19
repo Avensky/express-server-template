@@ -30,18 +30,21 @@ const Wrapper = props => {
 
     useEffect(() => {
         if ( props.items.length>0){
-            console.log('load cart items')
+            console.log('Use effect loadCart')
             loadCart() 
         }
-
+        if (props.items.length>0 && props.addedItems.length>0){
+            console.log('Use effect loadShop items orderby')
+            loadShop(props.orderby) 
+        }
     }, [props.items])
 
     useEffect(() => {
         if (props.items.length>0 && props.addedItems.length>0){
-            console.log('load shop items orderby')
+            console.log('Use effect2 load shop items orderby')
             loadShop(props.orderby) 
         }
-    }, [props.cartLoaded])
+    }, [props.cartLoaded, props.shopLoaded])
 
     return (    
         <div className = {classes.Layout}>

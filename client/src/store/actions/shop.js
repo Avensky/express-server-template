@@ -36,9 +36,10 @@ export const loadCart = ( values ) => {
         type: actionTypes.LOAD_CART,
     }
 }
-export const loadShop = ( ) => {
+export const loadShop = ( values ) => {
     return{
         type: actionTypes.LOAD_SHOP,
+        values
     }
 }
 
@@ -192,6 +193,7 @@ export const getItemByType = (type) => {
         axios.get( '/api/getitemsbytype/' + type)
         .then( result => {
             const items = result.data
+            console.log('get item by type = ',items)
             dispatch(getItemByTypeSuccess(items));
         })
         .catch( error => {

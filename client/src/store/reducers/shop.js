@@ -58,6 +58,7 @@ const getItemByTypeFail = (state, action) => {
         loading: false})}
 
 const getItemByTypeSuccess = (state, action) => {
+
     return updateObject( state, {
         items : action.items,
         loading: false,})}
@@ -84,7 +85,7 @@ const getItemsFail = (state, action) => {
         loading: false })}
     
 const getItemsSuccess = (state, action) => {
-    console.log('getItemsSuccess = ' + action.items)
+//    console.log('getItemsSuccess = ' + JSON.stringify(action.items))
     return {
         ...state,
         items: action.items,
@@ -232,6 +233,7 @@ const loadCart = ( state, action ) => {
         } else {
             shop = items.sort( function ( a, b ) { return a.price - b.price; })
         }
+        console.log('loadCart Lowest price = ',shop)
     }
     if (items.length>0 && state.orderby==='Highest price') {
         if(addedItems.length>0){
@@ -239,9 +241,11 @@ const loadCart = ( state, action ) => {
         } else {
             shop = items.sort( function ( a, b ) { return b.price - a.price; })
         }
+        console.log('loadCart Highest price = ',shop)
     }
     else {
         shop = items
+        console.log('loadCart = ',shop)
     }
     
     totalItems=addedItems.reduce((a, b) => a + b.amount, 0)
@@ -260,50 +264,57 @@ const loadShop = (state, action) => {
     let items       = state.items
     let shop        = state.shop
     let addedItems  = state.addedItems
+    let orderby     = action.values
+    console.log('loadShop orderby= ' + JSON.stringify(orderby))
     //let orderby = state.orderby
-    //console.log('orderby= ' +orderby)
-
-    if (items.length>0 && state.orderby==='Lowest price') {
-        console.log('pricelo loadShop')
-        if(addedItems.length>0){
-            console.log('addedItems.length>0'+items)
-            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
-        } else {
-            console.log('else'+items)
-            shop = items.map( item => item).sort( function ( a, b ) { return a.price - b.price; })
-        }
+    console.log('loadShop state orderby= ' +JSON.stringify(state.orderby))
+    if (!orderby && state.orderby) {
+        orderby = state.orderby
     }
-    if (items.length>0 && state.orderby==='Highest price') {
-        console.log('pricehi loadShop')
-        if(addedItems.length>0){
-            console.log('addedItems.length>0'+items)
-            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
-        } else {
-            console.log('else'+items)
-            shop = items.map( item => item).sort( function ( a, b ) { return b.price - a.price; })
+    if (orderby) {
+        if (orderby.value==='Lowest price') {
+            console.log('LoadShop lowest price')
+            if(addedItems.length>0){
+                console.log('addedItems.length>0'+JSON.stringify(items))
+                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
+            } else {
+                console.log('else'+items)
+                shop = items.map( item => item).sort( function ( a, b ) { return a.price - b.price; })
+            }
         }
-    }
-    if (items.length>0 && state.orderby==='Most recent') {
-        console.log('date loadShop')
-        if(addedItems.length>0){
-            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
-        } else {
-            shop = items.sort( function ( a, b ) { return b.price - a.price; })
+        if (orderby.value ==='Highest price') {
+            console.log('LoadShop Highest price')
+            if(addedItems.length>0){
+                console.log('addedItems.length>0'+items)
+                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+            } else {
+                console.log('else'+items)
+                shop = items.map( item => item).sort( function ( a, b ) { return b.price - a.price; })
+            }
         }
-    }
-    if (items.length>0 && state.orderby==='Most Popular') {
-        console.log('sold loadShop')
-        if(addedItems.length>0){
-            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
-        } else {
-            shop = items.sort( function ( a, b ) { return b.price - a.price; })
+        if (orderby.value ==='Most recent') {
+            console.log('date loadShop')
+            if(addedItems.length>0){
+                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+            } else {
+                shop = items.sort( function ( a, b ) { return b.price - a.price; })
+            }
+        }
+        if (orderby.value ==='Most Popular') {
+            console.log('sold loadShop')
+            if(addedItems.length>0){
+                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+            } else {
+                shop = items.sort( function ( a, b ) { return b.price - a.price; })
+            }
         }
     }
     else {
         shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
+        console.log('loadShop = ',shop)
     }
-    console.log('loadShop = ', shop)
     return updateObject (state, {
+        orderby: orderby,
         shop: shop,
         shopLoaded  : true
     })
@@ -314,7 +325,7 @@ const orderBy = (state, action) => {
     console.log('orderby '+JSON.stringify(action.values.value));
     //console.log('orderby '+ action.values);
 
-    console.log('orderBy')
+//    console.log('orderBy')
     return updateObject (state, {
         orderby: action.values.value
     })

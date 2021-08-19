@@ -1,13 +1,15 @@
 .Auth {
     text-align: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(18, 21, 39);
     margin: 4vh 2vw 0;
     padding: 5vh 5vw 2vh;
+    color: white;
 }
 .Auth a { 
     z-index: 1;     
     text-decoration: none;
+    color: white;
 }
 
 

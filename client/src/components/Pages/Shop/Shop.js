@@ -86,8 +86,6 @@ const Purchase = props => {
         />;
     }
 
-    let view = viewCartHandler
-
     let checkout
     props.totalItems > 0
         ? checkout = purchaseHandler
@@ -114,7 +112,7 @@ const Purchase = props => {
                 totalItems={props.totalItems}
                 total={props.total}
                 viewTitle='View Cart'
-                view={view}
+                view={viewCartHandler}
                 checkout={checkout}
                 isAuth={props.isAuth}
             />
@@ -130,11 +128,11 @@ const Purchase = props => {
                         <li className={classes.OrderbarItem} id="#mug"      onClick={()=> props.getItemByType('mug')}      ><a href="#mug"      >Mugs     </a></li>
                     </ul>
                 </div>
-                
+                <br />
                 <Dropdown
                     options={options} 
                     //onClick={()=> props.orderBy(this.onSelect)}
-                    onChange={(val)=> props.orderBy(val)}
+                    onChange={(val)=> props.loadShop(val)}
                     value={defaultOption} 
                     placeholder="Select an option"
                 />
