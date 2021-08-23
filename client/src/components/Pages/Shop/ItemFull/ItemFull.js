@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import classes from './ItemFull.module.css';
 import * as actions from '../../../../store/actions/index';
 //import Details from '../Details/Details';                                                             
-import Item from '../Items/Item/Item'
+import Item from './ItemDetails/ItemDetails'
 
 const ItemFull = props => {
     //const [id, setId]       = useState(null);
@@ -19,7 +19,6 @@ const ItemFull = props => {
             const itemId = props.shop.find(el => el._id === paramId);
             setItem(itemId);
         }
-
     }
 
     useEffect(() => {
@@ -43,6 +42,7 @@ const ItemFull = props => {
     if (item) {
         details = <Item
             class               = 'ItemFull'
+            myClass             = 'ItemFullColumn'
             imgClass            = 'ItemFullImg'
             image               = {item.imageData}
             id                  = {item._id}

@@ -15,6 +15,7 @@
 .MaterialIcons {
     cursor: pointer;
     user-select: none;
+    font-size: 16px;
 }
 
 .CardThumbnail img {
@@ -80,6 +81,9 @@
     .CardThumbnail img {
         max-height: 100px;
         max-width: 130px;
+    }
+    .MaterialIcons {
+        font-size: 24px;
     }
 }
 

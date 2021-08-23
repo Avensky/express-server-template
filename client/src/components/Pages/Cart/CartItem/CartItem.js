@@ -40,7 +40,7 @@ const CartItem = props => {
             </div>
 
             {/* Price */}
-            <div className={["text-center", classes.CardPrice].join(' ')}><p><b>${props.price}</b></p></div>
+            <div className={["text-center", classes.CardPrice].join(' ')}><p><b>${props.price.toFixed(2)}</b></p></div>
         
     </div>
 )}

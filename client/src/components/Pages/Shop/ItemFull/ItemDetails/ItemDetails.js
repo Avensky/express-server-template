@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classes from './Item.module.css';
+import classes from './ItemDetails.module.css';
 
 //{classes.CardThumbnail}
 

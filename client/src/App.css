@@ -18,6 +18,22 @@
 
 .ItemFull {
   width: 100% !important;
+  align-content: space-around !important;
+}
+
+.ItemFull a {
+padding: 4vh 0;
+}
+
+.ItemFullColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.material-icons {
+  font-size: 16px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -29,19 +45,27 @@
   .ItemFullImg {
     max-height: 350px !important; 
     max-width: 350px !important; 
-}
+  }
+  .ItemFull {
+    flex-direction: row !important;
+  }
+  .ItemFullColumn {
+    width: 50% !important;
+    padding: 0 2vw;
+    text-align: start;
+  }
 }
 
 @media only screen and (min-width: 1025px) {
   /* For desktop: */
+  .ItemFullColumn {
+  }
   .page-wrapper {
       margin: 6vh 10vw 0;
       padding: 1vh 5vw 2vh;
-    
   }
   .ItemFullImg {
     max-height: 450px !important; 
     max-width: 450px !important; 
-}
-
+  }  
 }

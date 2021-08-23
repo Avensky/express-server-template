@@ -15,6 +15,7 @@
 .MaterialIcons {
     cursor: pointer;
     user-select: none;
+    font-size: 18px;
 }
 
 
@@ -42,7 +43,7 @@
 }
 
 .CardName {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .CardDescription {
@@ -53,14 +54,15 @@
     font-size: 13px;
 }
 
-.MaterialIcons {
-    font-size: 13px !important;
-}
+
 .CardReviews {
     padding: 0 0 2vh;
-    margin-bottom: 2vh;
+    margin: 0 25vw 2vh;
     border-bottom: 2px solid rgb(151, 151, 151);
-    font-size: 13px !important;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .CardQuantityWrapper{
@@ -91,8 +93,6 @@
 
 .CardTitle {
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .CardSold {
@@ -105,15 +105,14 @@
 @media only screen and (min-width: 600px) {
     /* For tablets: */
     .CardTitle {
-        justify-content: start;
-
+        justify-content:left;
     }
     
     .Item {
         width: 30%;
     }
     .CardName {
-        font-size: 18px;
+        font-size: 22px;
     }
     .CardDescription {
         font-size: 14px;
@@ -123,20 +122,28 @@
     }
     
     .CardReviews {
+        justify-content: start;
+        margin: 0 0 2vh;
         font-size: 14px;
     }
 
     .CardQuantityWrapper {
         font-size: 14px;
     }
-    .Arrow {
-        font-size: 20px !important;
-    }
     .CardStock {
         font-size: 14px;
     }
     .CardSold {
         font-size: 14px;
+    }
+    .CardPrice {
+        font-size: 16px;
+    }
+    .Arrow {
+        font-size: 20px !important;
+    }
+    .MaterialIcons {
+        font-size: 20px !important;
     }
 }
 
@@ -147,5 +154,29 @@
     }
     .Item {
         width: 21%;
+    }
+    .CardName {
+        font-size: 30px;
+    }
+    .CardDescription {
+        font-size: 24px;
+    }
+    .Cardprice {
+        font-size: 24px;
+    }
+    .CardReviews {       
+        font-size: 16px;
+    }
+    .CardQuantityWrapper {
+        font-size: 16px;
+    }
+    .CardStock {
+        font-size: 16px;
+    }
+    .CardSold {
+        font-size: 16px;
+    }
+    .CardPrice {
+        font-size: 18px;
     }
 }
