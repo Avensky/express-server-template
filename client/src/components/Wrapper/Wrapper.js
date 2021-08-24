@@ -5,6 +5,7 @@ import Navbar from '../Navigation/Navbar/Navbar';
 import Sidebar from '../Navigation/Sidebar/Sidebar';
 import Background from './Background/Background';
 import * as actions from '../../store/actions/index';
+import Footer from '../UI/Footer/Footer';
 
 const Wrapper = props => {
     const [showSidebar, setShowSidebar] = useState(false)
@@ -62,6 +63,7 @@ const Wrapper = props => {
             <main className={classes.Wrapper}>
                 {props.children}
             </main>
+            <Footer /> 
 
         </div>
     )

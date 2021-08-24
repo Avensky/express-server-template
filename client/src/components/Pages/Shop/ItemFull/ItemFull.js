@@ -62,6 +62,8 @@ const ItemFull = props => {
             sold                = {item.sold}
         />
     }
+
+    let reviews = <p>Be the first to review this product.</p>
     return(
         <div className='page-wrapper'>
             <div className="text-center">
@@ -69,6 +71,15 @@ const ItemFull = props => {
             </div>
             <div className='page-body'>
                 {details}
+            </div>
+            <div className={classes.Bar}>
+                <b>Reviews ({props.review || 0})</b>
+                <button className={classes.reviewBtn}>
+                    Add Review
+                </button>
+            </div>
+            <div className={classes.Reviews}>
+                {reviews}
             </div>
         </div>
     )
