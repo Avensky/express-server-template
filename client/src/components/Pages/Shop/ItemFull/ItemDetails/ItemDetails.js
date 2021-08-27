@@ -21,13 +21,27 @@ const item = props => {
         stock = <p><b>Out of stock:</b></p>
     }
 
-    let rating, star_border, star,star_half
+    let rating, star_border, star,star_half, quantity
 
     star_border = <i className="material-icons">star_border</i>
     star = <i className="material-icons">star</i>
     star_half = <i className="material-icons">star_half</i>
 
     rating = [star,star,star,star_half,star_border]
+
+    props.quantity >=0
+        ? quantity = <div className={classes.CardQuantityWrapper}>
+            <b><p>Quantity: </p></b>
+            <div className={classes.CardQuantity}>
+                <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
+                    onClick={props.subtractQuantity}>arrow_drop_down</i>
+                <p>{props.quantity}</p>
+                <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
+                    onClick={props.addToCart}>arrow_drop_up</i>  
+            </div>
+        </div>
+        : quantity = null
+
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
         <div className={props.myClass}>   
@@ -60,16 +74,7 @@ const item = props => {
             </div>
 
             {/* Quantity */}
-            <div className={classes.CardQuantityWrapper}>
-                <b><p>Quantity</p></b>
-                <div className={classes.CardQuantity}>
-                    <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
-                        onClick={props.subtractQuantity}>arrow_drop_down</i>
-                    <p>{props.quantity}</p>
-                    <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
-                        onClick={props.addToCart}>arrow_drop_up</i>  
-                </div>
-            </div>
+                {quantity}
 
             {/* Stock */}
             <div className={classes.CardStock}>

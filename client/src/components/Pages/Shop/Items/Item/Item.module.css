@@ -57,20 +57,21 @@
     font-size: 13px !important;
 }
 .CardReviews {
-    padding: 0 0 2vh;
-    margin-bottom: 2vh;
-    border-bottom: 2px solid rgb(151, 151, 151);
+    padding: 0 0 1vh;
     font-size: 13px !important;
 }
 
 .CardQuantityWrapper{
-    font-size: 13px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1vh 0vw;
 }
 
 .CardQuantity {
     display: inline-flex;
     align-items: center;
-    margin: 0 auto;
     border: black solid 1px;    
 }
 
@@ -91,8 +92,8 @@
 
 .CardTitle {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items:center;
+    margin: auto 0;
 }
 
 .CardSold {
@@ -103,12 +104,7 @@
 }
 
 @media only screen and (min-width: 600px) {
-    /* For tablets: */
-    .CardTitle {
-        justify-content: start;
-
-    }
-    
+    /* For tablets: */    
     .Item {
         width: 30%;
     }
@@ -127,7 +123,7 @@
     }
 
     .CardQuantityWrapper {
-        font-size: 14px;
+        font-size: 16px;
     }
     .Arrow {
         font-size: 20px !important;
@@ -138,6 +134,7 @@
     .CardSold {
         font-size: 14px;
     }
+
 }
 
 @media only screen and (min-width: 1025px) {
@@ -148,4 +145,5 @@
     .Item {
         width: 21%;
     }
+
 }

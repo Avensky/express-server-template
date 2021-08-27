@@ -154,10 +154,7 @@ const Purchase = props => {
                             name                = {item.name}
                             desc                = {item.desc}
                             price               = {item.price}
-                            stock               = {item.quantity}
-                            quantity            = {item.amount||0}
                             add                 = {true}
-                            sold                = {item.sold}
                         />
                     )})}
                 {props.totalItems > 0
