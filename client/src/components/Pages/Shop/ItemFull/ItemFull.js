@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 //import Auxiliary from '../../../../hoc/Auxiliary';
 import classes from './ItemFull.module.css';
 import * as actions from '../../../../store/actions/index';
-//import Details from '../Details/Details';                                                             
+//import Details from '../Details/Details';    
+import {useHistory}     from 'react-router-dom'                                                         
 import Item from './ItemDetails/ItemDetails'
+import CheckoutHeader   from '../../Checkout/CheckoutHeader/CheckoutHeader'
 
 const ItemFull = props => {
     //const [id, setId]       = useState(null);
@@ -29,10 +31,16 @@ const ItemFull = props => {
             loadData(props.match.params.itemId)
         } 
     },[props.shop])
+    const [purchasing, setPurchasing] = useState(false);
 
+    const history = useHistory()
+    
     const handleClick           = (id) => {props.addToCart(id); }
     const addToCart             = (id) => {props.addToCart(id)}
     const subtractQuantity      = (id) => {props.subtractQuantity(id);}
+    const purchaseHandler       = ()   => {props.isAuth ? setPurchasing(true) :history.push('/authentication')}
+    const purchaseCancelHandler = ()   => {setPurchasing(false)}
+    const viewCartHandler       = ()   => {history.push('/cart')}
     let details = <p style={{textAlign: 'center'}}>Please select an item!</p>;
     
     if ( props.match.params.id ) {
@@ -64,11 +72,26 @@ const ItemFull = props => {
     }
 
     let reviews = <p>Be the first to review this product.</p>
+
+    let checkout
+    props.totalItems > 0
+        ? checkout = purchaseHandler
+        : checkout = null
+
     return(
         <div className='page-wrapper'>
             <div className="text-center">
                 <h1><a href='/shop'>Shop</a></h1>
             </div>
+            <CheckoutHeader
+                totalItems={props.totalItems}
+                total={props.total}
+                viewTitle='View Cart'
+                view={viewCartHandler}
+                checkout={checkout}
+                isAuth={props.isAuth}
+            />
+            
             <div className='page-body'>
                 {details}
             </div>
@@ -90,6 +113,7 @@ const mapStateToProps = state => {
     return {
         items       : state.shop.items,
         addedItems  : state.shop.addedItems,
+        totalItems  : state.shop.totalItems,
         total       : state.shop.total,
         shop        : state.shop.shop,
         isAuth      : state.auth.payload,

@@ -1,9 +1,44 @@
 import React from 'react';
+import { connect }      from 'react-redux'
 import classes from './Home.module.css';
+import * as actions     from '../../../store/actions/index'
+import myImg from '../../../assets/images/background.jpg';
+import Item from '../Shop/Items/Item/Item';
+const Home = (props) => {
+    const addToCart             = (id) => {props.addToCart(id)}
+    const subtractQuantity      = (id) => {props.subtractQuantity(id);}
 
-const Home = () => {
+    props.shop.map( item => {
+        return( 
+            <Item
+                image               = {item.imageData}
+                key                 = {item._id}
+                id                  = {item._id}
+                alt                 = {item.title}
+                title               = {item.title}
+                link                = {"/shop/"}
+                to                  = "/"
+                clicked             = {() => addToCart(item._id)}
+                addToCart           = {() => addToCart(item._id)}
+                subtractQuantity    = {() => subtractQuantity(item._id)}
+                name                = {item.name}
+                desc                = {item.desc}
+                price               = {item.price}
+                quantity            = {item.amount | 0}
+                add                 = {true}
+            />
+        )})
+    
     return(
-        <div className='page-wrapper'>
+        <div className={['page-wrapper', classes.Home].join(' ')}>
+            <div className={classes.BackgroundWrapper}>
+                <img src={myImg} />
+                <div class={classes.centered}><b>Just Dropped!</b></div>
+            </div>
+            <div className={classes.statement}>
+                <p>Lets work together to make this a better world for everyone.</p>
+            </div>
+
             <div className="text-center">
                 <h1>Home</h1>
             </div>
@@ -11,4 +46,27 @@ const Home = () => {
     )  
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        addedItems  : state.shop.addedItems,
+        totalItems  : state.shop.totalItems,
+        items       : state.shop.items,
+        total       : state.shop.total,
+        shop        : state.shop.shop,
+        isAuth      : state.auth.payload
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
+        getItems            : ()     =>{ dispatch(actions.getItems())},
+        loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
+        loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
+        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
+        orderBy             : (type) =>{ dispatch(actions.orderBy(type))},
+        subtractQuantity    : (id)   =>{ dispatch(actions.subtractQuantity(id))}
+    }
+}
+
+export default connect (mapStateToProps, mapDispatchToProps) (Home);

@@ -38,18 +38,17 @@ const item = props => {
             ? mystock = <div className={classes.CardStock}>{ stock }</div>
             : mystock = null
 
-    quantity 
-        ? quantity = (<div className={classes.CardQuantityWrapper}>
-            <b><p>Quantity: </p></b>
-            <div className={classes.CardQuantity}>
-                <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
-                    onClick={props.subtractQuantity}>arrow_drop_down</i>
-                <p>{props.quantity}</p>
-                <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
-                    onClick={props.addToCart}>arrow_drop_up</i>  
-            </div>
-        </div>)
-        : quantity = null
+quantity = (<div className={classes.CardQuantityWrapper}>
+                <b><p>Quantity: </p></b>
+                <div className={classes.CardQuantity}>
+                    <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
+                        onClick={props.subtractQuantity}>arrow_drop_down</i>
+                    <p>{props.quantity}</p>
+                    <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
+                        onClick={props.addToCart}>arrow_drop_up</i>  
+                </div>
+            </div>)
+
 
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>

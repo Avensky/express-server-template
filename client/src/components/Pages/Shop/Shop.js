@@ -154,6 +154,7 @@ const Purchase = props => {
                             name                = {item.name}
                             desc                = {item.desc}
                             price               = {item.price}
+                            quantity            = {item.amount | 0}
                             add                 = {true}
                         />
                     )})}
