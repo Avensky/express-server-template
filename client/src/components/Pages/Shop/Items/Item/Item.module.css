@@ -1,11 +1,13 @@
 .Item {
     width: 46%;
     margin: 1vh auto;
-    padding: 0 1vw;
+    padding: 1vh 1vw;
     display: flex;
     flex-direction: column;
     align-content: space-between;
+    text-align: center;
     font-size: 13px;
+    border: transparent solid 1px;
 }
 
 .ItemFull {
@@ -32,6 +34,10 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto; 
+    border: transparent solid 1px;
+}
+.Item:hover {
+    border: rgb(146, 146, 146) solid 1px;
 }
 
 .CardThumbnail img {
@@ -42,9 +48,12 @@
 }
 
 .CardName {
-    font-size: 13px;
+    font-size: 14px;
+    cursor:pointer;
 }
-
+.CardName a:hover {
+    color: rgb(1, 59, 93);
+}
 .CardDescription {
     font-size: 13px;
 }
@@ -79,7 +88,13 @@
     margin: auto;
     padding: 1vh 2vw;
     border: rgb(0, 0, 0) solid 1px;
+    background-color: rgb(238, 238, 238);
     cursor: pointer;
+}
+
+.CardPrice:hover {
+    color: rgb(1, 59, 93);
+    border: rgb(68, 124, 156) solid 1px;
 }
 
 .CardStock {
@@ -88,6 +103,7 @@
 
 .CardPriceWrapper {
     display: flex;
+    justify-content: center;
 }
 
 .CardTitle {

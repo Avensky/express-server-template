@@ -48,7 +48,9 @@ quantity = (<div className={classes.CardQuantityWrapper}>
                         onClick={props.addToCart}>arrow_drop_up</i>  
                 </div>
             </div>)
-
+    let reviews = <div className={classes.CardReviews}>
+    <p className={classes.CardTitle}>{rating} Reviews({props.reviews || 0})</p>
+</div>
 
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
@@ -63,7 +65,9 @@ quantity = (<div className={classes.CardQuantityWrapper}>
         <div className={props.myClass}> 
             {/* Name */}
             <div className={[classes.CardName, props.class, 'CardName'].join(' ')}>
-                <b><p>{props.name}</p></b>
+                <Link to={'/shop/itemfull/' + props.id}>
+                    <b><p>{props.name}</p></b>
+                </Link>
             </div> 
 
             {/* Description */}
@@ -73,16 +77,13 @@ quantity = (<div className={classes.CardQuantityWrapper}>
 
             {/* Price */}
             <div className={classes.Cardprice}>
-                <p >${props.price.toFixed(2)}</p>
+                <p ><b>${props.price.toFixed(2)}</b></p>
             </div>
 
             {/* Reviews */}
-            <div className={classes.CardReviews}>
-                <p className={classes.CardTitle}>{rating} Reviews({props.reviews || 0})</p>
-            </div>
 
             {/* Quantity */}
-            {quantity}
+            
 
             {/* Stock */}
             {mystock}
@@ -91,8 +92,10 @@ quantity = (<div className={classes.CardQuantityWrapper}>
             {sold}
 
             {/* Price */}
-            <div className={classes.CardPriceWrapper} onClick={props.addToCart}>
-                <div className={["text-center noselect", classes.CardPrice].join(' ')}><p>Add to Cart <b>${props.price.toFixed(2)}</b></p></div>
+            <div className={[classes.CardPriceWrapper]} /*onClick={props.addToCart}*/>
+                <Link to={'/shop/itemfull/' + props.id}>
+                    <div className={["text-center noselect", classes.CardPrice].join(' ')}><p><b>Select Options</b></p></div>
+                </Link>
             </div>
         </div>
     </div>
