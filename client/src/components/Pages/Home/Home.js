@@ -8,7 +8,8 @@ const Home = (props) => {
     const addToCart             = (id) => {props.addToCart(id)}
     const subtractQuantity      = (id) => {props.subtractQuantity(id);}
 
-    props.shop.map( item => {
+    let shop = props.shop.filter(item => item.featured === true)
+    let featured = shop.map( item => {
         return( 
             <Item
                 image               = {item.imageData}
@@ -41,6 +42,10 @@ const Home = (props) => {
 
             <div className="text-center">
                 <h1>Featured Products</h1>
+            </div>
+
+            <div className='page-body'>
+                {featured}
             </div>
         </div>
     )  

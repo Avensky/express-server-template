@@ -40,6 +40,10 @@ const productSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: false
+    },
+    featured: {
+        type: Boolean,
+        required: false
     }
 });
 
