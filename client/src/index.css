@@ -25,7 +25,7 @@ body {
 }
 
 a {
-  color: rgb(4, 0, 10);
+  /*color: rgb(4, 0, 10);*/
   text-decoration: none;
 }
 
@@ -259,18 +259,17 @@ input:focus {outline:0;}
   .Card {
       margin: 0 5vw 0;
   }
+  .footer {
+    padding: 0 5vw;
+    grid-template-areas: 
+    "bio connect projects";
+    grid-template-columns: 3fr 1fr 2fr;
+  }
 }
 
 @media only screen and (min-width: 1025px) {
   /* For desktop: */
   .Card {
       margin: 0 15vw 0;
-  }
-
-  .footer {
-    padding: 0 5vw;
-    grid-template-areas: 
-    "bio connect projects";
-    grid-template-columns: 3fr 1fr 1fr;
   }
 }

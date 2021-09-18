@@ -98,7 +98,7 @@ const Purchase = props => {
      const defaultOption = '-- Order By --';
 
     return(
-        <div className='page-wrapper'>
+        <div className={['page-wrapper', classes.Shop].join(' ')}>
             <Modal show={purchasing} modalClosed={purchaseCancelHandler}> 
                 {orderSummary}
             </Modal>
@@ -189,9 +189,9 @@ const mapDispatchToProps = dispatch => {
     return {
         addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
         getItems            : ()     =>{ dispatch(actions.getItems())},
+        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
         loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
         loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
-        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
         orderBy             : (type) =>{ dispatch(actions.orderBy(type))},
         subtractQuantity    : (id)   =>{ dispatch(actions.subtractQuantity(id))}
     }
