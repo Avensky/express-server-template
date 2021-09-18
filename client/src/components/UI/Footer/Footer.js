@@ -27,7 +27,7 @@ const Footer = (props) => {
                             <p><span className="fa fa-lock" /> Secure Online Payments</p>
                         </div>
                         <div className="connect">
-                            <h3 className="white-text">Categorites</h3>
+                            <h3 className="white-text">Categories</h3>
                             <ul>
                                 <li className={classes.OrderbarItem} id="#all"      onClick={()=> props.getItems()}                ><NavLink to='/shop'         exact>All Items      </NavLink></li>
                                 <li className={classes.OrderbarItem} id="#hat"      onClick={()=> props.getItemByType('hat')}      ><NavLink to='/shop#hat'     exact>Hats      </NavLink></li>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux'
-//import classes from './Cart.module.css'
+import classes from './Cart.module.css'
 //import Item from '../Shop/Items/Item/Item'
 import CartItem from './CartItem/CartItem';
 import OrderSummary from '../OrderSummary/OrderSummary'
@@ -58,7 +58,7 @@ const Cart = props => {
         )}
         
         return(
-            <div className='page-wrapper'>
+            <div className={['page-wrapper', classes.Cart].join(' ')}>
                 <Modal show={purchasing} modalClosed={purchaseCancelHandler}> 
                     {orderSummary}
                 </Modal>

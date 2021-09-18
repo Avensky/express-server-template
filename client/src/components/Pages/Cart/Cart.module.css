@@ -1,12 +1,7 @@
-  
-.Cart {
-    background-color: #221a00;
-    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
-    border-radius: 6px;
-    margin: 1vh 2vw;
-    padding: 1vh 5vw 2vh;
-}
 
+.Cart a{
+  color: black;
+}
 
 .Item {
     padding: 1vh 0;
