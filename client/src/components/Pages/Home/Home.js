@@ -2,8 +2,9 @@ import React from 'react';
 import { connect }      from 'react-redux'
 import classes from './Home.module.css';
 import * as actions     from '../../../store/actions/index'
-import myImg from '../../../assets/images/background.jpg';
+import myImg from '../../../assets/images/bike-stickers-image-3.jpg';
 import Item from '../Shop/Items/Item/Item';
+import { NavLink } from 'react-router-dom';
 const Home = (props) => {
     const addToCart             = (id) => {props.addToCart(id)}
     const subtractQuantity      = (id) => {props.subtractQuantity(id);}
@@ -32,9 +33,17 @@ const Home = (props) => {
     
     return(
         <div className={['page-wrapper', classes.Home].join(' ')}>
+            <div class={classes.centered}>
+                <div className={classes.title}><b>CHANGE THE WORLD WITH CARING HEARTS.</b></div>
+                <div className={classes.description}>Help spread awareness and love with our products. Show the world you care and 
+                    help others be caring vegans. 
+                </div>
+                <div className={classes.shop}>
+                    <NavLink to="/shop"><b>Shop Now</b></NavLink>
+                </div>
+            </div>
             <div className={classes.BackgroundWrapper}>
-                <img src={myImg} />
-                <div class={classes.centered}><b>Just Dropped!</b></div>
+            <img src={myImg} />
             </div>
             <div className={classes.statement}>
                 <p>Lets work together to make this a better world for everyone.</p>
