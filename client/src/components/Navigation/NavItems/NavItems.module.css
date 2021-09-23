@@ -39,6 +39,31 @@
     display: inline-block;
 }
 
+.Desktop {
+    display: flex;
+    align-items: center;
+}
+.Desktop a{
+    display: flex;
+    align-items: center;
+}
+.Logo {
+    height: 80%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.LogoName {
+    font-size: 1.5em;
+}
+
+.NavItemLogo {
+    display: flex;
+    align-items: center;
+}
+
+
 @media (min-width: 600px) {
     .NavItem {
         margin: 0;
