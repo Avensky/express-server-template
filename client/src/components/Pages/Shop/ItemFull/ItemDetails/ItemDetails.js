@@ -31,13 +31,15 @@ const item = props => {
 
     props.quantity >=0
         ? quantity = <div className={classes.CardQuantityWrapper}>
-            <b><p>Quantity: </p></b>
+            <div className={classes.CardQuantityName}>
+                <b>Quantity:&nbsp;&nbsp;</b>
+            </div>
             <div className={classes.CardQuantity}>
-                <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
-                    onClick={props.subtractQuantity}>arrow_drop_down</i>
+                <i className={["fa fa-minus", classes.MaterialIcons].join(' ')} 
+                    onClick={props.subtractQuantity} />
                 <p>{props.quantity}</p>
-                <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
-                    onClick={props.addToCart}>arrow_drop_up</i>  
+                <i className={["fa fa-plus", classes.MaterialIcons].join(' ')} 
+                    onClick={props.addToCart} />  
             </div>
         </div>
         : quantity = null
@@ -69,8 +71,13 @@ const item = props => {
             </div>
 
             {/* Reviews */}
-            <div className={classes.CardReviews}>
-                <p className={classes.CardTitle}>{rating} Reviews({props.reviews || 0})</p>
+            <div className={classes.reviews}>
+                <div className={classes.CardRating}>
+                    <p className={classes.CardTitle}>{rating}</p>
+                </div>
+                <div className={classes.CardReviews}>
+                    <p className={classes.CardTitle}>Reviews({props.reviews || 0})</p>
+                </div>
             </div>
 
             {/* Quantity */}
@@ -88,7 +95,7 @@ const item = props => {
 
             {/* Price */}
             <div className={classes.CardPriceWrapper} onClick={props.addToCart}>
-                <div className={["text-center noselect", classes.CardPrice].join(' ')}><p>Add to Cart <b>${props.price.toFixed(2)}</b></p></div>
+                <div className={["text-center noselect", classes.AddBtn].join(' ')}><p>Add to Cart <b>${props.price.toFixed(2)}</b></p></div>
             </div>
         </div>
     </div>

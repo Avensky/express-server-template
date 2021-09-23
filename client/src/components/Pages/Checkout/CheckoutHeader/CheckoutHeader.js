@@ -17,11 +17,7 @@ const CheckoutHeader = (props) => {
             </div>
             <div className={[classes.dualBtn, classes.dualRight].join(' ')}>
                <button  className='btn-primary btn one-line' onClick={props.view}>{props.viewTitle}</button>
-
-                {props.totalItems 
-                    ?<button  className='btn-primary btn one-line' onClick={props.checkout}>{props.isAuth? 'Checkout':'Sign in to Order'}</button>
-                    :null
-                }
+               <button  className='btn-primary btn one-line' onClick={props.checkout}>{props.isAuth? 'Checkout':'Sign in to Order'}</button>
             </div>
         </div>
     )

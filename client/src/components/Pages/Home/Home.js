@@ -35,8 +35,7 @@ const Home = (props) => {
         <div className={['page-wrapper', classes.Home].join(' ')}>
             <div class={classes.centered}>
                 <div className={classes.title}><b>CHANGE THE WORLD WITH CARING HEARTS.</b></div>
-                <div className={classes.description}>Help spread awareness and love with our products. Show the world you care and 
-                    help others be caring vegans. 
+                <div className={classes.description}>Help spread awareness with our products. Show the world what we stand for. 
                 </div>
                 <div className={classes.shop}>
                     <NavLink to="/shop"><b>Shop Now</b></NavLink>

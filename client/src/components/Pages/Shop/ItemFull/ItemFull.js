@@ -8,6 +8,7 @@ import * as actions from '../../../../store/actions/index';
 import {useHistory}     from 'react-router-dom'                                                         
 import Item from './ItemDetails/ItemDetails'
 import CheckoutHeader   from '../../Checkout/CheckoutHeader/CheckoutHeader'
+import Review from '../ItemFull/Review/Review'
 
 const ItemFull = props => {
     //const [id, setId]       = useState(null);
@@ -31,6 +32,7 @@ const ItemFull = props => {
             loadData(props.match.params.itemId)
         } 
     },[props.shop])
+
     const [purchasing, setPurchasing] = useState(false);
 
     const history = useHistory()
@@ -41,11 +43,10 @@ const ItemFull = props => {
     const purchaseHandler       = ()   => {props.isAuth ? setPurchasing(true) :history.push('/authentication')}
     const purchaseCancelHandler = ()   => {setPurchasing(false)}
     const viewCartHandler       = ()   => {history.push('/cart')}
+ 
     let details = <p style={{textAlign: 'center'}}>Please select an item!</p>;
-    
     if ( props.match.params.id ) {
-        details = <p style={{ textAlign: 'center' }}>Loading...!</p>;
-    }
+        details = <p style={{ textAlign: 'center' }}>Loading...!</p>;}
 
     if (item) {
         details = <Item
@@ -71,7 +72,17 @@ const ItemFull = props => {
         />
     }
 
-    let reviews = <p>Be the first to review this product.</p>
+    let reviews 
+    let rating = 4.65
+    item
+        ? reviews = <Review 
+                        username    = 'Poly'
+                        rating      = {rating}
+                        date        = ''
+                        item        = 'Bee yourself T-shirt'
+                        review      = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'                    
+                    />
+        : reviews = <p>Be the first to review this product.</p>
 
     let checkout
     props.totalItems > 0
@@ -79,7 +90,7 @@ const ItemFull = props => {
         : checkout = null
 
     return(
-        <div className='page-wrapper'>
+        <div className={['page-wrapper', classes.ItemFull].join(' ')}>
             <div className="text-center">
                 <h1><a href='/shop'>Shop</a></h1>
             </div>

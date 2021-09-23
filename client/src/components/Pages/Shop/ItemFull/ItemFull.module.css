@@ -1,3 +1,6 @@
+.ItemFull a{
+  color: black;
+}
 .filter {
     display: flex;
     margin: 2vh 0;
@@ -85,7 +88,6 @@
     cursor: pointer;
   }
 
-
 @media only screen and (min-width: 600px) {
     /* For tablets: */
     .Shop {
@@ -95,27 +97,11 @@
 
     .filter {
         justify-content: left;
-    }
-    .reviewBtn {
-      font-size: 18px;
-    }
-
-    .Bar {
-      font-size: 26px;
-    }
-  
+    } 
 }
 
 @media only screen and (min-width: 1025px) {
     /* For desktop: */
-    .reviewBtn {
-      font-size: 20px;
-    }
-
-    .Bar {
-      font-size: 30px;
-    }
-
     .Shop {
         margin: 2vh 15vw 0;
         padding: 7vh 5vw;

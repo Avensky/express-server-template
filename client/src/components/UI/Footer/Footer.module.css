@@ -19,7 +19,7 @@ ul {
     
 }
 .PaymentTypes img{
-    margin: 1vh .5vw;
+    margin: 1vh 1vw;
     padding: 0 .5vw;
     background-color: white;
 }
@@ -31,9 +31,22 @@ ul {
 
 .Social li {
     font-size: 24px;
-    margin: 0 .5vw;
+    margin: 0 1vw;
 }
 
 .Contact span {
     width: 1em;
+}
+
+
+@media only screen and (min-width: 600px) {
+
+}
+@media only screen and (min-width: 1025px) {
+    .PaymentTypes img{
+        margin: 1vh .5vw;
+    }
+    .Social li{
+        margin: 0vh .5vw;
+    }
 }
