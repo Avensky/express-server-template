@@ -1,5 +1,5 @@
 .NavItems {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
     display: flex;
@@ -56,6 +56,7 @@
 
 .LogoName {
     font-size: 1.5em;
+    display: none;
 }
 
 .NavItemLogo {
@@ -63,8 +64,7 @@
     align-items: center;
 }
 
-
-@media (min-width: 600px) {
+@media only screen and (min-width: 1025px) {
     .NavItem {
         margin: 0;
         display: flex;
@@ -88,9 +88,6 @@
         border-bottom: 4px solid #40A4C8;
         color: white;
     }
-}
-
-@media (min-width: 600px) {
     .NavItems {
         flex-flow: row;
     }

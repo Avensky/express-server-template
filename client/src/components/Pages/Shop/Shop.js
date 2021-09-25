@@ -113,7 +113,7 @@ const Purchase = props => {
                 total={props.total}
                 viewTitle='View Cart'
                 view={viewCartHandler}
-                checkout={checkout}
+                checkout={purchaseHandler}
                 isAuth={props.isAuth}
             />
 
